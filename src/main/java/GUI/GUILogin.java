@@ -9,12 +9,21 @@ public class GUILogin {
     private JFrame window;
     private JPanel userpanel;
     private JButton bconnect;
-    private JTextField tfdni,tfpw;
-    private JLabel ldni,lpw,logo;
+    private JTextField tfdni;
+    private JPasswordField pfpw;
+    private JLabel ldni,lpw,logo,luserlogo,luserpassword,lbackground;
+    private JComboBox personas;
+    private JCheckBox recordar;
+
+
+
 
 
 
     public void GUILogin(){
+
+
+
         //Declaración de componentes
         window = new JFrame("Hospitalex Ikero");
         window.setSize(1000,950);
@@ -24,9 +33,43 @@ public class GUILogin {
 
         //panel
         userpanel = new JPanel();
-        userpanel.setBackground(Color.white);
+        lbackground = new JLabel();
+        ImageIcon bgicon = new ImageIcon("bgmaybe.jpg");
+        lbackground.setIcon(bgicon);
+        lbackground.setBounds(0,0,1000,950);
         userpanel.setSize(1000,950);
         userpanel.setLayout(null);
+
+        //Combobox
+        String[]opciones = {"Médico","Enfermer@","Paciente"};
+        personas = new JComboBox<>(opciones);
+        personas.setBounds(380,425,300,35);
+        personas.setOpaque(false);
+        personas.setEditable(true);
+        JTextField boxField = (JTextField)personas.getEditor().getEditorComponent();
+        boxField.setBorder(BorderFactory.createEmptyBorder());
+        userpanel.add(personas);
+
+        //Chechbox
+        recordar = new JCheckBox("Recordarme");
+        recordar.setBounds(450,650,150,15);
+        recordar.setOpaque(false);
+        recordar.setToolTipText("La próxima vez que inicies sesión te saltarás esta pantalla. Recuerda desconectarte manualmente para evitar que te roben tus datos.");
+
+        recordar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JCheckBox jc = (JCheckBox) e.getSource();
+                if(jc.isSelected()){
+                    //Al loggear genera archivo que automáticamente loggea
+                }else{
+                    //No guarda nada
+                }
+
+            }
+        });
+        userpanel.add(recordar);
+
 
         //button
         bconnect = new JButton("Connect");
@@ -36,33 +79,51 @@ public class GUILogin {
                 //Aquí va la conexión a la base de datos y el cambio de window.
             }
         });
-        bconnect.setBounds(450,700,100,50);
+        bconnect.setBounds(475,700,100,50);
         userpanel.add(bconnect);
 
         //Textfields
         tfdni = new JTextField();
-        tfpw = new JTextField();
-        tfdni.setBounds(350,500,300,30);
-        tfpw.setBounds(350,600,300,30);
+        pfpw = new JPasswordField();
+
+        tfdni.setBounds(380,500,300,30);
+        pfpw.setBounds(380,600,300,30);
+
         userpanel.add(tfdni);
-        userpanel.add(tfpw);
+        userpanel.add(pfpw);
 
         //Labels
         ldni = new JLabel("DNI: ");
         lpw = new JLabel("Password: ");
-        //ldni.setFont("Roboto");
-        ldni.setBounds(350,470,100,30);
-        lpw.setBounds(350,570,100,30);
+
+
+        ldni.setBounds(380,470,100,30);
+        lpw.setBounds(380,570,100,30);
         userpanel.add(ldni);
         userpanel.add(lpw);
 
 
         //Logo
         ImageIcon icon = new ImageIcon("hospitalex ikero.png");
+        ImageIcon us = new ImageIcon("username.png");
+        ImageIcon pw = new ImageIcon("password.png");
+
+        luserlogo = new JLabel();
+        luserpassword = new JLabel();
         logo = new JLabel();
+
+        luserpassword.setIcon(pw);
+        luserpassword.setBounds(334,600,30,30);
+        luserlogo.setIcon(us);
+        luserlogo.setBounds(335,500,30,30);
+
         logo.setIcon(icon);
-        logo.setBounds(400,50,300,300);
+        logo.setBounds(420,50,300,300);
+
+        userpanel.add(luserlogo);
+        userpanel.add(luserpassword);
         userpanel.add(logo);
+        userpanel.add(lbackground);
 
 
         window.add(userpanel);
