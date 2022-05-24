@@ -18,11 +18,9 @@ public class DAOPersonas {
      */
     public void insert(Personas p) {
 
-        Connection conn = null;
-
         try {
 
-            conn = DBConnection.getConn();
+            Connection conn = DBConnection.getConn();
 
             PreparedStatement ps = conn.prepareStatement("INSERT INTO Persona VALUES(?,?,?,?,?)");
             ps.setString(1,p.getDni());
@@ -35,11 +33,7 @@ public class DAOPersonas {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            DBConnection.closeConn();
         }
 
     }
@@ -51,11 +45,10 @@ public class DAOPersonas {
      */
     public void delete(Personas p) {
 
-        Connection conn = null;
 
         try {
 
-            conn = DBConnection.getConn();
+            Connection conn = DBConnection.getConn();
 
             PreparedStatement ps = conn.prepareStatement("DELETE FROM Personas WHERE DNI=?");
             ps.setString(1, p.getDni());
@@ -64,11 +57,7 @@ public class DAOPersonas {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            DBConnection.closeConn();
         }
 
     }
@@ -80,11 +69,9 @@ public class DAOPersonas {
      */
     public void update(Personas p) {
 
-        Connection conn = null;
-
         try {
 
-            conn = DBConnection.getConn();
+            Connection conn = DBConnection.getConn();
 
             PreparedStatement ps = conn.prepareStatement("UPDATE Usuario SET Nombre=?,Apellidos=?,FechaNacimiento=?,Contraseña=? WHERE DNI=?");
             ps.setString(1,p.getNombre());
@@ -97,34 +84,28 @@ public class DAOPersonas {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            DBConnection.closeConn();
         }
     }
 
     /**
-     * Mete en una ArrayList de usuarios a todos las personas  de la base de datos
+     * Mete en una ArrayList de usuarios a todos las personas de la base de datos
      *
      * @return ArrayList de personas
      */
     public ArrayList<Personas> select() {
 
-        ArrayList<Personas> userList = new ArrayList<Personas>();
-        Connection conn = null;
-        ResultSet result;
+        ArrayList<Personas> list = new ArrayList<Personas>();
 
         try {
 
-            conn = DBConnection.getConn();
+            Connection conn = DBConnection.getConn();
 
-            result = conn.createStatement().executeQuery("SELECT DNI,Nombre,Apellidos,FechaNacimiento FROM Persoas");
+            ResultSet result = conn.createStatement().executeQuery("SELECT DNI,Nombre,Apellidos,FechaNacimiento FROM Persoas");
 
             while (result.next()) {
 
-                userList.add(new Personas(result.getString("DNI"),
+                list.add(new Personas(result.getString("DNI"),
                         "*******",
                         result.getString("Nombre"),
                         result.getString("Apellidos"),
@@ -134,14 +115,10 @@ public class DAOPersonas {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            DBConnection.closeConn();
         }
 
-        return userList;
+        return list;
 
     }
 
@@ -153,16 +130,14 @@ public class DAOPersonas {
     public Personas get(String DNI) {
 
         Personas p = null;
-        Connection conn = null;
-        ResultSet result;
 
         try {
 
-            conn = DBConnection.getConn();
+            Connection conn = DBConnection.getConn();
 
             PreparedStatement platform = conn.prepareStatement("SELECT DNI,Nombre,Apellidos,FechaNacimiento FROM Personas WHERE DNI=?");
             platform.setString(1,DNI);
-            result = platform.executeQuery();
+            ResultSet result = platform.executeQuery();
 
             if (result.next())
                 p = new Personas(result.getString("DNI"),
@@ -174,11 +149,7 @@ public class DAOPersonas {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            DBConnection.closeConn();
         }
 
         return p;

@@ -10,7 +10,6 @@ public class DBConnection {
 
     private static Connection conn=null;
 
-
     private DBConnection() {
 
         try {
@@ -29,7 +28,7 @@ public class DBConnection {
         return conn;
     }
 
-    public void closeConn() {
+    public static void closeConn() {
         try {
             conn.close();
         } catch (SQLException e) {

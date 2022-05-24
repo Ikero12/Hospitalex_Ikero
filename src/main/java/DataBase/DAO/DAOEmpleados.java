@@ -13,121 +13,94 @@ import java.util.ArrayList;
 public class DAOEmpleados {
 
     /**
-     * Inserta en la base de datos los datos de la persona
+     * Inserta en la base de datos los datos del empleado
      *
-     * @param e Persona cuyos datos quieren añadirse
+     * @param em Empleado cuyos datos quieren añadirse
      */
-    public void insert(Empleados e) {
-
-        Connection conn = null;
+    public void insert(Empleados em) {
 
         try {
 
-            conn = DBConnection.getConn();
+            Connection conn = DBConnection.getConn();
 
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO Persona VALUES(?,?,?,?,?)");
-            ps.setString(1,e.getDni());
-            ps.setString(2,e.getNombre());
-            ps.setString(3,e.getApellidos());
-            ps.setString(4,e.getFechaNacimiento());
-            ps.setString(5,e.getContraseña());
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Empleados VALUES(?,?)");
+            ps.setString(1,em.getDni());
+            ps.setString(2,em.getNumeroEmpleado());
             ps.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            DBConnection.closeConn();
         }
 
     }
 
     /**
-     * Elimina los datos de una persona de la base de datos
+     * Elimina los datos de un empleado de la base de datos
      *
-     * @param p Persona del que se quiere eliminar los datos
+     * @param em Empleado del que se quiere eliminar los datos
      */
-    public void delete(Personas p) {
-
-        Connection conn = null;
+    public void delete(Empleados em) {
 
         try {
 
-            conn = DBConnection.getConn();
+            Connection conn = DBConnection.getConn();
 
             PreparedStatement ps = conn.prepareStatement("DELETE FROM Empleados WHERE DNI=?");
-            ps.setString(1, p.getDni());
+            ps.setString(1, em.getDni());
             ps.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            DBConnection.closeConn();
         }
 
     }
 
     /**
-     * Actualiza los datos de la persona en la base de datos
+     * Actualiza los datos del empleado en la base de datos
      *
-     * @param em Persona del que se quiere actualizar los datos
+     * @param em Empleado del que se quiere actualizar los datos
      */
     public void update(Empleados em) {
 
-        Connection conn = null;
-
         try {
 
-            conn = DBConnection.getConn();
+            Connection conn = DBConnection.getConn();
 
-            new DAOPersonas().update(new Personas(em.getDni(),));
+            new DAOPersonas().update(new Personas(em.getDni(),em.getContraseña(),em.getNombre(),em.getApellidos(),em.getFechaNacimiento()));
 
-            PreparedStatement ps = conn.prepareStatement("UPDATE Personas SET Nombre=?,Apellidos=?,FechaNacimiento=?,Contraseña=? WHERE DNI=?");
-            ps.setString(1,em.getNombre());
-            ps.setString(2,em.getApellidos());
-            ps.setString(3,em.getFechaNacimiento());
-            ps.setString(4,em.getContraseña());
-            ps.setString(5,em.getDni());
+            PreparedStatement ps = conn.prepareStatement("UPDATE Empleados SET NumeroEmpleado=? WHERE DNI=?");
+            ps.setString(1,em.getNumeroEmpleado());
+            ps.setString(2,em.getDni());
             ps.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            DBConnection.closeConn();
         }
     }
 
     /**
-     * Mete en una ArrayList de usuarios a todos los empleados de la base de datos
+     * Mete en una ArrayList de empleados a todos los empleados de la base de datos
      *
      * @return ArrayList de empleados
      */
     public ArrayList<Empleados> select() {
 
-        ArrayList<Empleados> userList = new ArrayList<Empleados>();
-        Connection conn = null;
-        ResultSet result;
+        ArrayList<Empleados> list = new ArrayList<Empleados>();
 
         try {
 
-            conn = DBConnection.getConn();
-            //TODO
-            result = conn.createStatement().executeQuery("select Personas.*, Empleados.* from Personas inner join Empleados on Personas.DNI = Empleados.DNI;");
+            Connection conn = DBConnection.getConn();
+            ResultSet result = conn.createStatement().executeQuery("select Personas.*, Empleados.* from Personas inner join Empleados on Personas.DNI = Empleados.DNI;");
 
             while (result.next()) {
 
-                userList.add(new Empleados(result.getString("DNI"),
+                list.add(new Empleados(result.getString("DNI"),
                         "*******",
                         result.getString("Nombre"),
                         result.getString("Apellidos"),
@@ -138,14 +111,10 @@ public class DAOEmpleados {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            DBConnection.closeConn();
         }
 
-        return userList;
+        return list;
 
     }
 
@@ -156,37 +125,30 @@ public class DAOEmpleados {
      */
     public Empleados get(String DNI) {
 
-        Empleados e = null;
-        Connection conn = null;
-        ResultSet result;
+        Empleados em = null;
 
         try {
 
-            conn = DBConnection.getConn();
-            //TODO
+            Connection conn = DBConnection.getConn();
             PreparedStatement platform = conn.prepareStatement("select Personas.*, Empleados.* from Personas inner join Empleados on Personas.DNI = Empleados.DNI = ?;");
             platform.setString(1,DNI);
-            result = platform.executeQuery();
+            ResultSet result = platform.executeQuery();
 
             if (result.next())
-                e = new Empleados(result.getString("DNI"),
+                em = new Empleados(result.getString("DNI"),
                         "*******",
                         result.getString("Nombre"),
                         result.getString("Apellidos"),
                         result.getString("FechaNacimiento"),
                         result.getString("NumeroEmpleado"));
 
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         } finally {
-            try {
-                conn.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
+            DBConnection.closeConn();
         }
 
-        return e;
+        return em;
 
     }
 
