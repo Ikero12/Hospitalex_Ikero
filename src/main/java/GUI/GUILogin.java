@@ -1,6 +1,10 @@
 package GUI;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,9 +49,8 @@ public class GUILogin {
         personas = new JComboBox<>(opciones);
         personas.setBounds(380,425,300,35);
         personas.setOpaque(false);
-        personas.setEditable(true);
         JTextField boxField = (JTextField)personas.getEditor().getEditorComponent();
-        boxField.setBorder(BorderFactory.createEmptyBorder());
+        boxField.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(1.0f)));
         userpanel.add(personas);
 
         //Chechbox
@@ -62,8 +65,6 @@ public class GUILogin {
                 JCheckBox jc = (JCheckBox) e.getSource();
                 if(jc.isSelected()){
                     //Al loggear genera archivo que automáticamente loggea
-                }else{
-                    //No guarda nada
                 }
 
             }
@@ -88,6 +89,22 @@ public class GUILogin {
 
         tfdni.setBounds(380,500,300,30);
         pfpw.setBounds(380,600,300,30);
+        tfdni.addAncestorListener(new AncestorListener() {
+            @Override
+            public void ancestorAdded(AncestorEvent event) {
+                tfdni.requestFocus();
+            }
+
+            @Override
+            public void ancestorRemoved(AncestorEvent event) {
+
+            }
+            @Override
+            public void ancestorMoved(AncestorEvent event) {
+
+            }
+        });
+
 
         userpanel.add(tfdni);
         userpanel.add(pfpw);
