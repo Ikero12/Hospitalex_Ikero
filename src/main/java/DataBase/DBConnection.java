@@ -22,7 +22,7 @@ public class DBConnection {
         }
     }
 
-    public Connection getConn() {
+    public static Connection getConn() {
 
         if (conn==null) new DBConnection();
 

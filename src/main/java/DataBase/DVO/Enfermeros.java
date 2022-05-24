@@ -4,8 +4,8 @@ public class Enfermeros extends Empleados {
 
     private String planta;
 
-    public Enfermeros(String dni, String nombre, String apellidos, String fechaNacimiento, String numeroEmpleado, String planta) {
-        super(dni, nombre, apellidos, fechaNacimiento, numeroEmpleado);
+    public Enfermeros(String dni, String contraseña, String nombre, String apellidos, String fechaNacimiento, String numeroEmpleado, String planta) {
+        super(dni, contraseña, nombre, apellidos, fechaNacimiento, numeroEmpleado);
         this.planta = planta;
     }
 
