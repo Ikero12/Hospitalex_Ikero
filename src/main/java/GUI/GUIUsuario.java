@@ -24,12 +24,13 @@ public class GUIUsuario {
         usuario.setResizable(false);
         usuario.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         usuario.setLayout(null);
+        usuario.setLocationRelativeTo(null);
 
         ImageIcon HI2 = new ImageIcon("bgmaybe.jpg");
         background.setIcon(HI2);
         background.setBounds(0,0,920,920);
 
-        bg.setSize(920,920);
+        bg.setBounds(0,0,920,920);
         bg.setLayout(null);
 
 
@@ -41,7 +42,7 @@ public class GUIUsuario {
 
         ImageIcon HI = new ImageIcon("hospitalex ikero.png");
         logo.setIcon(HI);
-        logo.setBounds(720,20,200,180);
+        logo.setBounds(720,20,180,180);
 
         bg.add(titulo);
         bg.add(logo);
