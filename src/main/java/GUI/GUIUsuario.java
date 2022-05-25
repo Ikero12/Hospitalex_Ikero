@@ -17,20 +17,24 @@ public class GUIUsuario {
         info = new JPanel();
         logo = new JLabel();
         titulo = new JLabel("Hospitalex Ikero");
+        background = new JLabel();
 
         //Frame
         usuario.setSize(920 ,920);
         usuario.setResizable(false);
         usuario.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         usuario.setLayout(null);
-        ImageIcon bgfoto = new ImageIcon("");
-        background.setIcon(bgfoto);
+
+        ImageIcon HI2 = new ImageIcon("bgmaybe.jpg");
+        background.setIcon(HI2);
         background.setBounds(0,0,920,920);
+
         bg.setSize(920,920);
-        bg.setOpaque(true);
         bg.setLayout(null);
 
-        bg.add(background);
+
+
+
         //Labels
         titulo.setBounds(250,10,350,60);
         titulo.setFont(new Font("SansSerif",Font.BOLD,22));
@@ -49,7 +53,7 @@ public class GUIUsuario {
         bg.add(info);
 
 
-
+        bg.add(background);
         usuario.add(bg);
         usuario.setVisible(true);
 
