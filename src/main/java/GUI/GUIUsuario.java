@@ -1,23 +1,23 @@
 package GUI;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
+
 import java.awt.*;
 
 public class GUIUsuario {
-    private JFrame usuario;
-    private JPanel info,bg;
-    private JLabel logo,titulo,background;
-
-    public GUIUsuario() {
+    //private JFrame usuario;
+    //private JPanel info,bg;
+    //private JLabel logo,titulo,background;
+    private JFrame usuario = new JFrame("Hospitalex Ikero");
+    private JPanel bg = new JPanel();
+    private JPanel info = new JPanel();
+    private JLabel logo = new JLabel();
+    private JLabel titulo = new JLabel("Hospitalex Ikero");
+    private JLabel background = new JLabel();
+    public void GUIUsuario() {
         //Al final de cada componente se añade al bg(Background) label.
         //Declaraciones
-        usuario = new JFrame("Hospitalex Ikero");
-        bg = new JPanel();
-        info = new JPanel();
-        logo = new JLabel();
-        titulo = new JLabel("Hospitalex Ikero");
-        background = new JLabel();
+
 
         //Frame
         usuario.setSize(920 ,920);
@@ -62,5 +62,18 @@ public class GUIUsuario {
 
 
 
+    }
+
+    public void addToUsuario(JPanel x){
+        bg.add(x);
+        usuario.add(bg);
+    }
+
+    public JPanel getBg() {
+        return bg;
+    }
+
+    public void setBg(JPanel bg) {
+        this.bg = bg;
     }
 }
