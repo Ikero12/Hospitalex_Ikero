@@ -9,7 +9,7 @@ public class HospitalexIkero {
     public static void main(String[] args) {
         GUILogin login = new GUILogin();
         //GUIUsuario usuario = new GUIUsuario();
-        GUIMedico medico = new GUIMedico();
+        //GUIMedico medico = new GUIMedico();
 
 
 

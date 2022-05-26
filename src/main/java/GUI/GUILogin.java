@@ -16,15 +16,15 @@ public class GUILogin {
     private JTextField tfdni;
     private JPasswordField pfpw;
     private JLabel ldni,lpw,logo,luserlogo,luserpassword,lbackground;
-    private JComboBox personas;
+
     private JCheckBox recordar;
+    private String[]opciones = {"Médico","Enfermer@","Paciente"};
+    private JComboBox personas = new JComboBox<>(opciones);
 
 
 
 
-
-
-    public void GUILogin(){
+    public GUILogin(){
 
 
 
@@ -45,8 +45,6 @@ public class GUILogin {
         userpanel.setLayout(null);
 
         //Combobox
-        String[]opciones = {"Médico","Enfermer@","Paciente"};
-        personas = new JComboBox<>(opciones);
         personas.setBounds(380,425,300,35);
         personas.setOpaque(false);
         JTextField boxField = (JTextField)personas.getEditor().getEditorComponent();
@@ -147,5 +145,13 @@ public class GUILogin {
         window.setVisible(true);
 
     }
+    public JComboBox getPersonas() {
+        return personas;
+    }
+
+    public void setPersonas(JComboBox personas) {
+        this.personas = personas;
+    }
+
 
 }
