@@ -48,7 +48,7 @@ public class DAOEnfermeros {
 
             Connection conn = DBConnection.getConn();
 
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM Enfermero WHERE DNI=?");
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM Enfermero WHERE DNI=?;");
             ps.setString(1, en.getDni());
             ps.executeUpdate();
 
@@ -73,7 +73,7 @@ public class DAOEnfermeros {
 
             new DAOEmpleados().update(new Empleados(en.getDni(),en.getContraseña(),en.getNombre(),en.getApellidos(),en.getFechaNacimiento(),en.getNumeroEmpleado()));
 
-            PreparedStatement ps = conn.prepareStatement("UPDATE Enfermeros SET Planta=? WHERE DNI=?");
+            PreparedStatement ps = conn.prepareStatement("UPDATE Enfermeros SET Planta=? WHERE DNI=?;");
             ps.setString(1,en.getPlanta());
             ps.setString(2,en.getDni());
             ps.executeUpdate();
@@ -97,7 +97,7 @@ public class DAOEnfermeros {
         try {
 
             Connection conn = DBConnection.getConn();
-            ResultSet result = conn.createStatement().executeQuery("select Personas.*, Empleados.*, Medicos.* from Personas inner join Empleados on Personas.DNI = Empleados.DNI join Enfermeros on  Personas.DNI = Enfermeros.DNI");
+            ResultSet result = conn.createStatement().executeQuery("select Personas.*, Empleados.NumeroEmpleado, Enfermeros.Planta from Personas inner join Empleados on Personas.DNI = Empleados.DNI join Enfermeros on  Personas.DNI = Enfermeros.DNI;");
 
             while (result.next()) {
 
@@ -132,7 +132,7 @@ public class DAOEnfermeros {
         try {
 
             Connection conn = DBConnection.getConn();
-            PreparedStatement platform = conn.prepareStatement("select Personas.*, Empleados.*, Medicos.* from Personas inner join Empleados on Personas.DNI = Empleados.DNI = ? join Enfermeros on  Personas.DNI = Enfermeros.DNI = ?");
+            PreparedStatement platform = conn.prepareStatement("select Personas.*, Empleados.NumeroEmpleado, Enfermeros.Planta from Personas inner join Empleados on Personas.DNI = Empleados.DNI = ? join Enfermeros on  Personas.DNI = Enfermeros.DNI = ?;");
             platform.setString(1,DNI);
             ResultSet result = platform.executeQuery();
 

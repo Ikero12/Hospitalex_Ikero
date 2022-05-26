@@ -23,9 +23,9 @@ public class DAOEmpleados {
 
             Connection conn = DBConnection.getConn();
 
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO Empleados VALUES(?,?)");
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Empleados(DNI) VALUES(?)");
             ps.setString(1,em.getDni());
-            ps.setString(2,em.getNumeroEmpleado());
+
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -66,22 +66,8 @@ public class DAOEmpleados {
      */
     public void update(Empleados em) {
 
-        try {
-
-            Connection conn = DBConnection.getConn();
-
             new DAOPersonas().update(new Personas(em.getDni(),em.getContraseña(),em.getNombre(),em.getApellidos(),em.getFechaNacimiento()));
 
-            PreparedStatement ps = conn.prepareStatement("UPDATE Empleados SET NumeroEmpleado=? WHERE DNI=?");
-            ps.setString(1,em.getNumeroEmpleado());
-            ps.setString(2,em.getDni());
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DBConnection.closeConn();
-        }
     }
 
     /**
@@ -96,7 +82,7 @@ public class DAOEmpleados {
         try {
 
             Connection conn = DBConnection.getConn();
-            ResultSet result = conn.createStatement().executeQuery("select Personas.*, Empleados.* from Personas inner join Empleados on Personas.DNI = Empleados.DNI;");
+            ResultSet result = conn.createStatement().executeQuery("select Personas.*, Empleados.NumeroEmpleado from Personas inner join Empleados on Personas.DNI = Empleados.DNI;");
 
             while (result.next()) {
 
@@ -130,7 +116,7 @@ public class DAOEmpleados {
         try {
 
             Connection conn = DBConnection.getConn();
-            PreparedStatement platform = conn.prepareStatement("select Personas.*, Empleados.* from Personas inner join Empleados on Personas.DNI = Empleados.DNI = ?;");
+            PreparedStatement platform = conn.prepareStatement("select Personas.*, Empleados.NumeroEmpleado from Personas inner join Empleados on Personas.DNI = Empleados.DNI = ?;");
             platform.setString(1,DNI);
             ResultSet result = platform.executeQuery();
 

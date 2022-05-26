@@ -6,7 +6,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-    private static final String URL = "jdbc:sqlite:src" + File.separator + "main" + File.separator + "java" + File.separator + "DataBase" + File.separator + "BaseDatos.db";
+
+    private static final String URL = "jdbc:sqlite:src/main/java/DataBase/BDHospital.db".replace("/",File.separator);
 
     private static Connection conn=null;
 

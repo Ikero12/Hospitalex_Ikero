@@ -1,27 +1,36 @@
 package DataBase.DVO;
 
 public class Cuidan {
-    private String idCuidado;
-    private String dniMedico;
+    private int idCuidan;
+    private String dniEnfermero;
     private String dniPaciente;
     private String FechaIngreso;
     private String FechaAlta;
     private String Planta;
 
-    public String getIdCuidado() {
-        return idCuidado;
+    public Cuidan(int idCuidan, String dniMedico, String dniPaciente, String fechaIngreso, String fechaAlta, String planta) {
+        this.idCuidan = idCuidan;
+        this.dniEnfermero = dniMedico;
+        this.dniPaciente = dniPaciente;
+        FechaIngreso = fechaIngreso;
+        FechaAlta = fechaAlta;
+        Planta = planta;
     }
 
-    public void setIdCuidado(String idCuidado) {
-        this.idCuidado = idCuidado;
+    public int getIdCuidan() {
+        return idCuidan;
     }
 
-    public String getDniMedico() {
-        return dniMedico;
+    public void setIdCuidan(int idCuidan) {
+        this.idCuidan = idCuidan;
     }
 
-    public void setDniMedico(String dniMedico) {
-        this.dniMedico = dniMedico;
+    public String getDniEnfermero() {
+        return dniEnfermero;
+    }
+
+    public void setDniEnfermero(String dniEnfermero) {
+        this.dniEnfermero = dniEnfermero;
     }
 
     public String getDniPaciente() {
