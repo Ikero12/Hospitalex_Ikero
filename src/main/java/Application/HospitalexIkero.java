@@ -1,17 +1,14 @@
 package Application;
 
 
-import GUI.GUILogin;
-import GUI.GUIMedico;
-import GUI.GUIUsuario;
+import GUI.*;
 
 public class HospitalexIkero {
     public static void main(String[] args) {
-        GUILogin login = new GUILogin();
-        //GUIUsuario usuario = new GUIUsuario();
-        //GUIMedico medico = new GUIMedico();
-
-
+        //GUIPaciente obj = new GUIPaciente();
+        //GUIEnfermero obj2 = new GUIEnfermero();
+        //GUILogin boj = new GUILogin();
+        GUIMedico obj = new GUIMedico();
 
        // login.GUILogin();
 

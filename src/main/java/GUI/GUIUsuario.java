@@ -64,7 +64,7 @@ public class GUIUsuario {
 
     }
 
-    public void addToUsuario(JPanel x){
+    public void addToUsuario(JComponent x){
         bg.add(x);
         usuario.add(bg);
     }
