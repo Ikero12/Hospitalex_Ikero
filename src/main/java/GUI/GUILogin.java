@@ -1,8 +1,6 @@
 package GUI;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 import java.awt.*;
@@ -20,13 +18,13 @@ public class GUILogin {
     private JCheckBox recordar;
     private String[]opciones = {"Médico","Enfermer@","Paciente"};
     private JComboBox personas = new JComboBox<>(opciones);
+    private JLabel error = new JLabel("");
 
 
-
+//Mensaje de error: "*Contraseña incorrecta o usuario inexistente"
+    //Al final de cada apartado se añaden al mainPanel.
 
     public GUILogin(){
-
-
 
         //Declaración de componentes
         window = new JFrame("Hospitalex Ikero");
@@ -53,7 +51,7 @@ public class GUILogin {
 
         //Chechbox
         recordar = new JCheckBox("Recordarme");
-        recordar.setBounds(450,650,150,15);
+        recordar.setBounds(475,650,150,15);
         recordar.setOpaque(false);
         recordar.setToolTipText("La próxima vez que inicies sesión te saltarás esta pantalla. Recuerda desconectarte manualmente para evitar que te roben tus datos.");
 
@@ -110,12 +108,15 @@ public class GUILogin {
         //Labels
         ldni = new JLabel("DNI: ");
         lpw = new JLabel("Password: ");
-
-
+        error.setBounds(420,630,300,20);
+        error.setForeground(Color.red);
+        error.setFont(new Font("sans-Serif", Font.PLAIN, 10));
         ldni.setBounds(380,470,100,30);
         lpw.setBounds(380,570,100,30);
+
         userpanel.add(ldni);
         userpanel.add(lpw);
+        userpanel.add(error);
 
 
         //Logo
@@ -153,5 +154,11 @@ public class GUILogin {
         this.personas = personas;
     }
 
+    public JLabel getError() {
+        return error;
+    }
 
+    public void setError(JLabel error) {
+        this.error = error;
+    }
 }
