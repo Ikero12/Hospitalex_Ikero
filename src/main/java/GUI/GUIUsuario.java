@@ -3,6 +3,8 @@ package GUI;
 import javax.swing.*;
 
 import java.awt.*;
+import java.io.File;
+
 
 public class GUIUsuario {
     //private JFrame usuario;
@@ -14,6 +16,8 @@ public class GUIUsuario {
     private JLabel logo = new JLabel();
     private JLabel titulo = new JLabel("Hospitalex Ikero");
     private JLabel background = new JLabel();
+
+    private final String CARPETA = "src" + File.separator + "main" + File.separator + "resources" + File.separator + "imagenes" + File.separator;
     public void GUIUsuario() {
         //Al final de cada componente se añade al bg(Background) label.
         //Declaraciones
@@ -26,7 +30,7 @@ public class GUIUsuario {
         usuario.setLayout(null);
         usuario.setLocationRelativeTo(null);
 
-        ImageIcon HI2 = new ImageIcon("bgmaybe.jpg");
+        ImageIcon HI2 = new ImageIcon(CARPETA +File.separator+ "bgmaybe.jpg");
         background.setIcon(HI2);
         background.setBounds(0,0,920,920);
 
@@ -40,7 +44,7 @@ public class GUIUsuario {
         titulo.setBounds(250,10,350,60);
         titulo.setFont(new Font("SansSerif",Font.BOLD,22));
 
-        ImageIcon HI = new ImageIcon("hospitalex ikero.png");
+        ImageIcon HI = new ImageIcon(CARPETA +File.separator+ "hospitalex ikero.png");
         logo.setIcon(HI);
         logo.setBounds(720,20,180,180);
 

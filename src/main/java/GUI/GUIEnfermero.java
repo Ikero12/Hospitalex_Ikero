@@ -61,4 +61,12 @@ public class GUIEnfermero extends GUIUsuario{
         addToUsuario(tabsEnfermero);
         GUIUsuario();
     }
+
+    public JTextField getBusqueda() {
+        return busqueda;
+    }
+
+    public void setBusqueda(JTextField busqueda) {
+        this.busqueda = busqueda;
+    }
 }

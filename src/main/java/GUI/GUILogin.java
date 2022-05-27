@@ -6,8 +6,10 @@ import javax.swing.event.AncestorListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class GUILogin {
+    private static final String CARPETA =  "src" + File.separator + "main" + File.separator + "resources" + File.separator + "imagenes" + File.separator;
     private JFrame window;
     private JPanel userpanel;
     private JButton bconnect;
@@ -36,7 +38,7 @@ public class GUILogin {
         //panel
         userpanel = new JPanel();
         lbackground = new JLabel();
-        ImageIcon bgicon = new ImageIcon("bgmaybe.jpg");
+        ImageIcon bgicon = new ImageIcon(CARPETA + File.separator+ "bgmaybe.jpg");
         lbackground.setIcon(bgicon);
         lbackground.setBounds(0,0,1000,950);
         userpanel.setSize(1000,950);
@@ -51,7 +53,7 @@ public class GUILogin {
 
         //Chechbox
         recordar = new JCheckBox("Recordarme");
-        recordar.setBounds(475,650,150,15);
+        recordar.setBounds(470,650,150,15);
         recordar.setOpaque(false);
         recordar.setToolTipText("La próxima vez que inicies sesión te saltarás esta pantalla. Recuerda desconectarte manualmente para evitar que te roben tus datos.");
 
@@ -120,9 +122,9 @@ public class GUILogin {
 
 
         //Logo
-        ImageIcon icon = new ImageIcon("hospitalex ikero.png");
-        ImageIcon us = new ImageIcon("username.png");
-        ImageIcon pw = new ImageIcon("password.png");
+        ImageIcon icon = new ImageIcon(CARPETA + File.separator+ "hospitalex ikero.png");
+        ImageIcon us = new ImageIcon(CARPETA + File.separator+ "username.png");
+        ImageIcon pw = new ImageIcon(CARPETA + File.separator+ "password.png");
 
         luserlogo = new JLabel();
         luserpassword = new JLabel();
