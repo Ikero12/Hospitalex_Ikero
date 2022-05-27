@@ -1,6 +1,8 @@
 package DataBase.DVO;
 
-public class Medicos extends Empleados{
+import logIn.user.IUsuario;
+
+public class Medicos extends Empleados {
 
     private String campo;
 

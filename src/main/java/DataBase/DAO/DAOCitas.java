@@ -51,7 +51,7 @@ public class DAOCitas {
 
             Connection conn = DBConnection.getConn();
 
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM Citas WHERE DNI=?");
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM Citas WHERE IdCita=?");
             ps.setInt(1, p.getIdCita());
             ps.executeUpdate();
 
