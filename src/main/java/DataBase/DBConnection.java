@@ -9,7 +9,10 @@ public class DBConnection {
 
     private static final String URL = "jdbc:sqlite:src/main/java/DataBase/BDHospital.db".replace("/",File.separator);
 
-    private static Connection conn=null;
+    private static DBConnection instance=null;
+
+    private Connection conn=null;
+
 
     private DBConnection() {
 
@@ -22,14 +25,26 @@ public class DBConnection {
         }
     }
 
-    public static Connection getConn() {
+    public static DBConnection getInstance(){
 
-        if (conn==null) new DBConnection();
+        if (instance==null) instance= new DBConnection();
 
-        return conn;
+        return instance;
     }
 
-    public static void closeConn() {
+    public Connection openConn() {
+
+        try {
+
+            instance.conn=DriverManager.getConnection(URL);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return instance.conn;
+    }
+
+    public void closeConn() {
         try {
             conn.close();
         } catch (SQLException e) {
