@@ -1,6 +1,8 @@
 package DataBase.DVO;
 
-public class Pacientes extends Personas{
+import logIn.user.IUsuario;
+
+public class Pacientes extends Personas {
 
     private String NumeroSeguridadSocial;
     private String Enfermedad;
@@ -36,4 +38,5 @@ public class Pacientes extends Personas{
     public void setFechaMuerte(String fechaMuerte) {
         FechaMuerte = fechaMuerte;
     }
+
 }

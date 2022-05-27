@@ -1,5 +1,7 @@
 package DataBase.DVO;
 
+import logIn.user.IUsuario;
+
 public class Enfermeros extends Empleados {
 
     private String planta;
