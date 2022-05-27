@@ -1,5 +1,7 @@
 package GUI;
 
+import DataBase.DVO.Pacientes;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,8 +10,9 @@ public class GUIPaciente extends GUIUsuario {
     private JPanel citas,anotaciones,pedir;
     private JTabbedPane tabsPaciente;
     private JLabel  lcitas,lanotaciones,lpedir;
+    private Pacientes paciente;
 
-    public GUIPaciente(){
+    public GUIPaciente(Pacientes paciente){
 
 
         //Panels

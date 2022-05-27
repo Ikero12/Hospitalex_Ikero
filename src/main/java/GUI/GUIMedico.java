@@ -1,5 +1,7 @@
 package GUI;
 
+import DataBase.DVO.Medicos;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -12,8 +14,9 @@ public class GUIMedico extends GUIUsuario{
     private JTextField busqueda = new JTextField("Buscar paciente");
     private JTabbedPane tabsMedico;
     private JLabel  lcitas,lanotaciones,lanhadir;
+    private Medicos medico;
 
-    public GUIMedico() {
+    public GUIMedico(Medicos medico) {
 
         //Barra de búsqueda
         busqueda.addMouseListener(new MouseAdapter() {

@@ -1,5 +1,7 @@
 package GUI;
 
+import DataBase.DVO.Enfermeros;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -10,8 +12,9 @@ public class GUIEnfermero extends GUIUsuario{
     private JTextField busqueda = new JTextField("Buscar paciente");
     private JTabbedPane tabsEnfermero;
     private JLabel  lingresos,lanotaciones,lanhadir;
+    private Enfermeros enfermero;
 
-    public GUIEnfermero(){
+    public GUIEnfermero(Enfermeros enfermero){
 
         //Busqueda de pacientes
         busqueda.addMouseListener(new MouseAdapter() {

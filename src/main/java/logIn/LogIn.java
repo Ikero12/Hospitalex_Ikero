@@ -3,6 +3,9 @@ package logIn;
 import DataBase.DAO.DAOEnfermeros;
 import DataBase.DAO.DAOMedicos;
 import DataBase.DAO.DAOPacientes;
+import DataBase.DVO.Enfermeros;
+import DataBase.DVO.Medicos;
+import DataBase.DVO.Pacientes;
 import logIn.exceptions.IncorrectPasswordException;
 import logIn.exceptions.NoUserFoundException;
 import logIn.user.IUsuario;
@@ -21,25 +24,35 @@ public class LogIn {
 
     private static final String FILE_PATH = "src/main/resources/SavedUser.txt".replace("/", File.separator);
 
-    public static void logIn(String dni, String contraseña, String tipo) throws NoUserFoundException, IncorrectPasswordException {
+    public static void logIn(String dni, String contrasenha, String tipo,Boolean isUserRemembered) throws NoUserFoundException, IncorrectPasswordException {
 
-        IUsuario usuario = null;
+        IUsuario usuario=null;
         switch (tipo) {
 
-            case "Pacientes" -> {
-                usuario = new UserPaciente(new DAOPacientes().get(dni));
+            case "Paciente" -> {
+
+                Pacientes paciente= new DAOPacientes().get(dni);
+
+                if (paciente ==null) throw new NoUserFoundException("[DNI:" + dni + ".Not found in database]");
+                usuario = new UserPaciente(paciente);
             }
-            case "Medicos" -> {
-                usuario = new UserMedico(new DAOMedicos().get(dni));
+            case "Medicina" -> {
+
+                Medicos medicos= new DAOMedicos().get(dni);
+                if (medicos ==null) throw new NoUserFoundException("[DNI:" + dni + ".Not found in database]");
+                usuario = new UserMedico(medicos);
             }
-            case "Enfermeros" -> {
-                usuario = new UserEnfermero(new DAOEnfermeros().get(dni)) ;
+            case "Enfermeria" -> {
+
+                Enfermeros enfermeros= new DAOEnfermeros().get(dni);
+                if (enfermeros ==null) throw new NoUserFoundException("[DNI:" + dni + ".Not found in database]");
+                usuario = new UserEnfermero(enfermeros) ;
             }
         }
 
-        if (usuario.equals(null)) throw new NoUserFoundException("[DNI:" + dni + ".Not found in database]");
+        if (!contrasenha.equals(usuario.getContrasenha())) throw new IncorrectPasswordException("[Try another password]");
 
-        if (usuario.getContraseña() != contraseña) throw new IncorrectPasswordException("[Try another password]");
+        setSavedUser(usuario,isUserRemembered);
 
         usuario.openProfile();
     }
@@ -67,16 +80,16 @@ public class LogIn {
 
     }
 
-    public static void setSavedUser(IUsuario usuario, Boolean checked) {
+    public static void setSavedUser(IUsuario usuario, Boolean isUserRemembered) {
 
-        if (usuario == null || !checked) return;
+        if (usuario == null || !isUserRemembered) return;
 
         FileWriter fileWriter = null;
         try {
 
             fileWriter = new FileWriter(FILE_PATH);
 
-            fileWriter.write(usuario.getDni() + "-" + usuario.getContraseña() + "-" + usuario.getClass());
+            fileWriter.write(usuario.getDni() + "-" + usuario.getContrasenha() + "-" + usuario.getClass().getSimpleName());
 
         } catch (FileNotFoundException ex) {
 
