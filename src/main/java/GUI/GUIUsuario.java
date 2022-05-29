@@ -64,8 +64,13 @@ public class GUIUsuario {
         desconexion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                usuario.dispose();
-                new GUILogin();
+                String[]opciones = {"Si","No"};
+                int disc = JOptionPane.showOptionDialog(null,"Estás seguro de que quieres desconectarte?",
+                        "Hospitalex Ikero", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, opciones, opciones[0]);
+                if (disc==0) {
+                    usuario.dispose();
+                    new GUILogin();
+                }
             }
         });
         bg.add(desconexion);
