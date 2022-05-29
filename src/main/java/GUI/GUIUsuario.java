@@ -57,6 +57,7 @@ public class GUIUsuario {
         desconexion = new JButton();
         desconexion.setBounds(30,5,50,50);
         desconexion.setOpaque(false);
+        desconexion.setCursor(new Cursor(Cursor.HAND_CURSOR));
         desconexion.setContentAreaFilled(false);
         desconexion.setFocusPainted(true);
         desconexion.setBorderPainted(false);
