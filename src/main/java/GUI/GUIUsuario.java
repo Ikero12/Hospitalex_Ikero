@@ -3,6 +3,8 @@ package GUI;
 import javax.swing.*;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 
 
@@ -14,6 +16,7 @@ public class GUIUsuario {
     private JLabel logo = new JLabel();
     private JLabel titulo = new JLabel("Hospitalex Ikero");
     private JLabel background = new JLabel();
+    private JButton desconexion;
 
     private final String CARPETA = "src/main/resources/imagenes/".replace("/", File.separator);
 
@@ -49,7 +52,27 @@ public class GUIUsuario {
         bg.add(logo);
         //endregion
 
+        //regionButtons
+        ImageIcon disconnectIcon = new ImageIcon(CARPETA + File.separator + "disconnect.png");
+        desconexion = new JButton();
+        desconexion.setBounds(30,5,50,50);
+        desconexion.setOpaque(false);
+        desconexion.setContentAreaFilled(false);
+        desconexion.setFocusPainted(true);
+        desconexion.setBorderPainted(false);
+        desconexion.setIcon(disconnectIcon);
+        desconexion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                usuario.dispose();
+                new GUILogin();
+            }
+        });
+        bg.add(desconexion);
+        //endregion
+
         //region Panel
+        info.setLayout(null);
         info.setBounds(20, 60, 700, 300);
         info.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black, 3), "Persona"));
         info.setBackground(new Color(186, 237, 230));
@@ -66,6 +89,14 @@ public class GUIUsuario {
     public void addToUsuario(JComponent x) {
         bg.add(x);
         usuario.add(bg);
+    }
+
+    public JPanel getInfo() {
+        return info;
+    }
+
+    public void setInfo(JPanel info) {
+        this.info = info;
     }
 
     public JPanel getBg() {

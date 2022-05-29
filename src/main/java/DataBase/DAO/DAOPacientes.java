@@ -26,8 +26,8 @@ public class DAOPacientes {
             PreparedStatement ps = conn.prepareStatement("INSERT INTO Pacientes VALUES(?,?,?,?);");
             ps.setString(1,pa.getDni());
             ps.setString(2,pa.getNumeroSeguridadSocial());
-            ps.setString(1,pa.getEnfermedad());
-            ps.setString(1,pa.getFechaMuerte());
+            ps.setString(3,pa.getEnfermedad());
+            ps.setString(4,pa.getFechaMuerte());
             ps.executeUpdate();
 
         } catch (SQLException e) {
