@@ -13,7 +13,9 @@ public class GUIEnfermero extends GUIUsuario{
     private JTabbedPane tabsEnfermero;
     private JLabel  lingresos,lanotaciones,lanhadir;
     private Enfermeros enfermero;
-
+    private Font general;
+    private JLabel nombre,apellidos,fechaNacimiento,planta,dni;
+    private JLabel actualnombre,actualapellidos,actualfechaNacimiento,actualplanta,actualdni;
     public GUIEnfermero(Enfermeros enfermero){
 
         //Busqueda de pacientes
@@ -46,6 +48,59 @@ public class GUIEnfermero extends GUIUsuario{
         //Añadir
         anhadir = new JPanel();
         anhadir.setLayout(null);
+
+
+        //regionLabelsInfo
+        general = new Font("Sans-Serif",Font.BOLD,20);
+
+        nombre = new JLabel("Nombre: ");
+        apellidos = new JLabel("Apellidos: ");
+        fechaNacimiento = new JLabel("Fecha de Nacimiento: ");
+        planta = new JLabel("Planta asignada: ");
+        dni = new JLabel("DNI: ");
+
+
+        nombre.setFont(general);
+        apellidos.setFont(general);
+        fechaNacimiento.setFont(general);
+        planta.setFont(general);
+
+        dni.setFont(general);
+
+
+
+        nombre.setBounds(20,20,150,20);
+        apellidos.setBounds(20,60,150,20);
+        fechaNacimiento.setBounds(20,100,220,20);
+        dni.setBounds(20,140,150,20);
+        planta.setBounds(20,180,290,23);
+
+        actualnombre = new JLabel(enfermero.getNombre());
+        actualapellidos = new JLabel(enfermero.getApellidos());
+        actualfechaNacimiento = new JLabel(enfermero.getFechaNacimiento());
+        actualplanta = new JLabel(enfermero.getPlanta());
+        actualdni = new JLabel(enfermero.getDni());
+
+
+        actualnombre.setFont(general);
+        actualapellidos.setFont(general);
+        actualfechaNacimiento.setFont(general);
+        actualplanta.setFont(general);
+        actualdni.setFont(general);
+
+
+        actualnombre.setBounds(50,20,150,20);
+        actualapellidos.setBounds(50,60,150,20);
+        actualfechaNacimiento.setBounds(50,100,220,20);
+        actualdni.setBounds(50,140,150,20);
+        actualplanta.setBounds(50,180,290,23);
+
+
+
+
+        //endregion
+
+
 
         //Tabs
         tabsEnfermero = new JTabbedPane();

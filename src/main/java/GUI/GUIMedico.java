@@ -15,6 +15,9 @@ public class GUIMedico extends GUIUsuario{
     private JTabbedPane tabsMedico;
     private JLabel  lcitas,lanotaciones,lanhadir;
     private Medicos medico;
+    private Font general;
+    private JLabel nombre,apellidos,fechaNacimiento,campo,dni;
+    private JLabel actualnombre,actualapellidos,actualfechaNacimiento,actualcampo,actualdni;
 
     public GUIMedico(Medicos medico) {
 
@@ -51,8 +54,59 @@ public class GUIMedico extends GUIUsuario{
         //Busqueda de pacientes
 
 
+        //regionLabelsInfo
+        general = new Font("Sans-Serif",Font.BOLD,20);
 
-        //Tabs
+        nombre = new JLabel("Nombre: ");
+        apellidos = new JLabel("Apellidos: ");
+        fechaNacimiento = new JLabel("Fecha de Nacimiento: ");
+        campo = new JLabel("Especialidad: ");
+        dni = new JLabel("DNI: ");
+
+
+        nombre.setFont(general);
+        apellidos.setFont(general);
+        fechaNacimiento.setFont(general);
+        campo.setFont(general);
+        dni.setFont(general);
+
+
+
+        nombre.setBounds(20,20,150,20);
+        apellidos.setBounds(20,60,150,20);
+        fechaNacimiento.setBounds(20,100,220,20);
+        dni.setBounds(20,140,150,20);
+        campo.setBounds(20,180,150,20);
+
+        actualnombre = new JLabel(medico.getNombre());
+        actualapellidos = new JLabel(medico.getApellidos());
+        actualfechaNacimiento = new JLabel(medico.getFechaNacimiento());
+        actualcampo = new JLabel(medico.getCampo());
+        actualdni = new JLabel(medico.getDni());
+
+
+        actualnombre.setFont(general);
+        actualapellidos.setFont(general);
+        actualfechaNacimiento.setFont(general);
+        actualcampo.setFont(general);
+
+        actualdni.setFont(general);
+
+
+        actualnombre.setBounds(50,20,150,20);
+        actualapellidos.setBounds(50,60,150,20);
+        actualfechaNacimiento.setBounds(50,100,220,20);
+        actualdni.setBounds(50,140,150,20);
+        actualcampo.setBounds(50,180,290,23);
+
+
+
+
+        //endregion
+
+
+
+        //regionTabs
         tabsMedico = new JTabbedPane();
         tabsMedico.setBounds(50,400,820,450);
         tabsMedico.add(citas);
@@ -68,7 +122,7 @@ public class GUIMedico extends GUIUsuario{
         addToUsuario(busqueda);
         addToUsuario(tabsMedico);
         GUIUsuario();
-
+        //endregion
 
 
 

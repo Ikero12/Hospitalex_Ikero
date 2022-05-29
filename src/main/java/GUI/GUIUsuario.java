@@ -79,7 +79,7 @@ public class GUIUsuario {
         //region Panel
         info.setLayout(null);
         info.setBounds(20, 60, 700, 300);
-        info.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black, 3), "Persona"));
+        info.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black, 3)));
         info.setBackground(new Color(186, 237, 230));
         bg.add(info);
 
