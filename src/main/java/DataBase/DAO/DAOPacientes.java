@@ -21,19 +21,19 @@ public class DAOPacientes {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
 
             PreparedStatement ps = conn.prepareStatement("INSERT INTO Pacientes VALUES(?,?,?,?);");
             ps.setString(1,pa.getDni());
             ps.setString(2,pa.getNumeroSeguridadSocial());
-            ps.setString(1,pa.getEnfermedad());
-            ps.setString(1,pa.getFechaMuerte());
+            ps.setString(3,pa.getEnfermedad());
+            ps.setString(4,pa.getFechaMuerte());
             ps.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
     }
@@ -47,7 +47,7 @@ public class DAOPacientes {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
 
             PreparedStatement ps = conn.prepareStatement("DELETE FROM Pacientes WHERE DNI=?;");
             ps.setString(1, pa.getDni());
@@ -56,7 +56,7 @@ public class DAOPacientes {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
     }
@@ -69,9 +69,9 @@ public class DAOPacientes {
     public void update(Pacientes pa) {
 
         try {
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
 
-            new DAOPersonas().update(new Personas(pa.getDni(), pa.getContraseña(), pa.getNombre(), pa.getApellidos(), pa.getFechaNacimiento()));
+            new DAOPersonas().update(new Personas(pa.getDni(), pa.getContrasenha(), pa.getNombre(), pa.getApellidos(), pa.getFechaNacimiento()));
 
             PreparedStatement ps = conn.prepareStatement("UPDATE Pacientes SET NumeroSeguridadSocial=?, Enfermedad=?, FechaMuerte=? WHERE DNI=?;");
             ps.setString(1, pa.getNumeroSeguridadSocial());
@@ -82,7 +82,7 @@ public class DAOPacientes {
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
     }
@@ -98,7 +98,7 @@ public class DAOPacientes {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
             ResultSet result = conn.createStatement().executeQuery("select Personas.*, Pacientes.NumeroSeguridadSocial, Pacientes.Enfermedad, Pacientes.FechaMuerte  from Personas inner join Pacientes on Personas.DNI = Pacientes.DNI;");
 
             while (result.next()) {
@@ -116,7 +116,7 @@ public class DAOPacientes {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
         return list;
@@ -134,14 +134,16 @@ public class DAOPacientes {
 
         try {
 
-            Connection conn = DBConnection.getConn();
-            PreparedStatement platform = conn.prepareStatement("select Personas.*, Pacientes.NumeroSeguridadSocial,Pacientes.Enfermedad,Pacientes.FechaMuerte  from Personas inner join Pacientes on Personas.DNI = Pacientes.DNI = ?;");
+            Connection conn = DBConnection.getInstance().openConn();
+
+            PreparedStatement platform = conn.prepareStatement("select Personas.*, Pacientes.NumeroSeguridadSocial,Pacientes.Enfermedad,Pacientes.FechaMuerte  from Personas inner join Pacientes on Personas.DNI = Pacientes.DNI  WHERE Personas.DNI = ?;");
             platform.setString(1,DNI);
+
             ResultSet result = platform.executeQuery();
 
             if (result.next())
                 pa = new Pacientes(result.getString("DNI"),
-                        "*******",
+                        result.getString("Contraseña"),
                         result.getString("Nombre"),
                         result.getString("Apellidos"),
                         result.getString("FechaNacimiento"),
@@ -152,7 +154,7 @@ public class DAOPacientes {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
         return pa;

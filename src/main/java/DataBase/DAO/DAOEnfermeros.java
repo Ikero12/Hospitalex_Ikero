@@ -23,7 +23,7 @@ public class DAOEnfermeros {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
             PreparedStatement ps = conn.prepareStatement("INSERT INTO Enfermeros VALUES(?,?)");
             ps.setString(1,en.getDni());
             ps.setString(2,en.getPlanta());
@@ -32,7 +32,7 @@ public class DAOEnfermeros {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
     }
@@ -46,16 +46,16 @@ public class DAOEnfermeros {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
 
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM Enfermero WHERE DNI=?;");
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM Enfermeros WHERE DNI=?;");
             ps.setString(1, en.getDni());
             ps.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
     }
@@ -69,9 +69,9 @@ public class DAOEnfermeros {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
 
-            new DAOEmpleados().update(new Empleados(en.getDni(),en.getContraseña(),en.getNombre(),en.getApellidos(),en.getFechaNacimiento(),en.getNumeroEmpleado()));
+            new DAOEmpleados().update(new Empleados(en.getDni(),en.getContrasenha(),en.getNombre(),en.getApellidos(),en.getFechaNacimiento(),en.getNumeroEmpleado()));
 
             PreparedStatement ps = conn.prepareStatement("UPDATE Enfermeros SET Planta=? WHERE DNI=?;");
             ps.setString(1,en.getPlanta());
@@ -81,7 +81,7 @@ public class DAOEnfermeros {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
     }
 
@@ -96,7 +96,7 @@ public class DAOEnfermeros {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
             ResultSet result = conn.createStatement().executeQuery("select Personas.*, Empleados.NumeroEmpleado, Enfermeros.Planta from Personas inner join Empleados on Personas.DNI = Empleados.DNI join Enfermeros on  Personas.DNI = Enfermeros.DNI;");
 
             while (result.next()) {
@@ -113,7 +113,7 @@ public class DAOEnfermeros {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
         return list;
@@ -131,14 +131,14 @@ public class DAOEnfermeros {
 
         try {
 
-            Connection conn = DBConnection.getConn();
-            PreparedStatement platform = conn.prepareStatement("select Personas.*, Empleados.NumeroEmpleado, Enfermeros.Planta from Personas inner join Empleados on Personas.DNI = Empleados.DNI = ? join Enfermeros on  Personas.DNI = Enfermeros.DNI = ?;");
+            Connection conn = DBConnection.getInstance().openConn();
+            PreparedStatement platform = conn.prepareStatement("select Personas.*, Empleados.NumeroEmpleado, Enfermeros.Planta from Personas inner join Empleados on Personas.DNI = Empleados.DNI join Enfermeros on  Personas.DNI = Enfermeros.DNI WHERE Personas.DNI = ?;");
             platform.setString(1,DNI);
             ResultSet result = platform.executeQuery();
 
             if (result.next())
                 en = new Enfermeros(result.getString("DNI"),
-                        "*******",
+                        result.getString("Contraseña"),
                         result.getString("Nombre"),
                         result.getString("Apellidos"),
                         result.getString("FechaNacimiento"),
@@ -148,7 +148,7 @@ public class DAOEnfermeros {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
         return en;

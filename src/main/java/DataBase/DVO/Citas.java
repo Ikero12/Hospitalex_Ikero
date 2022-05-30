@@ -9,6 +9,10 @@ public class Citas {
     private String tipo;
     private String anotacion;
 
+    public Citas() {
+
+    }
+
     public Citas(int idCita, String dniMedico, String dniPaciente, String fecha, String tipo, String anotacion) {
         this.idCita = idCita;
         this.dniMedico = dniMedico;

@@ -2,14 +2,17 @@ package DataBase.DVO;
 
 public class Personas {
     private String dni;
-    private String contraseña;
+    private String contrasenha;
     private String nombre;
     private String apellidos;
     private String fechaNacimiento;
 
-    public Personas(String dni, String contraseña, String nombre, String apellidos, String fechaNacimiento) {
+    public Personas() {
+    }
+
+    public Personas(String dni, String contrasenha, String nombre, String apellidos, String fechaNacimiento) {
         this.dni = dni;
-        this.contraseña = contraseña;
+        this.contrasenha = contrasenha;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.fechaNacimiento = fechaNacimiento;
@@ -23,12 +26,12 @@ public class Personas {
         this.dni = dni;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasenha() {
+        return contrasenha;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContrasenha(String contrasenha) {
+        this.contrasenha = contrasenha;
     }
 
     public String getNombre() {

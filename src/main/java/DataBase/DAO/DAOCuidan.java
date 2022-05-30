@@ -21,7 +21,7 @@ public class DAOCuidan {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
 
             PreparedStatement ps = conn.prepareStatement("INSERT INTO Cuidan VALUES(?,?,?,?,?,?)");
             ps.setInt(1,c.getIdCuidan());
@@ -35,7 +35,7 @@ public class DAOCuidan {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
     }
@@ -50,7 +50,7 @@ public class DAOCuidan {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
 
             PreparedStatement ps = conn.prepareStatement("DELETE FROM Cuidan WHERE IdCuidan=?");
             ps.setInt(1, p.getIdCuidan());
@@ -59,7 +59,7 @@ public class DAOCuidan {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
     }
@@ -73,7 +73,7 @@ public class DAOCuidan {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
 
             PreparedStatement ps = conn.prepareStatement("UPDATE Cuidan SET DNI_Medico=?, DNI_Paciente=?, Fecha=?, Tipo=?, Anotacion=? WHERE IdCuidan=?");
             ps.setString(1,c.getDniEnfermero());
@@ -87,7 +87,7 @@ public class DAOCuidan {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
     }
 
@@ -102,7 +102,7 @@ public class DAOCuidan {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
 
             ResultSet result = conn.createStatement().executeQuery("SELECT * FROM Cuidan");
 
@@ -119,7 +119,7 @@ public class DAOCuidan {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
         return list;
@@ -137,7 +137,7 @@ public class DAOCuidan {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
 
             PreparedStatement platform = conn.prepareStatement("SELECT * FROM Cuidan WHERE IdCuidan=?");
             platform.setInt(1,idCuidan);
@@ -154,7 +154,7 @@ public class DAOCuidan {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
         return c;

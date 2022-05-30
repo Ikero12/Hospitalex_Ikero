@@ -20,20 +20,20 @@ public class DAOPersonas {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
 
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO Persona VALUES(?,?,?,?,?)");
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Personas VALUES(?,?,?,?,?)");
             ps.setString(1,p.getDni());
             ps.setString(2,p.getNombre());
             ps.setString(3,p.getApellidos());
             ps.setString(4,p.getFechaNacimiento());
-            ps.setString(5,p.getContraseña());
+            ps.setString(5,p.getContrasenha());
             ps.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
     }
@@ -48,7 +48,7 @@ public class DAOPersonas {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
 
             PreparedStatement ps = conn.prepareStatement("DELETE FROM Personas WHERE DNI=?");
             ps.setString(1, p.getDni());
@@ -57,7 +57,7 @@ public class DAOPersonas {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
     }
@@ -71,20 +71,20 @@ public class DAOPersonas {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
 
-            PreparedStatement ps = conn.prepareStatement("UPDATE Usuario SET Nombre=?,Apellidos=?,FechaNacimiento=?,Contraseña=? WHERE DNI=?");
+            PreparedStatement ps = conn.prepareStatement("UPDATE Personas SET Nombre=?,Apellidos=?,FechaNacimiento=?,Contraseña=? WHERE DNI=?");
             ps.setString(1,p.getNombre());
             ps.setString(2,p.getApellidos());
             ps.setString(3,p.getFechaNacimiento());
-            ps.setString(4,p.getContraseña());
+            ps.setString(4,p.getContrasenha());
             ps.setString(5,p.getDni());
             ps.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
     }
 
@@ -99,9 +99,9 @@ public class DAOPersonas {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
 
-            ResultSet result = conn.createStatement().executeQuery("SELECT DNI,Nombre,Apellidos,FechaNacimiento FROM Persoas");
+            ResultSet result = conn.createStatement().executeQuery("SELECT DNI,Nombre,Apellidos,FechaNacimiento FROM Personas");
 
             while (result.next()) {
 
@@ -115,7 +115,7 @@ public class DAOPersonas {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
         return list;
@@ -133,15 +133,15 @@ public class DAOPersonas {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
 
-            PreparedStatement platform = conn.prepareStatement("SELECT DNI,Nombre,Apellidos,FechaNacimiento FROM Personas WHERE DNI=?");
+            PreparedStatement platform = conn.prepareStatement("SELECT * FROM Personas WHERE DNI=?");
             platform.setString(1,DNI);
             ResultSet result = platform.executeQuery();
 
             if (result.next())
                 p = new Personas(result.getString("DNI"),
-                        "*******",
+                        result.getString("Contraseña"),
                         result.getString("Nombre"),
                         result.getString("Apellidos"),
                          result.getString("FechaNacimiento"));
@@ -149,7 +149,7 @@ public class DAOPersonas {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
         return p;
