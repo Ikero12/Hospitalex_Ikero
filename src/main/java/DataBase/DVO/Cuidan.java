@@ -8,6 +8,9 @@ public class Cuidan {
     private String FechaAlta;
     private String Planta;
 
+    public Cuidan() {
+    }
+
     public Cuidan(int idCuidan, String dniMedico, String dniPaciente, String fechaIngreso, String fechaAlta, String planta) {
         this.idCuidan = idCuidan;
         this.dniEnfermero = dniMedico;

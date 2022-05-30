@@ -21,7 +21,7 @@ public class DAOEmpleados {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
 
             PreparedStatement ps = conn.prepareStatement("INSERT INTO Empleados(DNI) VALUES(?)");
             ps.setString(1,em.getDni());
@@ -31,7 +31,7 @@ public class DAOEmpleados {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
     }
@@ -45,7 +45,7 @@ public class DAOEmpleados {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
 
             PreparedStatement ps = conn.prepareStatement("DELETE FROM Empleados WHERE DNI=?");
             ps.setString(1, em.getDni());
@@ -54,7 +54,7 @@ public class DAOEmpleados {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
     }
@@ -66,7 +66,7 @@ public class DAOEmpleados {
      */
     public void update(Empleados em) {
 
-            new DAOPersonas().update(new Personas(em.getDni(),em.getContraseña(),em.getNombre(),em.getApellidos(),em.getFechaNacimiento()));
+            new DAOPersonas().update(new Personas(em.getDni(),em.getContrasenha(),em.getNombre(),em.getApellidos(),em.getFechaNacimiento()));
 
     }
 
@@ -81,7 +81,7 @@ public class DAOEmpleados {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
             ResultSet result = conn.createStatement().executeQuery("select Personas.*, Empleados.NumeroEmpleado from Personas inner join Empleados on Personas.DNI = Empleados.DNI;");
 
             while (result.next()) {
@@ -97,7 +97,7 @@ public class DAOEmpleados {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
         return list;
@@ -115,14 +115,14 @@ public class DAOEmpleados {
 
         try {
 
-            Connection conn = DBConnection.getConn();
-            PreparedStatement platform = conn.prepareStatement("select Personas.*, Empleados.NumeroEmpleado from Personas inner join Empleados on Personas.DNI = Empleados.DNI = ?;");
+            Connection conn = DBConnection.getInstance().openConn();
+            PreparedStatement platform = conn.prepareStatement("select Personas.*, Empleados.NumeroEmpleado from Personas inner join Empleados on Personas.DNI = Empleados.DNI WHERE Personas.DNI = ?;");
             platform.setString(1,DNI);
             ResultSet result = platform.executeQuery();
 
             if (result.next())
                 em = new Empleados(result.getString("DNI"),
-                        "*******",
+                        result.getString("Contraseña"),
                         result.getString("Nombre"),
                         result.getString("Apellidos"),
                         result.getString("FechaNacimiento"),
@@ -131,7 +131,7 @@ public class DAOEmpleados {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
         return em;

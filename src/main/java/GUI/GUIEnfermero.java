@@ -1,5 +1,7 @@
 package GUI;
 
+import DataBase.DVO.Enfermeros;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -10,8 +12,11 @@ public class GUIEnfermero extends GUIUsuario{
     private JTextField busqueda = new JTextField("Buscar paciente");
     private JTabbedPane tabsEnfermero;
     private JLabel  lingresos,lanotaciones,lanhadir;
-
-    public GUIEnfermero(){
+    private Enfermeros enfermero;
+    private Font general;
+    private JLabel nombre,apellidos,fechaNacimiento,planta,dni;
+    private JLabel actualnombre,actualapellidos,actualfechaNacimiento,actualplanta,actualdni;
+    public GUIEnfermero(Enfermeros enfermero){
 
         //Busqueda de pacientes
         busqueda.addMouseListener(new MouseAdapter() {
@@ -43,6 +48,71 @@ public class GUIEnfermero extends GUIUsuario{
         //Añadir
         anhadir = new JPanel();
         anhadir.setLayout(null);
+
+
+        //regionLabelsInfo
+        general = new Font("Sans-Serif",Font.BOLD,20);
+
+        nombre = new JLabel("Nombre: ");
+        apellidos = new JLabel("Apellidos: ");
+        fechaNacimiento = new JLabel("Fecha de Nacimiento: ");
+        planta = new JLabel("Planta asignada: ");
+        dni = new JLabel("DNI: ");
+
+
+        nombre.setFont(general);
+        apellidos.setFont(general);
+        fechaNacimiento.setFont(general);
+        planta.setFont(general);
+        dni.setFont(general);
+
+
+
+        nombre.setBounds(20,20,150,20);
+        apellidos.setBounds(20,60,150,20);
+        fechaNacimiento.setBounds(20,100,290,20);
+        dni.setBounds(20,140,150,20);
+        planta.setBounds(20,180,290,23);
+
+        actualnombre = new JLabel(enfermero.getNombre());
+        actualapellidos = new JLabel(enfermero.getApellidos());
+        actualfechaNacimiento = new JLabel(enfermero.getFechaNacimiento());
+        actualplanta = new JLabel(enfermero.getPlanta());
+        actualdni = new JLabel(enfermero.getDni());
+
+
+        actualnombre.setFont(general);
+        actualapellidos.setFont(general);
+        actualfechaNacimiento.setFont(general);
+        actualplanta.setFont(general);
+        actualdni.setFont(general);
+
+
+        actualnombre.setBounds(350,20,150,20);
+        actualapellidos.setBounds(350,60,150,20);
+        actualfechaNacimiento.setBounds(350,100,220,20);
+        actualdni.setBounds(350,140,150,20);
+        actualplanta.setBounds(350,180,290,23);
+
+
+
+
+        //endregion
+
+        //regionPanel Info
+
+        getInfo().add(nombre);
+        getInfo().add(apellidos);
+        getInfo().add(fechaNacimiento);
+        getInfo().add(planta);
+        getInfo().add(dni);
+        getInfo().add(actualnombre);
+        getInfo().add(actualapellidos);
+        getInfo().add(actualfechaNacimiento);
+        getInfo().add(actualplanta);
+        getInfo().add(actualdni);
+
+        //endregion
 
         //Tabs
         tabsEnfermero = new JTabbedPane();

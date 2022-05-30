@@ -21,7 +21,7 @@ public class DAOMedicos {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
             PreparedStatement ps = conn.prepareStatement("INSERT INTO Medicos VALUES(?,?);");
             ps.setString(1,me.getDni());
             ps.setString(2,me.getCampo());
@@ -30,7 +30,7 @@ public class DAOMedicos {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
     }
@@ -44,16 +44,16 @@ public class DAOMedicos {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
 
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM Enfermero WHERE DNI=?;");
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM Medicos WHERE DNI=?;");
             ps.setString(1, me.getDni());
             ps.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
     }
@@ -67,11 +67,11 @@ public class DAOMedicos {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
 
-            new DAOEmpleados().update(new Empleados(me.getDni(),me.getContraseña(),me.getNombre(),me.getApellidos(),me.getFechaNacimiento(),me.getNumeroEmpleado()));
+            new DAOEmpleados().update(new Empleados(me.getDni(),me.getContrasenha(),me.getNombre(),me.getApellidos(),me.getFechaNacimiento(),me.getNumeroEmpleado()));
 
-            PreparedStatement ps = conn.prepareStatement("UPDATE Enfermeros SET Planta=? WHERE DNI=?;");
+            PreparedStatement ps = conn.prepareStatement("UPDATE Medicos SET Planta=? WHERE DNI=?;");
             ps.setString(1,me.getCampo());
             ps.setString(2,me.getDni());
             ps.executeUpdate();
@@ -79,7 +79,7 @@ public class DAOMedicos {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
     }
 
@@ -94,7 +94,7 @@ public class DAOMedicos {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
             ResultSet result = conn.createStatement().executeQuery("select Personas.*, Empleados.NumeroEmpleado, Medicos.Campo from Personas inner join Empleados on Personas.DNI = Empleados.DNI  join Medicos on  Empleados.DNI = Medicos.DNI;");
 
             while (result.next()) {
@@ -111,7 +111,7 @@ public class DAOMedicos {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
         return list;
@@ -129,24 +129,24 @@ public class DAOMedicos {
 
         try {
 
-            Connection conn = DBConnection.getConn();
-            PreparedStatement platform = conn.prepareStatement("select Personas.*, Empleados.NumeroEmpleado, Medicos.Campo from Personas inner join Empleados on Personas.DNI = Empleados.DNI = ?  join Medicos on  Empleados.DNI = Medicos.DNI = ?;");
+            Connection conn = DBConnection.getInstance().openConn();
+            PreparedStatement platform = conn.prepareStatement("select Personas.*, Empleados.NumeroEmpleado, Medicos.Campo from Personas inner join Empleados on Personas.DNI = Empleados.DNI join Medicos on  Empleados.DNI = Medicos.DNI WHERE Personas.DNI = ?;");
             platform.setString(1,DNI);
             ResultSet result = platform.executeQuery();
 
             if (result.next())
                 me = new Medicos(result.getString("DNI"),
-                        "*******",
+                        result.getString("Contraseña"),
                         result.getString("Nombre"),
                         result.getString("Apellidos"),
                         result.getString("FechaNacimiento"),
                         result.getString("NumeroEmpleado"),
-                        result.getString("Planta"));
+                        result.getString("Campo"));
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
         return me;

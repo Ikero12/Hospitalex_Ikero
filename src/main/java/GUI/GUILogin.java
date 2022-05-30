@@ -1,5 +1,8 @@
 package GUI;
 
+import logIn.LogIn;
+import logIn.exceptions.AppException;
+
 import javax.swing.*;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
@@ -9,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 public class GUILogin {
-    private static final String CARPETA =  "src" + File.separator + "main" + File.separator + "resources" + File.separator + "imagenes" + File.separator;
+    private final String CARPETA = "src/main/resources/imagenes/".replace("/", File.separator);
     private JFrame window;
     private JPanel userpanel;
     private JButton bconnect;
@@ -18,12 +21,11 @@ public class GUILogin {
     private JLabel ldni,lpw,logo,luserlogo,luserpassword,lbackground;
 
     private JCheckBox recordar;
-    private String[]opciones = {"Médico","Enfermer@","Paciente"};
+    private String[]opciones = {"Medicina","Enfermeria","Paciente"};
     private JComboBox personas = new JComboBox<>(opciones);
     private JLabel error = new JLabel("");
+    private boolean isUserRemembered=false;
 
-
-//Mensaje de error: "*Contraseña incorrecta o usuario inexistente"
     //Al final de cada apartado se añaden al mainPanel.
 
     public GUILogin(){
@@ -60,10 +62,12 @@ public class GUILogin {
         recordar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 JCheckBox jc = (JCheckBox) e.getSource();
-                if(jc.isSelected()){
-                    //Al loggear genera archivo que automáticamente loggea
-                }
+
+                if(jc.isSelected()) isUserRemembered=true;
+
+                else isUserRemembered=false;
 
             }
         });
@@ -75,7 +79,20 @@ public class GUILogin {
         bconnect.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Aquí va la conexión a la base de datos y el cambio de window.
+
+                try {
+
+                    LogIn.logIn(tfdni.getText(),pfpw.getText(),opciones[personas.getSelectedIndex()],isUserRemembered);
+                    window.setVisible(false);
+
+                } catch (AppException ex) {
+
+                    ex.printStackTrace();
+
+                    error.setText(ex.getSimpleMessage());
+                }
+
+
             }
         });
         bconnect.setBounds(475,700,100,50);
@@ -122,9 +139,9 @@ public class GUILogin {
 
 
         //Logo
-        ImageIcon icon = new ImageIcon(CARPETA + File.separator+ "hospitalex ikero.png");
-        ImageIcon us = new ImageIcon(CARPETA + File.separator+ "username.png");
-        ImageIcon pw = new ImageIcon(CARPETA + File.separator+ "password.png");
+        ImageIcon icon = new ImageIcon(CARPETA + "hospitalex ikero.png");
+        ImageIcon us = new ImageIcon(CARPETA + "username.png");
+        ImageIcon pw = new ImageIcon(CARPETA + "password.png");
 
         luserlogo = new JLabel();
         luserpassword = new JLabel();
@@ -147,20 +164,5 @@ public class GUILogin {
         window.add(userpanel);
         window.setVisible(true);
 
-    }
-    public JComboBox getPersonas() {
-        return personas;
-    }
-
-    public void setPersonas(JComboBox personas) {
-        this.personas = personas;
-    }
-
-    public JLabel getError() {
-        return error;
-    }
-
-    public void setError(JLabel error) {
-        this.error = error;
     }
 }

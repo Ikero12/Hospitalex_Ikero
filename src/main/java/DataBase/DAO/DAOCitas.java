@@ -20,7 +20,7 @@ public class DAOCitas {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
 
             PreparedStatement ps = conn.prepareStatement("INSERT INTO Citas VALUES(?,?,?,?,?,?)");
             ps.setInt(1,c.getIdCita());
@@ -34,7 +34,7 @@ public class DAOCitas {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
     }
@@ -49,7 +49,7 @@ public class DAOCitas {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
 
             PreparedStatement ps = conn.prepareStatement("DELETE FROM Citas WHERE IdCita=?");
             ps.setInt(1, p.getIdCita());
@@ -58,7 +58,7 @@ public class DAOCitas {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
     }
@@ -72,7 +72,7 @@ public class DAOCitas {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
 
             PreparedStatement ps = conn.prepareStatement("UPDATE Citas SET DNI_Medico=?, DNI_Paciente=?, Fecha=?, Tipo=?, Anotacion=? WHERE IdCita=?");
             ps.setString(1,c.getDniMedico());
@@ -86,7 +86,7 @@ public class DAOCitas {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
     }
 
@@ -101,7 +101,7 @@ public class DAOCitas {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
 
             ResultSet result = conn.createStatement().executeQuery("SELECT * FROM Citas");
 
@@ -118,7 +118,7 @@ public class DAOCitas {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
         return list;
@@ -136,7 +136,7 @@ public class DAOCitas {
 
         try {
 
-            Connection conn = DBConnection.getConn();
+            Connection conn = DBConnection.getInstance().openConn();
 
             PreparedStatement platform = conn.prepareStatement("SELECT * FROM Citas WHERE IdCita=?");
             platform.setString(1,idCita);
@@ -153,7 +153,7 @@ public class DAOCitas {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBConnection.closeConn();
+            DBConnection.getInstance().closeConn();
         }
 
         return c;
