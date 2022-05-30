@@ -8,6 +8,9 @@ public class Pacientes extends Personas {
     private String Enfermedad;
     private String FechaMuerte;
 
+    public Pacientes() {
+    }
+
     public Pacientes(String dni, String contrasenha, String nombre, String apellidos, String fechaNacimiento, String numeroSeguridadSocial, String enfermedad, String fechaMuerte) {
         super(dni, contrasenha, nombre, apellidos, fechaNacimiento);
         NumeroSeguridadSocial = numeroSeguridadSocial;

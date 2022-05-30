@@ -6,6 +6,9 @@ public class Medicos extends Empleados {
 
     private String campo;
 
+    public Medicos() {
+    }
+
     public Medicos(String dni, String contrasenha, String nombre, String apellidos, String fechaNacimiento, String numeroEmpleado, String campo) {
         super(dni, contrasenha, nombre, apellidos, fechaNacimiento, numeroEmpleado);
         this.campo = campo;

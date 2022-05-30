@@ -7,6 +7,9 @@ public class Personas {
     private String apellidos;
     private String fechaNacimiento;
 
+    public Personas() {
+    }
+
     public Personas(String dni, String contrasenha, String nombre, String apellidos, String fechaNacimiento) {
         this.dni = dni;
         this.contrasenha = contrasenha;
