@@ -141,7 +141,7 @@ public class DAOMedicos {
                         result.getString("Apellidos"),
                         result.getString("FechaNacimiento"),
                         result.getString("NumeroEmpleado"),
-                        result.getString("Planta"));
+                        result.getString("Campo"));
 
         } catch (SQLException e) {
             e.printStackTrace();

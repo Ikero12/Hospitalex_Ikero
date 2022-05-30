@@ -2,8 +2,6 @@ package GUI;
 
 import logIn.LogIn;
 import logIn.exceptions.AppException;
-import logIn.exceptions.IncorrectPasswordException;
-import logIn.exceptions.NoUserFoundException;
 
 import javax.swing.*;
 import javax.swing.event.AncestorEvent;

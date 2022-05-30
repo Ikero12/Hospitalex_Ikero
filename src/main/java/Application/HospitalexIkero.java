@@ -1,13 +1,14 @@
 package Application;
 
-
-import DataBase.DAO.DAOPacientes;
-import DataBase.DAO.DAOPersonas;
-import DataBase.DVO.Pacientes;
 import GUI.*;
+import logIn.LogIn;
+
 
 public class HospitalexIkero {
     public static void main(String[] args) {
+
+
+        if (!LogIn.tryLogin(LogIn.getSavedUser())) new GUILogin();
 
 
     }
