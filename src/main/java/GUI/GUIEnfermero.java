@@ -100,7 +100,20 @@ public class GUIEnfermero extends GUIUsuario{
 
         //endregion
 
+        //regionPanel Info
 
+        getInfo().add(nombre);
+        getInfo().add(apellidos);
+        getInfo().add(fechaNacimiento);
+        getInfo().add(planta);
+        getInfo().add(dni);
+        getInfo().add(actualnombre);
+        getInfo().add(actualapellidos);
+        getInfo().add(actualfechaNacimiento);
+        getInfo().add(actualplanta);
+        getInfo().add(actualdni);
+
+        //endregion
 
         //Tabs
         tabsEnfermero = new JTabbedPane();

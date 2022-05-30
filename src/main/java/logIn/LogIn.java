@@ -6,6 +6,8 @@ import DataBase.DAO.DAOPacientes;
 import DataBase.DVO.Enfermeros;
 import DataBase.DVO.Medicos;
 import DataBase.DVO.Pacientes;
+import GUI.GUILogin;
+import logIn.exceptions.AppException;
 import logIn.exceptions.IncorrectPasswordException;
 import logIn.exceptions.NoUserFoundException;
 import logIn.user.IUsuario;
@@ -14,6 +16,7 @@ import logIn.user.UserMedico;
 import logIn.user.UserPaciente;
 
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -59,6 +62,17 @@ public class LogIn {
         setSavedUser(usuario,isUserRemembered);
 
         usuario.openProfile();
+    }
+
+    public static void disconnect(JFrame usuario){
+        String[]opciones = {"Si","No"};
+        int disc = JOptionPane.showOptionDialog(null,"Estás seguro de que quieres desconectarte?",
+                "Hospitalex Ikero", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, opciones, opciones[1]);
+        if (disc==0) {
+            usuario.dispose();
+            setSavedUser(new UserPaciente(), true);
+            new GUILogin();
+        }
     }
 
     public static String[] getSavedUser() {

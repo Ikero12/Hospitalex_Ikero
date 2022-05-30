@@ -104,7 +104,20 @@ public class GUIMedico extends GUIUsuario{
 
         //endregion
 
+        //regionPanel Info
 
+        getInfo().add(nombre);
+        getInfo().add(apellidos);
+        getInfo().add(fechaNacimiento);
+        getInfo().add(campo);
+        getInfo().add(dni);
+        getInfo().add(actualnombre);
+        getInfo().add(actualapellidos);
+        getInfo().add(actualfechaNacimiento);
+        getInfo().add(actualcampo);
+        getInfo().add(actualdni);
+
+        //endregion
 
         //regionTabs
         tabsMedico = new JTabbedPane();

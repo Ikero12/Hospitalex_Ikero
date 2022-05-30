@@ -51,7 +51,7 @@ public class GUIPaciente extends GUIUsuario {
         fechaNacimiento = new JLabel("Fecha de Nacimiento: ");
         enfermedad = new JLabel("Enfermedad: ");
         numeroSS = new JLabel("Nº Seguridad Social: ");
-        dni = new JLabel();
+        dni = new JLabel("DNI: ");
 
 
         nombre.setFont(general);
@@ -64,34 +64,34 @@ public class GUIPaciente extends GUIUsuario {
 
         nombre.setBounds(20,20,150,20);
         apellidos.setBounds(20,60,150,20);
-        fechaNacimiento.setBounds(20,100,220,20);
+        fechaNacimiento.setBounds(20,100,280,20);
         dni.setBounds(20,140,150,20);
         numeroSS.setBounds(20,180,290,23);
-        enfermedad.setBounds(20,220,150,20);
+        enfermedad.setBounds(20,220,170,20);
 
 
         actualnombre = new JLabel(paciente.getNombre());
         actualapellidos = new JLabel(paciente.getApellidos());
         actualfechaNacimiento = new JLabel(paciente.getFechaNacimiento());
-        actualenfermedad = new JLabel(paciente.getEnfermedad());
-        actualnumeroSS = new JLabel(paciente.getNumeroSeguridadSocial());
         actualdni = new JLabel(paciente.getDni());
+        actualnumeroSS = new JLabel(paciente.getNumeroSeguridadSocial());
+        actualenfermedad = new JLabel(paciente.getEnfermedad());
 
 
         actualnombre.setFont(general);
         actualapellidos.setFont(general);
         actualfechaNacimiento.setFont(general);
-        actualenfermedad.setFont(general);
-        actualnumeroSS.setFont(general);
         actualdni.setFont(general);
+        actualnumeroSS.setFont(general);
+        actualenfermedad.setFont(general);
 
 
-        actualnombre.setBounds(50,20,150,20);
-        actualapellidos.setBounds(50,60,150,20);
-        actualfechaNacimiento.setBounds(50,100,220,20);
-        actualdni.setBounds(50,140,150,20);
-        actualnumeroSS.setBounds(50,180,290,23);
-        actualenfermedad.setBounds(50,220,150,20);
+        actualnombre.setBounds(350,20,150,20);
+        actualapellidos.setBounds(350,60,150,20);
+        actualfechaNacimiento.setBounds(350,100,220,20);
+        actualdni.setBounds(350,140,150,20);
+        actualnumeroSS.setBounds(350,180,290,23);
+        actualenfermedad.setBounds(350,220,150,20);
 
 
 
@@ -100,18 +100,22 @@ public class GUIPaciente extends GUIUsuario {
 
 
 
-        //Panel Info
+        //regionPanel Info
 
         getInfo().add(nombre);
         getInfo().add(apellidos);
         getInfo().add(fechaNacimiento);
-        getInfo().add(enfermedad);
-        getInfo().add(numeroSS);
         getInfo().add(dni);
+        getInfo().add(numeroSS);
+        getInfo().add(enfermedad);
+        getInfo().add(actualnombre);
+        getInfo().add(actualapellidos);
+        getInfo().add(actualfechaNacimiento);
+        getInfo().add(actualenfermedad);
+        getInfo().add(actualnumeroSS);
+        getInfo().add(actualdni);
 
-
-
-
+        //endregion
 
         //regionTabs
         tabsPaciente = new JTabbedPane();

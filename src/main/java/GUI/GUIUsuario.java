@@ -1,5 +1,7 @@
 package GUI;
 
+import logIn.LogIn;
+
 import javax.swing.*;
 
 import java.awt.*;
@@ -62,16 +64,11 @@ public class GUIUsuario {
         desconexion.setFocusPainted(true);
         desconexion.setBorderPainted(false);
         desconexion.setIcon(disconnectIcon);
+
         desconexion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String[]opciones = {"Si","No"};
-                int disc = JOptionPane.showOptionDialog(null,"Estás seguro de que quieres desconectarte?",
-                        "Hospitalex Ikero", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, opciones, opciones[0]);
-                if (disc==0) {
-                    usuario.dispose();
-                    new GUILogin();
-                }
+                LogIn.disconnect(usuario);
             }
         });
         bg.add(desconexion);
