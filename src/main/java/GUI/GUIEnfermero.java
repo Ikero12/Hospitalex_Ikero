@@ -64,14 +64,13 @@ public class GUIEnfermero extends GUIUsuario{
         apellidos.setFont(general);
         fechaNacimiento.setFont(general);
         planta.setFont(general);
-
         dni.setFont(general);
 
 
 
         nombre.setBounds(20,20,150,20);
         apellidos.setBounds(20,60,150,20);
-        fechaNacimiento.setBounds(20,100,220,20);
+        fechaNacimiento.setBounds(20,100,290,20);
         dni.setBounds(20,140,150,20);
         planta.setBounds(20,180,290,23);
 
@@ -89,11 +88,11 @@ public class GUIEnfermero extends GUIUsuario{
         actualdni.setFont(general);
 
 
-        actualnombre.setBounds(50,20,150,20);
-        actualapellidos.setBounds(50,60,150,20);
-        actualfechaNacimiento.setBounds(50,100,220,20);
-        actualdni.setBounds(50,140,150,20);
-        actualplanta.setBounds(50,180,290,23);
+        actualnombre.setBounds(350,20,150,20);
+        actualapellidos.setBounds(350,60,150,20);
+        actualfechaNacimiento.setBounds(350,100,220,20);
+        actualdni.setBounds(350,140,150,20);
+        actualplanta.setBounds(350,180,290,23);
 
 
 

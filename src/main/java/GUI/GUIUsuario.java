@@ -57,11 +57,11 @@ public class GUIUsuario {
         //regionButtons
         ImageIcon disconnectIcon = new ImageIcon(CARPETA + File.separator + "disconnect.png");
         desconexion = new JButton();
-        desconexion.setBounds(30,5,50,50);
+        desconexion.setBounds(20,18,28,28);
         desconexion.setOpaque(false);
         desconexion.setCursor(new Cursor(Cursor.HAND_CURSOR));
         desconexion.setContentAreaFilled(false);
-        desconexion.setFocusPainted(true);
+        desconexion.setFocusPainted(false);
         desconexion.setBorderPainted(false);
         desconexion.setIcon(disconnectIcon);
 
