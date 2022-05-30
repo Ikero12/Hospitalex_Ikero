@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LogIn {
@@ -48,6 +49,9 @@ public class LogIn {
                 if (enfermeros ==null) throw new NoUserFoundException("[DNI:" + dni + ".Not found in database]");
                 usuario = new UserEnfermero(enfermeros) ;
             }
+            default -> {
+                throw new NoUserFoundException("[DNI:" + dni + ".Not found in database]");
+            }
         }
 
         if (!contrasenha.equals(usuario.getContrasenha())) throw new IncorrectPasswordException("[Try another password]");
@@ -63,9 +67,13 @@ public class LogIn {
 
         String logInData=null;
 
+        File savedCredentials=new File(FILE_PATH);
+
+        if(!savedCredentials.exists()) return null;
+
         try {
 
-            sc = new Scanner(new File(FILE_PATH));
+            sc = new Scanner(savedCredentials);
 
             if (sc.hasNextLine()) logInData=sc.next();
 
@@ -76,9 +84,29 @@ public class LogIn {
         }finally {
             sc.close();
         }
+
+
+
+        if (null==logInData) return null;
         return logInData.split("-",3);
 
     }
+
+    public static boolean tryLogin(String[] userData){
+
+        if(userData==null) return false;
+
+        try {
+            logIn(userData[0],userData[1],userData[2],true);
+        }catch(AppException ex){
+            ex.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+
 
     public static void setSavedUser(IUsuario usuario, Boolean isUserRemembered) {
 
@@ -89,7 +117,7 @@ public class LogIn {
 
             fileWriter = new FileWriter(FILE_PATH);
 
-            fileWriter.write(usuario.getDni() + "-" + usuario.getContrasenha() + "-" + usuario.getClass().getSimpleName());
+            fileWriter.write(usuario.getDni() + "-" + usuario.getContrasenha() + "-" +usuario.getTipoClase());
 
         } catch (FileNotFoundException ex) {
 

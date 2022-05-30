@@ -18,4 +18,9 @@ public class UserEnfermero extends Enfermeros implements IUsuario {
     public void openProfile() {
         new GUIEnfermero(this);
     }
+
+    @Override
+    public String getTipoClase() {
+        return "Enfermeria";
+    }
 }

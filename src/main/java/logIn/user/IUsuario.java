@@ -5,5 +5,6 @@ public interface IUsuario {
     public void openProfile();
     public String getDni();
     public String getContrasenha();
+    public String getTipoClase();
 
 }

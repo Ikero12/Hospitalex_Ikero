@@ -19,4 +19,9 @@ public class UserMedico extends Medicos implements IUsuario  {
         new GUIMedico(this);
     }
 
+    @Override
+    public String getTipoClase() {
+        return "Medicina";
+    }
+
 }
