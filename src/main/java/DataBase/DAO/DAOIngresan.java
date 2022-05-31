@@ -1,7 +1,7 @@
 package DataBase.DAO;
 
 import DataBase.DBConnection;
-import DataBase.DVO.Cuidan;
+import DataBase.DVO.Ingresan;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,27 +9,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class DAOCuidan {
+public class DAOIngresan {
 
 
     /**
      * Inserta en la base de datos los datos del ingreso
      *
-     * @param c Ingreso cuyos datos quieren añadirse
+     * @param i Ingreso cuyos datos quieren añadirse
      */
-    public void insert(Cuidan c) {
+    public void insert(Ingresan i) {
 
         try {
 
             Connection conn = DBConnection.getInstance().openConn();
 
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO Cuidan VALUES(?,?,?,?,?,?)");
-            ps.setInt(1,c.getIdCuidan());
-            ps.setString(2,c.getDniEnfermero());
-            ps.setString(3,c.getDniPaciente());
-            ps.setString(4,c.getFechaIngreso());
-            ps.setString(5,c.getFechaAlta());
-            ps.setString(6,c.getPlanta());
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Ingresan(DNI_Paciente,Nombre_Planta,FechaIngreso,FechaAlta) VALUES(?,?,?,?)");
+            ps.setString(1,i.getNombrePlanta());
+            ps.setString(2,i.getDniPaciente());
+            ps.setString(3,i.getFechaIngreso());
+            ps.setString(4,i.getFechaAlta());
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -45,15 +43,15 @@ public class DAOCuidan {
      *
      * @param p Ingreso del que se quiere eliminar los datos
      */
-    public void delete(Cuidan p) {
+    public void delete(Ingresan p) {
 
 
         try {
 
             Connection conn = DBConnection.getInstance().openConn();
 
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM Cuidan WHERE IdCuidan=?");
-            ps.setInt(1, p.getIdCuidan());
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM Ingresan WHERE IdIngreso=?");
+            ps.setInt(1, p.getIdIngresan());
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -67,21 +65,20 @@ public class DAOCuidan {
     /**
      * Actualiza los datos del ingreso en la base de datos
      *
-     * @param c Ingreso de la que se quiere actualizar los datos
+     * @param i Ingreso de la que se quiere actualizar los datos
      */
-    public void update(Cuidan c) {
+    public void update(Ingresan i) {
 
         try {
 
             Connection conn = DBConnection.getInstance().openConn();
 
-            PreparedStatement ps = conn.prepareStatement("UPDATE Cuidan SET DNI_Medico=?, DNI_Paciente=?, Fecha=?, Tipo=?, Anotacion=? WHERE IdCuidan=?");
-            ps.setString(1,c.getDniEnfermero());
-            ps.setString(2,c.getDniPaciente());
-            ps.setString(3,c.getFechaIngreso());
-            ps.setString(4,c.getFechaAlta());
-            ps.setString(5,c.getPlanta());
-            ps.setInt(6,c.getIdCuidan());
+            PreparedStatement ps = conn.prepareStatement("UPDATE Ingresan SET DNI_Paciente=?, Nombre_Planta=?, FechaIngreso=?, FechaAlta=? WHERE IdIngreso=?");
+            ps.setString(1,i.getDniPaciente());
+            ps.setString(2,i.getNombrePlanta());
+            ps.setString(3,i.getFechaIngreso());
+            ps.setString(4,i.getFechaAlta());
+            ps.setInt(5,i.getIdIngresan());
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -96,24 +93,23 @@ public class DAOCuidan {
      *
      * @return ArrayList de ingresos
      */
-    public ArrayList<Cuidan> select() {
+    public ArrayList<Ingresan> select() {
 
-        ArrayList<Cuidan> list = new ArrayList<Cuidan>();
+        ArrayList<Ingresan> list = new ArrayList<Ingresan>();
 
         try {
 
             Connection conn = DBConnection.getInstance().openConn();
 
-            ResultSet result = conn.createStatement().executeQuery("SELECT * FROM Cuidan");
+            ResultSet result = conn.createStatement().executeQuery("SELECT * FROM Ingresan");
 
             while (result.next()) {
 
-                list.add(new Cuidan(result.getInt("IdCuidan"),
-                        result.getString("DNI_Enfermero"),
+                list.add(new Ingresan(result.getInt("IdIngreso"),
                         result.getString("DNI_Paciente"),
+                        result.getString("Nombre_Planta"),
                         result.getString("FechaIngreso"),
-                        result.getString("FechaAlta"),
-                        result.getString("Planta")));
+                        result.getString("FechaAlta")));
             }
 
         } catch (SQLException e) {
@@ -128,28 +124,27 @@ public class DAOCuidan {
 
     /**
      * Busca el ingreso que tenga el ID del ingreso pasado por parametro
-     * @param idCuidan ID del ingreso
+     * @param idIngreso ID del ingreso
      * @return El ingresos con el ID del ingreso si existe, sino null
      */
-    public Cuidan get(int idCuidan) {
+    public Ingresan get(int idIngreso) {
 
-        Cuidan c = null;
+        Ingresan c = null;
 
         try {
 
             Connection conn = DBConnection.getInstance().openConn();
 
-            PreparedStatement platform = conn.prepareStatement("SELECT * FROM Cuidan WHERE IdCuidan=?");
-            platform.setInt(1,idCuidan);
+            PreparedStatement platform = conn.prepareStatement("SELECT * FROM Ingresan WHERE IdIngreso=?");
+            platform.setInt(1,idIngreso);
             ResultSet result = platform.executeQuery();
 
             if (result.next())
-                c = new Cuidan(result.getInt("IdCuidan"),
-                        result.getString("DNI_Enfermero"),
+                c = new Ingresan(result.getInt("IdIngreso"),
                         result.getString("DNI_Paciente"),
+                        result.getString("Nombre_Planta"),
                         result.getString("FechaIngreso"),
-                        result.getString("FechaAlta"),
-                        result.getString("Planta"));
+                        result.getString("FechaAlta"));
 
         } catch (SQLException e) {
             e.printStackTrace();

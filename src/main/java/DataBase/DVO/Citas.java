@@ -7,19 +7,17 @@ public class Citas {
     private String dniPaciente;
     private String fecha;
     private String tipo;
-    private String anotacion;
 
     public Citas() {
 
     }
 
-    public Citas(int idCita, String dniMedico, String dniPaciente, String fecha, String tipo, String anotacion) {
+    public Citas(int idCita, String dniMedico, String dniPaciente, String fecha, String tipo) {
         this.idCita = idCita;
         this.dniMedico = dniMedico;
         this.dniPaciente = dniPaciente;
         this.fecha = fecha;
         this.tipo = tipo;
-        this.anotacion = anotacion;
     }
 
     public int getIdCita() {
@@ -62,11 +60,4 @@ public class Citas {
         this.tipo = tipo;
     }
 
-    public String getAnotacion() {
-        return anotacion;
-    }
-
-    public void setAnotacion(String anotacion) {
-        this.anotacion = anotacion;
-    }
 }

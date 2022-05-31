@@ -22,13 +22,11 @@ public class DAOCitas {
 
             Connection conn = DBConnection.getInstance().openConn();
 
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO Citas VALUES(?,?,?,?,?,?)");
-            ps.setInt(1,c.getIdCita());
-            ps.setString(2,c.getDniMedico());
-            ps.setString(3,c.getDniPaciente());
-            ps.setString(4,c.getFecha());
-            ps.setString(5,c.getTipo());
-            ps.setString(6,c.getAnotacion());
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Citas(DNI_Medico,DNI_Paciente,Fecha,Tipo) VALUES(?,?,?,?)");
+            ps.setString(1,c.getDniMedico());
+            ps.setString(2,c.getDniPaciente());
+            ps.setString(3,c.getFecha());
+            ps.setString(4,c.getTipo());
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -74,13 +72,12 @@ public class DAOCitas {
 
             Connection conn = DBConnection.getInstance().openConn();
 
-            PreparedStatement ps = conn.prepareStatement("UPDATE Citas SET DNI_Medico=?, DNI_Paciente=?, Fecha=?, Tipo=?, Anotacion=? WHERE IdCita=?");
+            PreparedStatement ps = conn.prepareStatement("UPDATE Citas SET DNI_Medico=?, DNI_Paciente=?, Fecha=?, Tipo=? WHERE IdCita=?");
             ps.setString(1,c.getDniMedico());
             ps.setString(2,c.getDniPaciente());
             ps.setString(3,c.getFecha());
             ps.setString(4,c.getTipo());
-            ps.setString(5,c.getAnotacion());
-            ps.setInt(6,c.getIdCita());
+            ps.setInt(5,c.getIdCita());
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -111,8 +108,7 @@ public class DAOCitas {
                         result.getString("DNI_Medico"),
                         result.getString("DNI_Paciente"),
                         result.getString("Fecha"),
-                        result.getString("Tipo"),
-                        result.getString("Anotacion")));
+                        result.getString("Tipo")));
             }
 
         } catch (SQLException e) {
@@ -147,8 +143,7 @@ public class DAOCitas {
                         result.getString("DNI_Medico"),
                         result.getString("DNI_Paciente"),
                         result.getString("Fecha"),
-                        result.getString("Tipo"),
-                        result.getString("Anotacion"));
+                        result.getString("Tipo"));
 
         } catch (SQLException e) {
             e.printStackTrace();
