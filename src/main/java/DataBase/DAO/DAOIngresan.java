@@ -3,10 +3,8 @@ package DataBase.DAO;
 import DataBase.DBConnection;
 import DataBase.DVO.Ingresan;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class DAOIngresan {
@@ -24,8 +22,8 @@ public class DAOIngresan {
             Connection conn = DBConnection.getInstance().openConn();
 
             PreparedStatement ps = conn.prepareStatement("INSERT INTO Ingresan(DNI_Paciente,Nombre_Planta,FechaIngreso,FechaAlta) VALUES(?,?,?,?)");
-            ps.setString(1,i.getNombrePlanta());
-            ps.setString(2,i.getDniPaciente());
+            ps.setString(1,i.getDniPaciente());
+            ps.setString(2,i.getNombrePlanta());
             ps.setString(3,i.getFechaIngreso());
             ps.setString(4,i.getFechaAlta());
             ps.executeUpdate();
@@ -129,7 +127,7 @@ public class DAOIngresan {
      */
     public Ingresan get(int idIngreso) {
 
-        Ingresan c = null;
+        Ingresan i = null;
 
         try {
 
@@ -140,7 +138,7 @@ public class DAOIngresan {
             ResultSet result = platform.executeQuery();
 
             if (result.next())
-                c = new Ingresan(result.getInt("IdIngreso"),
+                i = new Ingresan(result.getInt("IdIngreso"),
                         result.getString("DNI_Paciente"),
                         result.getString("Nombre_Planta"),
                         result.getString("FechaIngreso"),
@@ -152,10 +150,62 @@ public class DAOIngresan {
             DBConnection.getInstance().closeConn();
         }
 
-        return c;
+        return i;
 
     }
 
+    /**
+     *
+     * @param dni
+     * @param date
+     */
+    public void updateByPatient(String dni,String date) {
+
+        try {
+
+            Connection conn = DBConnection.getInstance().openConn();
+
+            PreparedStatement ps = conn.prepareStatement("UPDATE Ingresan SET  FechaAlta=? WHERE IdIngreso= (select max(IdIngreso) from Ingresan WHERE DNI_Paciente=?)");
+            ps.setString(1,date);
+            ps.setString(2,dni);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBConnection.getInstance().closeConn();
+        }
+    }
+
+    /**
+     *
+     * @param dni
+     * @return
+     */
+    public String getAlta(String dni) {
+
+        String fechaAlta = null;
+
+        try {
+
+            Connection conn = DBConnection.getInstance().openConn();
+
+            PreparedStatement platform = conn.prepareStatement("SELECT FechaAlta FROM Ingresan WHERE IdIngreso= (select max(IdIngreso) from Ingresan WHERE DNI_Paciente=?)");
+            platform.setString(1,dni);
+            ResultSet result = platform.executeQuery();
+
+            if (result.next())
+                fechaAlta = result.getString("FechaAlta");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBConnection.getInstance().closeConn();
+        }
+
+        return fechaAlta;
+
+    }
 
 
 
