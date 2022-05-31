@@ -18,7 +18,7 @@ public class UserPaciente extends Pacientes implements IUsuario  {
 
     @Override
     public void openProfile() {
-        new GUIPaciente(this);
+        new GUIPaciente(this,false);
     }
 
     @Override

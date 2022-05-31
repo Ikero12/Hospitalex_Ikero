@@ -18,7 +18,7 @@ public class GUIUsuario {
     private JLabel logo = new JLabel();
     private JLabel titulo = new JLabel("Hospitalex Ikero");
     private JLabel background = new JLabel();
-    private JButton desconexion;
+    private JButton desconexion = new JButton();
 
     private final String CARPETA = "src/main/resources/imagenes/".replace("/", File.separator);
 
@@ -30,7 +30,7 @@ public class GUIUsuario {
         //region Frame
         usuario.setSize(920, 920);
         usuario.setResizable(false);
-        usuario.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        usuario.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         usuario.setLayout(null);
         usuario.setLocationRelativeTo(null);
 
@@ -56,7 +56,6 @@ public class GUIUsuario {
 
         //regionButtons
         ImageIcon disconnectIcon = new ImageIcon(CARPETA + File.separator + "disconnect.png");
-        desconexion = new JButton();
         desconexion.setBounds(20,18,28,28);
         desconexion.setOpaque(false);
         desconexion.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -92,6 +91,14 @@ public class GUIUsuario {
     public void addToUsuario(JComponent x) {
         bg.add(x);
         usuario.add(bg);
+    }
+
+    public JButton getDesconexion() {
+        return desconexion;
+    }
+
+    public void setDesconexion(JButton desconexion) {
+        this.desconexion = desconexion;
     }
 
     public JPanel getInfo() {

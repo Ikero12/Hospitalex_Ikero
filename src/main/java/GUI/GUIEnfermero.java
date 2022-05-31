@@ -1,9 +1,12 @@
 package GUI;
 
 import DataBase.DVO.Enfermeros;
+import gestionDatos.BusquedaPaciente;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -25,6 +28,24 @@ public class GUIEnfermero extends GUIUsuario{
                 busqueda.setText("");
             }
         });
+        busqueda.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int keycode = e.getKeyCode();
+                if (keycode == KeyEvent.VK_ENTER){
+                    new BusquedaPaciente(busqueda.getText());
+                }
+            }
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+
         busqueda.setBounds(720,400,150,20);
         busqueda.setFont(new Font("Sans-Serif",Font.PLAIN,12));
 
