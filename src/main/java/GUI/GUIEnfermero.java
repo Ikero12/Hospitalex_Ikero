@@ -37,7 +37,7 @@ public class GUIEnfermero extends GUIUsuario{
             public void keyPressed(KeyEvent e) {
                 int keycode = e.getKeyCode();
                 if (keycode == KeyEvent.VK_ENTER){
-                    new BusquedaPaciente(busqueda.getText());
+                    new BusquedaPaciente(busqueda.getText(),busqueda);
                 }
             }
             @Override
