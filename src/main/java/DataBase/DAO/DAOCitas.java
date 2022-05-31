@@ -155,5 +155,64 @@ public class DAOCitas {
 
     }
 
+    public ArrayList<Citas> selectByMedic(String dni) {
+
+        ArrayList<Citas> list = new ArrayList<Citas>();
+
+        try {
+
+            Connection conn = DBConnection.getInstance().openConn();
+
+            PreparedStatement platform = conn.prepareStatement("SELECT * FROM Citas WHERE DNI_Medico=? order by Fecha desc");
+            platform.setString(1,dni);
+            ResultSet result = platform.executeQuery();
+            while (result.next()) {
+
+                list.add(new Citas(result.getInt("IdCita"),
+                        result.getString("DNI_Medico"),
+                        result.getString("DNI_Paciente"),
+                        result.getString("Fecha"),
+                        result.getString("Tipo")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBConnection.getInstance().closeConn();
+        }
+
+        return list;
+
+    }
+
+    public ArrayList<Citas> selectByPatient(String dni) {
+
+        ArrayList<Citas> list = new ArrayList<Citas>();
+
+        try {
+
+            Connection conn = DBConnection.getInstance().openConn();
+
+            PreparedStatement platform = conn.prepareStatement("SELECT * FROM Citas WHERE DNI_Paciente=? order by Fecha desc");
+            platform.setString(1,dni);
+            ResultSet result = platform.executeQuery();
+            while (result.next()) {
+
+                list.add(new Citas(result.getInt("IdCita"),
+                        result.getString("DNI_Medico"),
+                        result.getString("DNI_Paciente"),
+                        result.getString("Fecha"),
+                        result.getString("Tipo")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBConnection.getInstance().closeConn();
+        }
+
+        return list;
+
+    }
 
 }

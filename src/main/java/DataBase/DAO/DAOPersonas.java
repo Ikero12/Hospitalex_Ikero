@@ -156,4 +156,35 @@ public class DAOPersonas {
 
     }
 
+
+    /**
+     *
+     * @param DNI
+     * @return
+     */
+    public String getCompleteName(String DNI) {
+
+        String name = null;
+
+        try {
+
+            Connection conn = DBConnection.getInstance().openConn();
+
+            PreparedStatement platform = conn.prepareStatement("SELECT * FROM Personas WHERE DNI=?");
+            platform.setString(1,DNI);
+            ResultSet result = platform.executeQuery();
+
+            if (result.next())
+               name = result.getString("Nombre")+" "+result.getString("Apellidos");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBConnection.getInstance().closeConn();
+        }
+
+        return name;
+
+    }
+
 }
