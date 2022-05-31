@@ -11,7 +11,7 @@ public class GUIEnfermero extends GUIUsuario{
     private JPanel ingresos,anotaciones,anhadir;
     private JTextField busqueda = new JTextField("Buscar paciente");
     private JTabbedPane tabsEnfermero;
-    private JLabel  lingresos,lanotaciones,lanhadir;
+    private JLabel  lingresos;
     private Enfermeros enfermero;
     private Font general;
     private JLabel nombre,apellidos,fechaNacimiento,planta,dni;
@@ -32,10 +32,7 @@ public class GUIEnfermero extends GUIUsuario{
         //Labels
         lingresos = new JLabel("Ingresos");
         lingresos.setFont(new Font("Sans-Serif",Font.BOLD,15));
-        lanotaciones = new JLabel("Anotaciones");
-        lanotaciones.setFont(new Font("Sans-Serif",Font.BOLD,15));
-        lanhadir = new JLabel("Añadir");
-        lanhadir.setFont(new Font("Sans-Serif",Font.BOLD,15));
+
 
 
         //Panels
@@ -119,12 +116,8 @@ public class GUIEnfermero extends GUIUsuario{
         tabsEnfermero.setBounds(50,400,820,450);
 
         tabsEnfermero.add(ingresos);
-        tabsEnfermero.add(anotaciones);
-        tabsEnfermero.add(anhadir);
 
         tabsEnfermero.setTabComponentAt(0,lingresos);
-        tabsEnfermero.setTabComponentAt(1,lanotaciones);
-        tabsEnfermero.setTabComponentAt(2,lanhadir);
 
 
         addToUsuario(busqueda);

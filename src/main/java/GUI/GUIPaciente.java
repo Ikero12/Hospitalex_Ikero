@@ -8,9 +8,9 @@ import java.awt.*;
 
 public class GUIPaciente extends GUIUsuario {
 
-    private JPanel citas,anotaciones,pedir;
+    private JPanel citas,pedir;
     private JTabbedPane tabsPaciente;
-    private JLabel  lcitas,lanotaciones,lpedir;
+    private JLabel  lcitas,lpedir;
     private JLabel nombre,apellidos,fechaNacimiento,enfermedad,numeroSS,dni;
     private JLabel actualnombre,actualapellidos,actualfechaNacimiento,actualenfermedad,actualnumeroSS,actualdni;
     private Font general;
@@ -23,9 +23,6 @@ public class GUIPaciente extends GUIUsuario {
         //Citas
         citas = new JPanel();
         citas.setLayout(null);
-        //Anotaciones
-        anotaciones = new JPanel();
-        anotaciones.setLayout(null);
         //Añadir
         pedir = new JPanel();
         pedir.setLayout(null);
@@ -37,8 +34,6 @@ public class GUIPaciente extends GUIUsuario {
         //region LabelsTABS
         lcitas = new JLabel("Citas");
         lcitas.setFont(new Font("Sans-Serif",Font.BOLD,15));
-        lanotaciones = new JLabel("Anotaciones");
-        lanotaciones.setFont(new Font("Sans-Serif",Font.BOLD,15));
         lpedir = new JLabel("Pedir cita");
         lpedir.setFont(new Font("Sans-Serif",Font.BOLD,15));
         //endregion
@@ -121,12 +116,10 @@ public class GUIPaciente extends GUIUsuario {
         tabsPaciente = new JTabbedPane();
         tabsPaciente.setBounds(50,400,820,450);
         tabsPaciente.add(citas);
-        tabsPaciente.add(anotaciones);
         tabsPaciente.add(pedir);
 
         tabsPaciente.setTabComponentAt(0,lcitas);
-        tabsPaciente.setTabComponentAt(1,lanotaciones);
-        tabsPaciente.setTabComponentAt(2,lpedir);
+        tabsPaciente.setTabComponentAt(1,lpedir);
         //endregion
 
         addToUsuario(tabsPaciente);
