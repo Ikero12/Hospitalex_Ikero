@@ -182,20 +182,24 @@ public class DAOIngresan {
      * @param dni
      * @return
      */
-    public String getAlta(String dni) {
+    public Ingresan getAlta(String dni) {
 
-        String fechaAlta = null;
+        Ingresan i = null;
 
         try {
 
             Connection conn = DBConnection.getInstance().openConn();
 
-            PreparedStatement platform = conn.prepareStatement("SELECT FechaAlta FROM Ingresan WHERE IdIngreso= (select max(IdIngreso) from Ingresan WHERE DNI_Paciente=?)");
+            PreparedStatement platform = conn.prepareStatement("SELECT * FROM Ingresan WHERE IdIngreso= (select max(IdIngreso) from Ingresan WHERE DNI_Paciente=?)");
             platform.setString(1,dni);
             ResultSet result = platform.executeQuery();
 
             if (result.next())
-                fechaAlta = result.getString("FechaAlta");
+                i = new Ingresan(result.getInt("IdIngreso"),
+                        result.getString("DNI_Paciente"),
+                        result.getString("Nombre_Planta"),
+                        result.getString("FechaIngreso"),
+                        result.getString("FechaAlta"));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -203,7 +207,7 @@ public class DAOIngresan {
             DBConnection.getInstance().closeConn();
         }
 
-        return fechaAlta;
+        return i;
 
     }
 

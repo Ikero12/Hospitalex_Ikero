@@ -21,8 +21,9 @@ public class Ingresos {
             //Comprueba que el paciente existe
             if (new DAOPacientes().get(dni)==null) throw new NoPatientFound(dni);
             //Comprueba si el paciente ya esta ingresdo
-            if (null==new DAOIngresan().getAlta(dni)) throw new PatientHospitalized(dni);
-            //Comprueba si la planta donde intentas ingresar al paciente ya existe
+            Ingresan ingresan=new DAOIngresan().getAlta(dni);
+            if (null==ingresan.getFechaAlta() && null!=ingresan.getFechaIngreso()) throw new PatientHospitalized(dni);
+            //Comprueba si la planta donde intentas ingresar al paciente existe
             if (new DAOPlanta().get(planta)==null) throw new NoSectionFound(planta);
 
             new DAOIngresan().insert(new Ingresan(0, planta, dni,
