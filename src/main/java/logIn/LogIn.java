@@ -56,7 +56,7 @@ public class LogIn {
             }
         }
 
-        if (!contrasenha.equals(usuario.getContrasenha())) throw new IncorrectPasswordException("[Try another password]");
+        if (Password.isSamePassword(contrasenha,usuario.getContrasenha())) throw new IncorrectPasswordException("[Try another password]");
 
         setSavedUser(usuario,isUserRemembered);
 

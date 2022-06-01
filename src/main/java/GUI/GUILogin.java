@@ -82,7 +82,7 @@ public class GUILogin {
 
                 try {
 
-                    LogIn.logIn(tfdni.getText(),pfpw.getText(),opciones[personas.getSelectedIndex()],isUserRemembered);
+                    LogIn.logIn(tfdni.getText(),pfpw.getPassword().toString(),opciones[personas.getSelectedIndex()],isUserRemembered);
                     window.setVisible(false);
 
                 } catch (AppException ex) {
