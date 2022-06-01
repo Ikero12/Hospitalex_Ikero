@@ -4,11 +4,12 @@ import DataBase.DAO.DAOPacientes;
 import DataBase.DVO.Medicos;
 import gestionDatos.BusquedaPaciente;
 
-import javax.swing.;
-import java.awt.;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 import gestionDatos.Ingresos;
+import gestionDatos.añadirPaciente;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,7 +27,9 @@ public class GUIMedico extends GUIUsuario{
     private Font general;
     private JLabel nombre,apellidos,fechaNacimiento,campo,dni;
     private JLabel actualnombre,actualapellidos,actualfechaNacimiento,actualcampo,actualdni;
+
     private JButton ingresar,darAlta;
+
 
     public GUIMedico(Medicos medico) {
 
@@ -118,6 +121,7 @@ public class GUIMedico extends GUIUsuario{
         //Añadir
         anhadir = new JPanel();
         anhadir.setLayout(null);
+        anhadir.add(añadirPaciente.añadirPaciente());
 
         //Busqueda de pacientes
 
@@ -166,6 +170,18 @@ public class GUIMedico extends GUIUsuario{
         actualfechaNacimiento.setBounds(350,100,220,20);
         actualdni.setBounds(350,140,150,20);
         actualcampo.setBounds(350,180,290,23);
+
+
+
+
+        //endregion
+
+        //regionAñadirPaciente
+        JLabel añadirDNI = new JLabel("DNI: ");
+        JLabel añadirNombre = new JLabel("Añadir Nombre");
+        JLabel añadirApellido = new JLabel("Apellido");
+        JLabel añadirFechaNacimiento = new JLabel("Fecha de Nacimiento");
+        JLabel añadirContraseña = new JLabel("Contraseña:");
 
 
 
