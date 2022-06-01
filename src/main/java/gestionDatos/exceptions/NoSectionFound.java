@@ -2,7 +2,7 @@ package gestionDatos.exceptions;
 
 public class NoSectionFound extends AppException{
     public NoSectionFound(String details) {
-        super("Error: La planta que especificada no existe. [Planta:"+details+"]");
+        super("Error: La planta especificada no existe. [Planta:"+details+"]");
     }
 
     @Override

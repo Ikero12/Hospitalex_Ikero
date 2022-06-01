@@ -9,6 +9,7 @@ import gestionDatos.exceptions.NoPatientFound;
 import gestionDatos.exceptions.NoSectionFound;
 import gestionDatos.exceptions.PatientHospitalized;
 
+import javax.swing.*;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
@@ -22,7 +23,7 @@ public class Ingresos {
             if (new DAOPacientes().get(dni)==null) throw new NoPatientFound(dni);
             //Comprueba si el paciente ya esta ingresdo
             Ingresan ingresan=new DAOIngresan().getAlta(dni);
-            if (null==ingresan.getFechaAlta() && null!=ingresan.getFechaIngreso()) throw new PatientHospitalized(dni);
+            if (isPacienteIngresado(ingresan)) throw new PatientHospitalized(dni);
             //Comprueba si la planta donde intentas ingresar al paciente existe
             if (new DAOPlanta().get(planta)==null) throw new NoSectionFound(planta);
 
@@ -30,7 +31,9 @@ public class Ingresos {
                     new SimpleDateFormat("yyyy-MM-dd").format(new Timestamp(System.currentTimeMillis())),
                     null));
         }catch(AppException ex){
+            JOptionPane.showMessageDialog(null,ex.getSimpleMessage(),"Hospitalex Ikero",JOptionPane.WARNING_MESSAGE);
             ex.printStackTrace();
+
         }
 
     }
@@ -48,9 +51,16 @@ public class Ingresos {
 
         }catch(AppException ex){
             ex.printStackTrace();
-
+            JOptionPane.showMessageDialog(null,ex.getSimpleMessage(),"Hospitalex Ikero",JOptionPane.WARNING_MESSAGE);
         }
 
+
+    }
+
+    public static boolean isPacienteIngresado(Ingresan ingresan){
+        if (ingresan==null) return false;
+
+        return null==ingresan.getFechaAlta() && null!=ingresan.getFechaIngreso();
 
     }
 
