@@ -2,11 +2,14 @@ package GUI;
 
 import DataBase.DAO.DAOPacientes;
 import DataBase.DVO.Medicos;
-import gestionDatos.Ingresos;
-import gestionDatos.exceptions.AppException;
+import gestionDatos.BusquedaPaciente;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.;
+import java.awt.;
+import java.awt.event.*;
+
+import gestionDatos.Ingresos;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -32,6 +35,25 @@ public class GUIMedico extends GUIUsuario{
             @Override
             public void mouseClicked(MouseEvent e) {
                 busqueda.setText("");
+            }
+        });
+        busqueda.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int keycode = e.getKeyCode();
+                if (keycode == KeyEvent.VK_ENTER){
+                    new BusquedaPaciente(busqueda.getText(),busqueda);
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
             }
         });
         busqueda.setBounds(720,400,150,20);

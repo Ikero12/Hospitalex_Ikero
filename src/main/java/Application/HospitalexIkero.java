@@ -1,5 +1,7 @@
 package Application;
 
+import DataBase.DVO.Enfermeros;
+import DataBase.DVO.Medicos;
 import GUI.*;
 import gestionDatos.Ingresos;
 import logIn.LogIn;
