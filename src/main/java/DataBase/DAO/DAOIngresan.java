@@ -156,8 +156,77 @@ public class DAOIngresan {
 
     }
 
+    /**
+     *
+     * @param dni
+     * @return
+     */
+    public ArrayList<Ingresan> selectbyPatient(String dni) {
 
+        ArrayList<Ingresan> list = new ArrayList<Ingresan>();
 
+        try {
+
+            Connection conn = DBConnection.getInstance().openConn();
+
+            PreparedStatement platform = conn.prepareStatement("SELECT * FROM Ingresan where DNI_Paciente=? ");
+            platform.setString(1,dni);
+            ResultSet result = platform.executeQuery();
+
+            while (result.next()) {
+
+                list.add(new Ingresan(result.getInt("IdIngreso"),
+                        result.getString("DNI_Paciente"),
+                        result.getString("Nombre_Planta"),
+                        result.getString("FechaIngreso"),
+                        result.getString("FechaAlta")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBConnection.getInstance().closeConn();
+        }
+
+        return list;
+
+    }
+
+    /**
+     *
+     * @param planta
+     * @return
+     */
+    public ArrayList<Ingresan> selectbyEnfermero(String planta) {
+
+        ArrayList<Ingresan> list = new ArrayList<Ingresan>();
+
+        try {
+
+            Connection conn = DBConnection.getInstance().openConn();
+
+            PreparedStatement platform = conn.prepareStatement("SELECT * FROM Ingresan where Nombre_Planta=? ");
+            platform.setString(1,planta);
+            ResultSet result = platform.executeQuery();
+
+            while (result.next()) {
+
+                list.add(new Ingresan(result.getInt("IdIngreso"),
+                        result.getString("DNI_Paciente"),
+                        result.getString("Nombre_Planta"),
+                        result.getString("FechaIngreso"),
+                        result.getString("FechaAlta")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBConnection.getInstance().closeConn();
+        }
+
+        return list;
+
+    }
 
 
 }

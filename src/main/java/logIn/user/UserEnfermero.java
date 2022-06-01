@@ -1,5 +1,6 @@
 package logIn.user;
 
+import DataBase.DAO.DAOIngresan;
 import DataBase.DVO.Citas;
 import DataBase.DVO.Enfermeros;
 import DataBase.DVO.Ingresan;
@@ -36,7 +37,8 @@ public class UserEnfermero extends Enfermeros implements IUsuario {
 
     @Override
     public ArrayList<Ingresan> getUserIngresos() {
-        return null;
+
+        return new DAOIngresan().selectbyEnfermero(this.getPlanta());
     }
 
 }
