@@ -7,9 +7,9 @@ import DataBase.DVO.Enfermeros;
 import DataBase.DVO.Medicos;
 import DataBase.DVO.Pacientes;
 import GUI.GUILogin;
-import logIn.exceptions.AppException;
-import logIn.exceptions.IncorrectPasswordException;
-import logIn.exceptions.NoUserFoundException;
+import gestionDatos.exceptions.AppException;
+import gestionDatos.exceptions.IncorrectPasswordException;
+import gestionDatos.exceptions.NoUserFoundException;
 import logIn.user.IUsuario;
 import logIn.user.UserEnfermero;
 import logIn.user.UserMedico;
@@ -21,7 +21,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LogIn {

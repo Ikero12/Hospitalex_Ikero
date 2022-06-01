@@ -1,7 +1,7 @@
 package GUI;
 
 import logIn.LogIn;
-import logIn.exceptions.AppException;
+import gestionDatos.exceptions.AppException;
 
 import javax.swing.*;
 import javax.swing.event.AncestorEvent;

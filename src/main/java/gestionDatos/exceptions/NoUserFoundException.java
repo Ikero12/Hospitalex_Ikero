@@ -1,4 +1,4 @@
-package logIn.exceptions;
+package gestionDatos.exceptions;
 
 public class NoUserFoundException extends AppException {
 
