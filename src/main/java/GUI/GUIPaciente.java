@@ -2,6 +2,7 @@ package GUI;
 
 import DataBase.DAO.DAOPacientes;
 import DataBase.DVO.Pacientes;
+import gestionDatos.PedirCita;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +18,7 @@ public class GUIPaciente extends GUIUsuario {
     private Pacientes paciente;
 
     public GUIPaciente(Pacientes paciente,boolean isSearched){
-
+        this.paciente=paciente;
 
         //regionPanels
         //Citas
@@ -26,6 +27,7 @@ public class GUIPaciente extends GUIUsuario {
         //Añadir
         pedir = new JPanel();
         pedir.setLayout(null);
+        pedir.add(PedirCita.PanelPedirCita());
         //endregion
 
 
@@ -150,5 +152,13 @@ public class GUIPaciente extends GUIUsuario {
 
     public GUIPaciente() {
 
+    }
+
+    public Pacientes getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Pacientes paciente) {
+        this.paciente = paciente;
     }
 }
