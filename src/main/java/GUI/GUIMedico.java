@@ -4,8 +4,8 @@ import DataBase.DAO.DAOPacientes;
 import DataBase.DVO.Medicos;
 import gestionDatos.BusquedaPaciente;
 
-import javax.swing.;
-import java.awt.;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 import gestionDatos.Ingresos;

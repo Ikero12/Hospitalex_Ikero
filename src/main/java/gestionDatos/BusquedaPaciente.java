@@ -3,7 +3,7 @@ package gestionDatos;
 import DataBase.DAO.DAOPacientes;
 import DataBase.DVO.Pacientes;
 import GUI.GUIPaciente;
-import logIn.exceptions.NoUserFoundException;
+
 
 import javax.swing.*;
 import java.awt.*;
