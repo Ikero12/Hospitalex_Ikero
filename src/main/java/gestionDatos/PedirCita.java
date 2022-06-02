@@ -111,6 +111,10 @@ public class PedirCita {
                                 ,JOptionPane.WARNING_MESSAGE);
                         break;
                     }else{
+                        JOptionPane.showMessageDialog(panelPedirCita
+                                ,"Cita pedida Satisfactoriamente"
+                                ,"Hospitalex Iker"
+                                ,JOptionPane.INFORMATION_MESSAGE);
                         citas.insert(cita);
                         break;
                     }
