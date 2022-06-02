@@ -1,17 +1,24 @@
 package gestionDatos;
 
+import DataBase.DAO.DAOCitas;
+import DataBase.DAO.DAOMedicos;
+import DataBase.DVO.Citas;
+import DataBase.DVO.Medicos;
 import GUI.GUIPaciente;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 
 public class PedirCita {
 
     private static final String CARPETA = "src/main/resources/imagenes/".replace("/", File.separator);
 
 
-    private JComboBox pedirTipo;
+
     public static JPanel PanelPedirCita(){
         //Declaración de componentes
         Font general = new Font("Sans-Serif",Font.BOLD,18);
@@ -19,10 +26,11 @@ public class PedirCita {
 
         String [] tipos = {"Psicologia","Traumatologia","Consulta",};
         JComboBox pedirTipo = new JComboBox(tipos);
-        JLabel pedirFecha = new JLabel("Introducir Fecha(yyyy-mm-dd): ");
+        JLabel pedirFecha = new JLabel("Introducir Fecha(yyyy/mm/dd): ");
         JLabel pedirDni = new JLabel("Introduzca su DNI: ");
         JLabel pedirtipo= new JLabel("Tipo de cita: ");
         JLabel labelBg = new JLabel();
+        JButton pedirCita = new JButton("Pedir cita");
         JTextField escribirFecha = new JTextField();
         JTextField escribirDni = new JTextField();
 
@@ -43,10 +51,10 @@ public class PedirCita {
         //Instancia de componentes
 
 
-        pedirFecha.setBounds(20,20,370,20);
-        pedirDni.setBounds(20,60,200,20);
-        pedirtipo.setBounds(20,100,190,22);
-        pedirTipo.setBounds(400,100,320,32);
+        pedirFecha.setBounds(40,20,370,22);
+        pedirDni.setBounds(40,60,200,22);
+        pedirtipo.setBounds(40,100,190,22);
+        pedirTipo.setBounds(440,100,320,32);
 
         pedirFecha.setFont(general);
         pedirTipo.setFont(general);
@@ -55,30 +63,74 @@ public class PedirCita {
 
 
 
-        escribirDni.setBounds(400,60,600,20);
-        escribirFecha.setBounds(400,20,320,20);
+        escribirDni.setBounds(440,60,320,20);
+        escribirFecha.setBounds(440,20,320,20);
 
         escribirDni.setFont(general2);
         escribirFecha.setFont(general2);
 
 
 
+        pedirCita.setBounds(345,350,150,60);
+        pedirCita.setFont(general);
 
 
 
-
-
+        //regionAdd
         panelPedirCita.add(escribirDni);
         panelPedirCita.add(escribirFecha);
         panelPedirCita.add(pedirFecha);
         panelPedirCita.add(pedirDni);
         panelPedirCita.add(pedirTipo);
         panelPedirCita.add(pedirtipo);
+        panelPedirCita.add(pedirCita);
+        //endregion
+
+
+        //regionConfigBoton
+        pedirCita.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                DAOCitas citas = new DAOCitas();
+
+                //Es necesario tener una cita añadida previamente sino no funciona.
+                Citas cita = new Citas(citas.select().get(citas.select().size()-1).getIdCita()+1
+                        ,RandomMedico()
+                        ,escribirDni.getText()
+                        ,escribirFecha.getText()
+                        ,tipos[pedirTipo.getSelectedIndex()]);
 
 
 
+                for(int i=0;i<citas.select().size();i++){
+                    if(cita.getFecha().equals(citas.select().get(i).getFecha())){
+                        JOptionPane.showMessageDialog(panelPedirCita
+                                ,"La fecha escogida ya está ocupada"
+                                ,"Hospitalex Iker"
+                                ,JOptionPane.WARNING_MESSAGE);
+                        break;
+                    }else{
+                        citas.insert(cita);
+                        break;
+                    }
+                }
+
+            }
+        });
+        //endregion
 
         panelPedirCita.add(labelBg);
         return panelPedirCita;
     }
+
+    public static String RandomMedico(){
+
+        int numRandom = (int)(Math.random()*new DAOMedicos().select().size());
+        String random = new DAOMedicos().select().get(numRandom).getDni();
+
+        return random;
+    }
+
+
 }
