@@ -2,6 +2,7 @@ package GUI;
 
 import logIn.LogIn;
 import gestionDatos.exceptions.AppException;
+import logIn.Password;
 
 import javax.swing.*;
 import javax.swing.event.AncestorEvent;
@@ -80,9 +81,9 @@ public class GUILogin {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                try {
+                try{
 
-                    LogIn.logIn(tfdni.getText(),pfpw.getPassword().toString(),opciones[personas.getSelectedIndex()],isUserRemembered);
+                    LogIn.logIn(tfdni.getText(),pfpw.getText(),opciones[personas.getSelectedIndex()],isUserRemembered);
                     window.setVisible(false);
 
                 } catch (AppException ex) {
