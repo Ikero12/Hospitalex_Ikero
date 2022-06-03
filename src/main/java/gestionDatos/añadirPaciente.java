@@ -98,7 +98,7 @@ public class añadirPaciente {
                 DAOPersonas daope = new DAOPersonas();
                 DAOPacientes daopa = new DAOPacientes();
 
-                Pacientes pa = new Pacientes(escribirDNI.getText(),escribirContraseña.getText(),escribirNombre.getText()
+                Pacientes pa = new Pacientes(escribirDNI.getText(),Password.hashPassword(escribirContraseña.getText());,escribirNombre.getText()
                         ,escribirApellido.getText(),escribirFechaNacimiento.getText(),escribirNSS.getText()
                         ,escribirEnfermedad.getText(),escribirFechaMuerte.getText());
 
