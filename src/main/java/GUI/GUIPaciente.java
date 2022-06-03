@@ -2,6 +2,7 @@ package GUI;
 
 
 import DataBase.DVO.Pacientes;
+import logIn.Password;
 import gestionDatos.CrearTabla;
 import gestionDatos.PedirCita;
 
@@ -9,14 +10,19 @@ import logIn.user.UserPaciente;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GUIPaciente extends GUIUsuario {
 
     private JPanel citas,pedir,ingresos;
     private JTabbedPane tabsPaciente;
     private JLabel  lcitas,lpedir,lingresos;
-    private JLabel nombre,apellidos,fechaNacimiento,enfermedad,numeroSS,dni;
-    private JLabel actualnombre,actualapellidos,actualfechaNacimiento,actualenfermedad,actualnumeroSS,actualdni;
+    private JLabel nombre,apellidos,fechaNacimiento,enfermedad,numeroSS,dni,fechaMuerte;
+    private JLabel actualnombre,actualapellidos,actualfechaNacimiento,actualenfermedad,actualnumeroSS,actualdni,actualfechaMuerte;
+    private JButton cambiarContrasenha;
+
+
     private Font general;
     private Pacientes paciente;
 
@@ -40,7 +46,6 @@ public class GUIPaciente extends GUIUsuario {
         ingresos.add(tabla2);
 
         //Citas
-
         this.paciente=paciente;
         citas=new JPanel();
         citas.setLayout(null);
@@ -55,6 +60,17 @@ public class GUIPaciente extends GUIUsuario {
         pedir.add(PedirCita.PanelPedirCita(this));
         //endregion
 
+        //regionButtons
+        cambiarContrasenha = new JButton("Cambiar contraseña");
+        cambiarContrasenha.setBounds(705,400,165,20);
+        cambiarContrasenha.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Password.changePassword(paciente,GUIPaciente.super.getInfo());
+            }
+        });
+
+        //endregion
 
 
         //Labels
@@ -76,7 +92,11 @@ public class GUIPaciente extends GUIUsuario {
         enfermedad = new JLabel("Enfermedad: ");
         numeroSS = new JLabel("Nº Seguridad Social: ");
         dni = new JLabel("DNI: ");
+        fechaMuerte = new JLabel();
 
+        if(paciente.getFechaMuerte()!=null){
+            fechaMuerte = new JLabel("Fecha de muerte: ");
+        }
 
         nombre.setFont(general);
         apellidos.setFont(general);
@@ -84,7 +104,7 @@ public class GUIPaciente extends GUIUsuario {
         enfermedad.setFont(general);
         numeroSS.setFont(general);
         dni.setFont(general);
-
+        fechaMuerte.setFont(general);
 
         nombre.setBounds(20,20,150,20);
         apellidos.setBounds(20,60,150,20);
@@ -92,7 +112,7 @@ public class GUIPaciente extends GUIUsuario {
         dni.setBounds(20,140,150,20);
         numeroSS.setBounds(20,180,290,23);
         enfermedad.setBounds(20,220,170,20);
-
+        fechaMuerte.setBounds(20,260,200,20);
 
         actualnombre = new JLabel(paciente.getNombre());
         actualapellidos = new JLabel(paciente.getApellidos());
@@ -100,6 +120,7 @@ public class GUIPaciente extends GUIUsuario {
         actualdni = new JLabel(paciente.getDni());
         actualnumeroSS = new JLabel(paciente.getNumeroSeguridadSocial());
         actualenfermedad = new JLabel(paciente.getEnfermedad());
+        actualfechaMuerte = new JLabel(paciente.getFechaMuerte());
 
 
         actualnombre.setFont(general);
@@ -108,7 +129,7 @@ public class GUIPaciente extends GUIUsuario {
         actualdni.setFont(general);
         actualnumeroSS.setFont(general);
         actualenfermedad.setFont(general);
-
+        actualfechaMuerte.setFont(general);
 
         actualnombre.setBounds(350,20,150,20);
         actualapellidos.setBounds(350,60,150,20);
@@ -116,10 +137,12 @@ public class GUIPaciente extends GUIUsuario {
         actualdni.setBounds(350,140,150,20);
         actualnumeroSS.setBounds(350,180,290,23);
         actualenfermedad.setBounds(350,220,150,20);
+        actualfechaMuerte.setBounds(350,260,200,20);
 
 
 
         //endregion
+
 
 
 
@@ -132,12 +155,16 @@ public class GUIPaciente extends GUIUsuario {
         getInfo().add(dni);
         getInfo().add(numeroSS);
         getInfo().add(enfermedad);
+        getInfo().add(fechaMuerte);
         getInfo().add(actualnombre);
         getInfo().add(actualapellidos);
         getInfo().add(actualfechaNacimiento);
         getInfo().add(actualenfermedad);
         getInfo().add(actualnumeroSS);
         getInfo().add(actualdni);
+        getInfo().add(actualfechaMuerte);
+
+
 
         //endregion
 
@@ -163,6 +190,8 @@ public class GUIPaciente extends GUIUsuario {
         }
 
 
+        //endregion
+        addToUsuario(cambiarContrasenha);
         addToUsuario(tabsPaciente);
         GUIUsuario();
     }

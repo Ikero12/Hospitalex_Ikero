@@ -1,11 +1,6 @@
 package Application;
 
-import DataBase.DVO.Enfermeros;
-import DataBase.DVO.Medicos;
-import DataBase.DVO.Pacientes;
 import GUI.*;
-import gestionDatos.Ingresos;
-import gestionDatos.PedirCita;
 import logIn.LogIn;
 
 

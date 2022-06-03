@@ -2,11 +2,19 @@ package GUI;
 
 import DataBase.DVO.Medicos;
 import gestionDatos.BusquedaPaciente;
-import gestionDatos.CrearTabla;
-import logIn.user.UserMedico;
 
 import javax.swing.*;
 import java.awt.*;
+
+import gestionDatos.CrearTabla;
+import logIn.user.UserMedico;
+import DataBase.DAO.DAOPacientes;
+import gestionDatos.Ingresos;
+import logIn.Password;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -23,6 +31,7 @@ public class GUIMedico extends GUIUsuario{
     private Font general;
     private JLabel nombre,apellidos,fechaNacimiento,campo,dni;
     private JLabel actualnombre,actualapellidos,actualfechaNacimiento,actualcampo,actualdni;
+    private JButton ingresar,darAlta,cambiarContrasenha;
 
 
     public GUIMedico(Medicos medico) {
@@ -37,6 +46,58 @@ public class GUIMedico extends GUIUsuario{
         busqueda.setBounds(720,400,150,20);
         busqueda.setFont(new Font("Sans-Serif",Font.PLAIN,12));
 
+        //regionButton
+        darAlta = new JButton("Dar el alta");
+        ingresar = new JButton("Ingresar");
+        cambiarContrasenha = new JButton("Cambiar contraseña");
+
+        cambiarContrasenha.setBounds(235,400,165,20);
+        darAlta.setBounds(570,400,130,20);
+        ingresar.setBounds(420,400,130,20);
+        ingresar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String dni = null;
+                String planta = null;
+                try{
+                        dni = JOptionPane.showInputDialog(ingresar,"Introduzca el dni del paciente a ingresar","Hospitalex Ikero", JOptionPane.QUESTION_MESSAGE);
+                        planta = JOptionPane.showInputDialog(new DAOPacientes().get(dni).getNombre()
+                                + " " + new DAOPacientes().get(dni).getApellidos()
+                                + " es el paciente a ingresar.\n"
+                                + "En que planta será ingresado?");
+                    }catch(NullPointerException x){
+                        x.printStackTrace();
+                }finally {
+                        Ingresos.ingresarPaciente(dni,planta);
+                    }
+
+            }
+        });
+
+        darAlta.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String dni = JOptionPane.showInputDialog(darAlta,"Introducir DNI del paciente que se le dio el alta: ","Hospitalex Ikero", JOptionPane.QUESTION_MESSAGE);
+                Ingresos.darAltaPaciente(dni);
+            }
+        });
+
+        cambiarContrasenha.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Password.changePassword(medico,GUIMedico.super.getInfo());
+            }
+        });
+
+
+
+
+
+
+
+
+
+        //endregion
 
         //Labels
         lcitas = new JLabel("Citas");
@@ -160,8 +221,9 @@ public class GUIMedico extends GUIUsuario{
         tabsMedico.setTabComponentAt(0,lcitas);
         tabsMedico.setTabComponentAt(1,lanhadir);
 
-
-
+        addToUsuario(cambiarContrasenha);
+        addToUsuario(darAlta);
+        addToUsuario(ingresar);
         addToUsuario(busqueda);
         addToUsuario(tabsMedico);
         GUIUsuario();

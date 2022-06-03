@@ -13,8 +13,6 @@ import java.awt.*;
 public class BusquedaPaciente extends GUIPaciente {
     Pacientes pacienteBuscado;
     public BusquedaPaciente(String dniPaciente, Component parent) {
-
-
         pacienteBuscado =new DAOPacientes().get(dniPaciente);
         if (pacienteBuscado!=null) new GUIPaciente(pacienteBuscado,true);
 
