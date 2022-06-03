@@ -9,7 +9,5 @@ public class HospitalexIkero {
 
         if (!LogIn.tryLogin(LogIn.getSavedUser())) new GUILogin();
 
-
-
     }
 }

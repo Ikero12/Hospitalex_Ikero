@@ -1,18 +1,22 @@
 package GUI;
 
-import DataBase.DAO.DAOPacientes;
 import DataBase.DVO.Medicos;
 import gestionDatos.BusquedaPaciente;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
+import gestionDatos.CrearTabla;
+import logIn.user.UserMedico;
+import DataBase.DAO.DAOPacientes;
 import gestionDatos.Ingresos;
 import logIn.Password;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -29,6 +33,7 @@ public class GUIMedico extends GUIUsuario{
     private JLabel actualnombre,actualapellidos,actualfechaNacimiento,actualcampo,actualdni;
     private JButton ingresar,darAlta,cambiarContrasenha;
 
+
     public GUIMedico(Medicos medico) {
 
         //Barra de búsqueda
@@ -36,25 +41,6 @@ public class GUIMedico extends GUIUsuario{
             @Override
             public void mouseClicked(MouseEvent e) {
                 busqueda.setText("");
-            }
-        });
-        busqueda.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                int keycode = e.getKeyCode();
-                if (keycode == KeyEvent.VK_ENTER){
-                    new BusquedaPaciente(busqueda.getText(),busqueda);
-                }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-
             }
         });
         busqueda.setBounds(720,400,150,20);
@@ -123,12 +109,43 @@ public class GUIMedico extends GUIUsuario{
         //Citas
         citas = new JPanel();
         citas.setLayout(null);
+        citas.setBackground(Color.white);
+        JScrollPane tabla = new CrearTabla().createTable(new UserMedico(medico) ,"Citas");
+        tabla.setBounds(0,0,840,420);
+        citas.add(tabla);
         //Añadir
         anhadir = new JPanel();
         anhadir.setLayout(null);
 
         //Busqueda de pacientes
+        //Barra de búsqueda
+        busqueda.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                busqueda.setText("");
+            }
+        });
+        busqueda.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
 
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int keycode = e.getKeyCode();
+                if (keycode == KeyEvent.VK_ENTER){
+                    new BusquedaPaciente(busqueda.getText(),busqueda);
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+        busqueda.setBounds(720,400,150,20);
+        busqueda.setFont(new Font("Sans-Serif",Font.PLAIN,12));
 
         //regionLabelsInfo
         general = new Font("Sans-Serif",Font.BOLD,20);
@@ -194,14 +211,6 @@ public class GUIMedico extends GUIUsuario{
         getInfo().add(actualdni);
 
         //endregion
-
-
-        //regionAñadir
-
-
-
-        //endregion
-
 
         //regionTabs
         tabsMedico = new JTabbedPane();

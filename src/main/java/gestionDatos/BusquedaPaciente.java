@@ -17,7 +17,7 @@ public class BusquedaPaciente extends GUIPaciente {
         if (pacienteBuscado!=null) new GUIPaciente(pacienteBuscado,true);
 
         else{
-            JOptionPane.showMessageDialog(parent,new NoPatientFound(dniPaciente).getSimpleMessage(),
+            JOptionPane.showMessageDialog(parent,new NoPatientFound(dniPaciente),
                     "Hospitalex Ikero",JOptionPane.WARNING_MESSAGE);
         }
     }
