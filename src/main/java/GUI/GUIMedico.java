@@ -1,6 +1,8 @@
 package GUI;
 
 import DataBase.DVO.Medicos;
+import gestionDatos.CrearTabla;
+import logIn.user.UserMedico;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +20,7 @@ public class GUIMedico extends GUIUsuario{
     private Font general;
     private JLabel nombre,apellidos,fechaNacimiento,campo,dni;
     private JLabel actualnombre,actualapellidos,actualfechaNacimiento,actualcampo,actualdni;
+
 
     public GUIMedico(Medicos medico) {
 
@@ -42,6 +45,11 @@ public class GUIMedico extends GUIUsuario{
         //Citas
         citas = new JPanel();
         citas.setLayout(null);
+
+        JScrollPane tabla = new CrearTabla().createTable(new UserMedico(medico) ,"Citas");
+        tabla.setBounds(0,0,840,420);
+
+        citas.add(tabla);
         //Añadir
         anhadir = new JPanel();
         anhadir.setLayout(null);
