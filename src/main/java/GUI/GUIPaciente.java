@@ -3,6 +3,7 @@ package GUI;
 import DataBase.DAO.DAOPacientes;
 import DataBase.DVO.Pacientes;
 import gestionDatos.CrearTabla;
+import logIn.user.UserEnfermero;
 import logIn.user.UserMedico;
 import logIn.user.UserPaciente;
 
@@ -11,9 +12,9 @@ import java.awt.*;
 
 public class GUIPaciente extends GUIUsuario {
 
-    private JPanel citas,pedir;
+    private JPanel citas,pedir,ingresos;
     private JTabbedPane tabsPaciente;
-    private JLabel  lcitas,lpedir;
+    private JLabel  lcitas,lpedir,lingresos;
     private JLabel nombre,apellidos,fechaNacimiento,enfermedad,numeroSS,dni;
     private JLabel actualnombre,actualapellidos,actualfechaNacimiento,actualenfermedad,actualnumeroSS,actualdni;
     private Font general;
@@ -28,8 +29,15 @@ public class GUIPaciente extends GUIUsuario {
         citas.setLayout(null);
         citas.setBackground(Color.white);
         JScrollPane tabla = new CrearTabla().createTable(new UserPaciente(paciente),"Citas");
-        tabla.setBounds(0,0,840,420);
+        tabla.setBounds(0,0,820,420);
         citas.add(tabla);
+        //ingresos
+        ingresos = new JPanel();
+        ingresos.setLayout(null);
+        ingresos.setBackground(Color.white);
+        JScrollPane tabla2 = new CrearTabla().createTable(new UserPaciente(paciente),"Ingresos");
+        tabla2.setBounds(0,0,820,420);
+        ingresos.add(tabla2);
         //Añadir
         pedir = new JPanel();
         pedir.setLayout(null);
@@ -43,6 +51,8 @@ public class GUIPaciente extends GUIUsuario {
         lcitas.setFont(new Font("Sans-Serif",Font.BOLD,15));
         lpedir = new JLabel("Pedir cita");
         lpedir.setFont(new Font("Sans-Serif",Font.BOLD,15));
+        lingresos = new JLabel("Ingresos");
+        lingresos.setFont(new Font("Sans-Serif",Font.BOLD,15));
         //endregion
 
         //regionLabelsInfo
@@ -123,10 +133,13 @@ public class GUIPaciente extends GUIUsuario {
         tabsPaciente = new JTabbedPane();
         tabsPaciente.setBounds(50,400,820,450);
         tabsPaciente.add(citas);
+        tabsPaciente.add(ingresos);
         tabsPaciente.add(pedir);
 
+
         tabsPaciente.setTabComponentAt(0,lcitas);
-        tabsPaciente.setTabComponentAt(1,lpedir);
+        tabsPaciente.setTabComponentAt(1,lingresos);
+        tabsPaciente.setTabComponentAt(2,lpedir);
         //endregion
 
         addToUsuario(tabsPaciente);

@@ -30,8 +30,9 @@ public class CrearTabla {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
-        };
 
+        };
+        table.getTableHeader().setReorderingAllowed(false);
         return new JScrollPane(table);
 
     }
@@ -44,10 +45,10 @@ public class CrearTabla {
 
         for (int i=0;i<citas.size();i++){
 
-            data[i][1]=new DAOPersonas().getCompleteName(citas.get(i).getDniMedico());
-            data[i][2]=new DAOPersonas().getCompleteName(citas.get(i).getDniPaciente());
-            data[i][3]=citas.get(i).getTipo();
-            data[i][4]=citas.get(i).getFecha();
+            data[i][0]=new DAOPersonas().getCompleteName(citas.get(i).getDniMedico());
+            data[i][1]=new DAOPersonas().getCompleteName(citas.get(i).getDniPaciente());
+            data[i][2]=citas.get(i).getTipo();
+            data[i][3]=citas.get(i).getFecha();
         }
 
         return new DefaultTableModel(data, title);
@@ -58,7 +59,7 @@ public class CrearTabla {
         ArrayList<Ingresan> ingresos = usuario.getUserIngresos();
         String[] title = new String[]{"DNI", "Nombre", "Apellidos", "Dolencia", "Planta", "Piso", "Fecha Ingreso", "Fecha Alta"};
 
-        String[][] data= new String[ingresos.size()][4];
+        String[][] data= new String[ingresos.size()][8];
 
         Pacientes paciente;
         Planta planta;
@@ -68,14 +69,15 @@ public class CrearTabla {
             paciente= new DAOPacientes().get(ingresos.get(i).getDniPaciente());
             planta=new DAOPlanta().get(ingresos.get(i).getNombrePlanta());
 
-            data[i][1]=paciente.getDni();
-            data[i][2]=paciente.getNombre();
-            data[i][3]=paciente.getApellidos();
-            data[i][4]=paciente.getEnfermedad();
-            data[i][5]=planta.getNombre();
-            data[i][6]=Integer.toString(planta.getPiso());
-            data[i][7]=ingresos.get(i).getFechaIngreso();
-            data[i][8]=ingresos.get(i).getFechaAlta();
+            if (paciente ==null ||planta==null) break;
+            data[i][0]=paciente.getDni();
+            data[i][1]=paciente.getNombre();
+            data[i][2]=paciente.getApellidos();
+            data[i][3]=paciente.getEnfermedad();
+            data[i][4]=planta.getNombre();
+            data[i][5]=Integer.toString(planta.getPiso());
+            data[i][6]=ingresos.get(i).getFechaIngreso();
+            data[i][7]=ingresos.get(i).getFechaAlta();
         }
 
         return new DefaultTableModel(data, title);

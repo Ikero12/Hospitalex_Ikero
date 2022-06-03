@@ -44,7 +44,7 @@ public class GUIEnfermero extends GUIUsuario{
         ingresos.setLayout(null);
         ingresos.setBackground(Color.white);
         JScrollPane tabla = new CrearTabla().createTable(new UserEnfermero(enfermero),"Ingresos");
-        tabla.setBounds(0,0,840,420);
+        tabla.setBounds(0,0,820,420);
         ingresos.add(tabla);
         //Anotaciones
         anotaciones = new JPanel();
