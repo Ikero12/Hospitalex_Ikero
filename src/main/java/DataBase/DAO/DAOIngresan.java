@@ -24,10 +24,10 @@ public class DAOIngresan {
             Connection conn = DBConnection.getInstance().openConn();
 
             PreparedStatement ps = conn.prepareStatement("INSERT INTO Ingresan(DNI_Paciente,Nombre_Planta,FechaIngreso,FechaAlta) VALUES(?,?,?,?)");
-            ps.setString(1,i.getNombrePlanta());
-            ps.setString(2,i.getDniPaciente());
-            ps.setString(3,i.getFechaIngreso());
-            ps.setString(4,i.getFechaAlta());
+            ps.setString(1, i.getNombrePlanta());
+            ps.setString(2, i.getDniPaciente());
+            ps.setString(3, i.getFechaIngreso());
+            ps.setString(4, i.getFechaAlta());
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -74,11 +74,11 @@ public class DAOIngresan {
             Connection conn = DBConnection.getInstance().openConn();
 
             PreparedStatement ps = conn.prepareStatement("UPDATE Ingresan SET DNI_Paciente=?, Nombre_Planta=?, FechaIngreso=?, FechaAlta=? WHERE IdIngreso=?");
-            ps.setString(1,i.getDniPaciente());
-            ps.setString(2,i.getNombrePlanta());
-            ps.setString(3,i.getFechaIngreso());
-            ps.setString(4,i.getFechaAlta());
-            ps.setInt(5,i.getIdIngresan());
+            ps.setString(1, i.getDniPaciente());
+            ps.setString(2, i.getNombrePlanta());
+            ps.setString(3, i.getFechaIngreso());
+            ps.setString(4, i.getFechaAlta());
+            ps.setInt(5, i.getIdIngresan());
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -124,6 +124,7 @@ public class DAOIngresan {
 
     /**
      * Busca el ingreso que tenga el ID del ingreso pasado por parametro
+     *
      * @param idIngreso ID del ingreso
      * @return El ingresos con el ID del ingreso si existe, sino null
      */
@@ -136,7 +137,7 @@ public class DAOIngresan {
             Connection conn = DBConnection.getInstance().openConn();
 
             PreparedStatement platform = conn.prepareStatement("SELECT * FROM Ingresan WHERE IdIngreso=?");
-            platform.setInt(1,idIngreso);
+            platform.setInt(1, idIngreso);
             ResultSet result = platform.executeQuery();
 
             if (result.next())
@@ -157,7 +158,6 @@ public class DAOIngresan {
     }
 
     /**
-     *
      * @param dni
      * @return
      */
@@ -170,14 +170,14 @@ public class DAOIngresan {
             Connection conn = DBConnection.getInstance().openConn();
 
             PreparedStatement platform = conn.prepareStatement("SELECT * FROM Ingresan where DNI_Paciente=? ");
-            platform.setString(1,dni);
+            platform.setString(1, dni);
             ResultSet result = platform.executeQuery();
 
             while (result.next()) {
 
                 list.add(new Ingresan(result.getInt("IdIngreso"),
-                        result.getString("DNI_Paciente"),
                         result.getString("Nombre_Planta"),
+                        result.getString("DNI_Paciente"),
                         result.getString("FechaIngreso"),
                         result.getString("FechaAlta")));
             }
@@ -193,7 +193,6 @@ public class DAOIngresan {
     }
 
     /**
-     *
      * @param planta
      * @return
      */
@@ -206,7 +205,7 @@ public class DAOIngresan {
             Connection conn = DBConnection.getInstance().openConn();
 
             PreparedStatement platform = conn.prepareStatement("SELECT * FROM Ingresan where Nombre_Planta=? ");
-            platform.setString(1,planta);
+            platform.setString(1, planta);
             ResultSet result = platform.executeQuery();
 
             while (result.next()) {

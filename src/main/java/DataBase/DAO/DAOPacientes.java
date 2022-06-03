@@ -143,7 +143,7 @@ public class DAOPacientes {
 
             if (result.next())
                 pa = new Pacientes(result.getString("DNI"),
-                        result.getString("Contraseña"),
+                        result.getString("Contrasenha"),
                         result.getString("Nombre"),
                         result.getString("Apellidos"),
                         result.getString("FechaNacimiento"),
