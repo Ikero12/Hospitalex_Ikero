@@ -45,10 +45,9 @@ public class GUIMedico extends GUIUsuario{
         //Citas
         citas = new JPanel();
         citas.setLayout(null);
-
+        citas.setBackground(Color.white);
         JScrollPane tabla = new CrearTabla().createTable(new UserMedico(medico) ,"Citas");
         tabla.setBounds(0,0,840,420);
-
         citas.add(tabla);
         //Añadir
         anhadir = new JPanel();

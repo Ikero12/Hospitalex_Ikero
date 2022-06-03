@@ -2,6 +2,9 @@ package GUI;
 
 import DataBase.DAO.DAOPacientes;
 import DataBase.DVO.Pacientes;
+import gestionDatos.CrearTabla;
+import logIn.user.UserMedico;
+import logIn.user.UserPaciente;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,6 +26,10 @@ public class GUIPaciente extends GUIUsuario {
         //Citas
         citas = new JPanel();
         citas.setLayout(null);
+        citas.setBackground(Color.white);
+        JScrollPane tabla = new CrearTabla().createTable(new UserPaciente(paciente),"Citas");
+        tabla.setBounds(0,0,840,420);
+        citas.add(tabla);
         //Añadir
         pedir = new JPanel();
         pedir.setLayout(null);
