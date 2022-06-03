@@ -122,7 +122,7 @@ public class DAOEmpleados {
 
             if (result.next())
                 em = new Empleados(result.getString("DNI"),
-                        result.getString("Contraseña"),
+                        result.getString("Contrasenha"),
                         result.getString("Nombre"),
                         result.getString("Apellidos"),
                         result.getString("FechaNacimiento"),

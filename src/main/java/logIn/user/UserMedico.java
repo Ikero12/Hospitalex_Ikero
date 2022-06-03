@@ -1,15 +1,21 @@
 package logIn.user;
 
+import DataBase.DAO.DAOCitas;
+import DataBase.DAO.DAOPersonas;
+import DataBase.DVO.Citas;
+import DataBase.DVO.Ingresan;
 import DataBase.DVO.Medicos;
 import GUI.GUIMedico;
 
-public class UserMedico extends Medicos implements IUsuario  {
+import java.util.ArrayList;
 
-    public UserMedico(Medicos medicos){
+public class UserMedico extends Medicos implements IUsuario {
 
-        super(medicos.getDni(),medicos.getContrasenha(),
-                medicos.getNombre(),medicos.getApellidos(),
-                medicos.getFechaNacimiento(),medicos.getNumeroEmpleado(),
+    public UserMedico(Medicos medicos) {
+
+        super(medicos.getDni(), medicos.getContrasenha(),
+                medicos.getNombre(), medicos.getApellidos(),
+                medicos.getFechaNacimiento(), medicos.getNumeroEmpleado(),
                 medicos.getCampo());
     }
 
@@ -23,5 +29,16 @@ public class UserMedico extends Medicos implements IUsuario  {
     public String getTipoClase() {
         return "Medicina";
     }
+
+    @Override
+    public ArrayList<Citas> getUserCitas() {
+        return new DAOCitas().selectByMedic(this.getDni());
+    }
+
+    @Override
+    public ArrayList<Ingresan> getUserIngresos() {
+        return null;
+    }
+
 
 }

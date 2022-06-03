@@ -3,15 +3,17 @@ package gestionDatos;
 import DataBase.DAO.DAOCitas;
 import DataBase.DAO.DAOMedicos;
 import DataBase.DVO.Citas;
-import DataBase.DVO.Medicos;
+import DataBase.DVO.Pacientes;
 import GUI.GUIPaciente;
+import logIn.user.UserPaciente;
+
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
+
 
 public class PedirCita {
 
@@ -19,7 +21,7 @@ public class PedirCita {
 
 
 
-    public static JPanel PanelPedirCita(){
+    public static JPanel PanelPedirCita(GUIPaciente paciente){
         //Declaración de componentes
         Font general = new Font("Sans-Serif",Font.BOLD,18);
         Font general2 = new Font("Sans-Serif",Font.PLAIN,15);
@@ -42,8 +44,6 @@ public class PedirCita {
         labelBg.setIcon(bg);
         labelBg.setBounds(0,0,840,450);
         panelPedirCita.setBackground(Color.white);
-
-
 
 
 
@@ -116,6 +116,8 @@ public class PedirCita {
                                 ,"Hospitalex Iker"
                                 ,JOptionPane.INFORMATION_MESSAGE);
                         citas.insert(cita);
+
+                        paciente.setCitas();
                         break;
                     }
                 }

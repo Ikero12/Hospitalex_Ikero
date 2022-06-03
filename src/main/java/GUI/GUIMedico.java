@@ -1,17 +1,14 @@
 package GUI;
 
-import DataBase.DAO.DAOPacientes;
 import DataBase.DVO.Medicos;
 import gestionDatos.BusquedaPaciente;
+import gestionDatos.CrearTabla;
+import logIn.user.UserMedico;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-
-import gestionDatos.Ingresos;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -26,10 +23,40 @@ public class GUIMedico extends GUIUsuario{
     private Font general;
     private JLabel nombre,apellidos,fechaNacimiento,campo,dni;
     private JLabel actualnombre,actualapellidos,actualfechaNacimiento,actualcampo,actualdni;
-    private JButton ingresar,darAlta;
+
 
     public GUIMedico(Medicos medico) {
 
+        //Barra de búsqueda
+        busqueda.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                busqueda.setText("");
+            }
+        });
+        busqueda.setBounds(720,400,150,20);
+        busqueda.setFont(new Font("Sans-Serif",Font.PLAIN,12));
+
+
+        //Labels
+        lcitas = new JLabel("Citas");
+        lcitas.setFont(new Font("Sans-Serif",Font.BOLD,15));
+        lanhadir = new JLabel("Añadir");
+        lanhadir.setFont(new Font("Sans-Serif",Font.BOLD,15));
+
+        //Panels
+        //Citas
+        citas = new JPanel();
+        citas.setLayout(null);
+        citas.setBackground(Color.white);
+        JScrollPane tabla = new CrearTabla().createTable(new UserMedico(medico) ,"Citas");
+        tabla.setBounds(0,0,840,420);
+        citas.add(tabla);
+        //Añadir
+        anhadir = new JPanel();
+        anhadir.setLayout(null);
+
+        //Busqueda de pacientes
         //Barra de búsqueda
         busqueda.addMouseListener(new MouseAdapter() {
             @Override
@@ -58,69 +85,6 @@ public class GUIMedico extends GUIUsuario{
         });
         busqueda.setBounds(720,400,150,20);
         busqueda.setFont(new Font("Sans-Serif",Font.PLAIN,12));
-
-        //regionButton
-        darAlta = new JButton("Dar el alta");
-        ingresar = new JButton("Ingresar");
-
-        darAlta.setBounds(570,400,130,20);
-        ingresar.setBounds(420,400,130,20);
-        ingresar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String dni = null;
-                String planta = null;
-                try{
-                        dni = JOptionPane.showInputDialog(ingresar,"Introduzca el dni del paciente a ingresar","Hospitalex Ikero", JOptionPane.QUESTION_MESSAGE);
-                        planta = JOptionPane.showInputDialog(new DAOPacientes().get(dni).getNombre()
-                                + " " + new DAOPacientes().get(dni).getApellidos()
-                                + " es el paciente a ingresar.\n"
-                                + "En que planta será ingresado?");
-                    }catch(NullPointerException x){
-                        x.printStackTrace();
-                }finally {
-                        Ingresos.ingresarPaciente(dni,planta);
-                    }
-
-            }
-        });
-
-        darAlta.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String dni = JOptionPane.showInputDialog(darAlta,"Introducir DNI del paciente que se le dio el alta: ","Hospitalex Ikero", JOptionPane.QUESTION_MESSAGE);
-                Ingresos.darAltaPaciente(dni);
-            }
-        });
-
-
-
-
-
-
-
-
-
-
-
-        //endregion
-
-        //Labels
-        lcitas = new JLabel("Citas");
-        lcitas.setFont(new Font("Sans-Serif",Font.BOLD,15));
-        lanhadir = new JLabel("Añadir");
-        lanhadir.setFont(new Font("Sans-Serif",Font.BOLD,15));
-
-        //Panels
-        //Citas
-        citas = new JPanel();
-        citas.setLayout(null);
-        //Añadir
-        anhadir = new JPanel();
-        anhadir.setLayout(null);
-
-        //Busqueda de pacientes
-
 
         //regionLabelsInfo
         general = new Font("Sans-Serif",Font.BOLD,20);
@@ -187,14 +151,6 @@ public class GUIMedico extends GUIUsuario{
 
         //endregion
 
-
-        //regionAñadir
-
-
-
-        //endregion
-
-
         //regionTabs
         tabsMedico = new JTabbedPane();
         tabsMedico.setBounds(50,400,820,450);
@@ -204,8 +160,8 @@ public class GUIMedico extends GUIUsuario{
         tabsMedico.setTabComponentAt(0,lcitas);
         tabsMedico.setTabComponentAt(1,lanhadir);
 
-        addToUsuario(darAlta);
-        addToUsuario(ingresar);
+
+
         addToUsuario(busqueda);
         addToUsuario(tabsMedico);
         GUIUsuario();

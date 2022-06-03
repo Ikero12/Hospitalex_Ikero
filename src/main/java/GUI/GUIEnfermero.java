@@ -2,6 +2,9 @@ package GUI;
 
 import DataBase.DVO.Enfermeros;
 import gestionDatos.BusquedaPaciente;
+import gestionDatos.CrearTabla;
+import logIn.user.UserEnfermero;
+import logIn.user.UserMedico;
 
 import javax.swing.*;
 import java.awt.*;
@@ -60,6 +63,10 @@ public class GUIEnfermero extends GUIUsuario{
         //ingresos
         ingresos = new JPanel();
         ingresos.setLayout(null);
+        ingresos.setBackground(Color.white);
+        JScrollPane tabla = new CrearTabla().createTable(new UserEnfermero(enfermero),"Ingresos");
+        tabla.setBounds(0,0,820,420);
+        ingresos.add(tabla);
         //Anotaciones
         anotaciones = new JPanel();
         anotaciones.setLayout(null);
