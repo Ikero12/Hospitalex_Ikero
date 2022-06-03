@@ -1,7 +1,7 @@
 package DataBase.DAO;
 
+
 import DataBase.DBConnection;
-import DataBase.DVO.Citas;
 import DataBase.DVO.Planta;
 
 import java.sql.Connection;
@@ -16,7 +16,7 @@ public class DAOPlanta {
     /**
      * Inserta en la base de datos los datos de la Planta
      *
-     * @param c Cita cuyos datos quieren añadirse
+     * @param c Cita cuyos datos quieren aÃ±adirse
      */
     public void insert(Planta c) {
 

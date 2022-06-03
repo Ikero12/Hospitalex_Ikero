@@ -1,18 +1,28 @@
 package GUI;
 
-import DataBase.DAO.DAOPacientes;
 import DataBase.DVO.Medicos;
 import gestionDatos.BusquedaPaciente;
 
 import javax.swing.*;
 import java.awt.*;
+
 import java.awt.event.*;
 
+import gestionDatos.CrearTabla;
+import logIn.user.UserMedico;
+import DataBase.DAO.DAOPacientes;
 import gestionDatos.Ingresos;
+
 import gestionDatos.añadirPaciente;
+
+import logIn.Password;
+
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -28,7 +38,9 @@ public class GUIMedico extends GUIUsuario{
     private JLabel nombre,apellidos,fechaNacimiento,campo,dni;
     private JLabel actualnombre,actualapellidos,actualfechaNacimiento,actualcampo,actualdni;
 
-    private JButton ingresar,darAlta;
+    private JButton ingresar,darAlta,cambiarContrasenha;
+
+
 
 
     public GUIMedico(Medicos medico) {
@@ -40,32 +52,15 @@ public class GUIMedico extends GUIUsuario{
                 busqueda.setText("");
             }
         });
-        busqueda.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                int keycode = e.getKeyCode();
-                if (keycode == KeyEvent.VK_ENTER){
-                    new BusquedaPaciente(busqueda.getText(),busqueda);
-                }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-
-            }
-        });
         busqueda.setBounds(720,400,150,20);
         busqueda.setFont(new Font("Sans-Serif",Font.PLAIN,12));
 
         //regionButton
         darAlta = new JButton("Dar el alta");
         ingresar = new JButton("Ingresar");
+        cambiarContrasenha = new JButton("Cambiar contraseña");
 
+        cambiarContrasenha.setBounds(235,400,165,20);
         darAlta.setBounds(570,400,130,20);
         ingresar.setBounds(420,400,130,20);
         ingresar.addActionListener(new ActionListener() {
@@ -96,7 +91,12 @@ public class GUIMedico extends GUIUsuario{
             }
         });
 
-
+        cambiarContrasenha.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Password.changePassword(medico,GUIMedico.super.getInfo());
+            }
+        });
 
 
 
@@ -118,13 +118,44 @@ public class GUIMedico extends GUIUsuario{
         //Citas
         citas = new JPanel();
         citas.setLayout(null);
+        citas.setBackground(Color.white);
+        JScrollPane tabla = new CrearTabla().createTable(new UserMedico(medico) ,"Citas");
+        tabla.setBounds(0,0,840,420);
+        citas.add(tabla);
         //Añadir
         anhadir = new JPanel();
         anhadir.setLayout(null);
         anhadir.add(añadirPaciente.añadirPaciente());
 
         //Busqueda de pacientes
+        //Barra de búsqueda
+        busqueda.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                busqueda.setText("");
+            }
+        });
+        busqueda.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
 
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int keycode = e.getKeyCode();
+                if (keycode == KeyEvent.VK_ENTER){
+                    new BusquedaPaciente(busqueda.getText(),busqueda);
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+        busqueda.setBounds(720,400,150,20);
+        busqueda.setFont(new Font("Sans-Serif",Font.PLAIN,12));
 
         //regionLabelsInfo
         general = new Font("Sans-Serif",Font.BOLD,20);
@@ -203,14 +234,6 @@ public class GUIMedico extends GUIUsuario{
 
         //endregion
 
-
-        //regionAñadir
-
-
-
-        //endregion
-
-
         //regionTabs
         tabsMedico = new JTabbedPane();
         tabsMedico.setBounds(50,400,820,450);
@@ -220,6 +243,7 @@ public class GUIMedico extends GUIUsuario{
         tabsMedico.setTabComponentAt(0,lcitas);
         tabsMedico.setTabComponentAt(1,lanhadir);
 
+        addToUsuario(cambiarContrasenha);
         addToUsuario(darAlta);
         addToUsuario(ingresar);
         addToUsuario(busqueda);

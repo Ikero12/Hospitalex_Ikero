@@ -2,14 +2,17 @@ package GUI;
 
 import DataBase.DVO.Enfermeros;
 import gestionDatos.BusquedaPaciente;
+
 import gestionDatos.añadirPaciente;
+
+import gestionDatos.CrearTabla;
+import logIn.Password;
+import logIn.user.UserEnfermero;
+
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class GUIEnfermero extends GUIUsuario{
     private JPanel ingresos,anotaciones,anhadir;
@@ -20,6 +23,7 @@ public class GUIEnfermero extends GUIUsuario{
     private Font general;
     private JLabel nombre,apellidos,fechaNacimiento,planta,dni;
     private JLabel actualnombre,actualapellidos,actualfechaNacimiento,actualplanta,actualdni;
+    private JButton cambiarContrasenha;
     public GUIEnfermero(Enfermeros enfermero){
 
         //Busqueda de pacientes
@@ -55,12 +59,25 @@ public class GUIEnfermero extends GUIUsuario{
         lingresos = new JLabel("Ingresos");
         lingresos.setFont(new Font("Sans-Serif",Font.BOLD,15));
 
+        //regionButtons
+        cambiarContrasenha = new JButton("Cambiar contraseña");
+        cambiarContrasenha.setBounds(535,400,165,20);
+        cambiarContrasenha.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Password.changePassword(enfermero,GUIEnfermero.super.getInfo());
+            }
+        });
 
 
         //Panels
         //ingresos
         ingresos = new JPanel();
         ingresos.setLayout(null);
+        ingresos.setBackground(Color.white);
+        JScrollPane tabla = new CrearTabla().createTable(new UserEnfermero(enfermero),"Ingresos");
+        tabla.setBounds(0,0,820,420);
+        ingresos.add(tabla);
         //Anotaciones
         anotaciones = new JPanel();
         anotaciones.setLayout(null);

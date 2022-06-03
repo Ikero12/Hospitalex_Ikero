@@ -136,7 +136,7 @@ public class DAOMedicos {
 
             if (result.next())
                 me = new Medicos(result.getString("DNI"),
-                        result.getString("Contraseña"),
+                        result.getString("Contrasenha"),
                         result.getString("Nombre"),
                         result.getString("Apellidos"),
                         result.getString("FechaNacimiento"),

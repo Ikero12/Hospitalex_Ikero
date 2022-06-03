@@ -73,7 +73,7 @@ public class DAOPersonas {
 
             Connection conn = DBConnection.getInstance().openConn();
 
-            PreparedStatement ps = conn.prepareStatement("UPDATE Personas SET Nombre=?,Apellidos=?,FechaNacimiento=?,Contraseña=? WHERE DNI=?");
+            PreparedStatement ps = conn.prepareStatement("UPDATE Personas SET Nombre=?,Apellidos=?,FechaNacimiento=?,Contrasenha=? WHERE DNI=?");
             ps.setString(1,p.getNombre());
             ps.setString(2,p.getApellidos());
             ps.setString(3,p.getFechaNacimiento());
@@ -141,7 +141,7 @@ public class DAOPersonas {
 
             if (result.next())
                 p = new Personas(result.getString("DNI"),
-                        result.getString("Contraseña"),
+                        result.getString("Contrasenha"),
                         result.getString("Nombre"),
                         result.getString("Apellidos"),
                          result.getString("FechaNacimiento"));
@@ -153,6 +153,37 @@ public class DAOPersonas {
         }
 
         return p;
+
+    }
+
+
+    /**
+     *
+     * @param DNI
+     * @return
+     */
+    public String getCompleteName(String DNI) {
+
+        String name = null;
+
+        try {
+
+            Connection conn = DBConnection.getInstance().openConn();
+
+            PreparedStatement platform = conn.prepareStatement("SELECT * FROM Personas WHERE DNI=?");
+            platform.setString(1,DNI);
+            ResultSet result = platform.executeQuery();
+
+            if (result.next())
+               name = result.getString("Nombre")+" "+result.getString("Apellidos");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBConnection.getInstance().closeConn();
+        }
+
+        return name;
 
     }
 

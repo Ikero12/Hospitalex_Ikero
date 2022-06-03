@@ -1,33 +1,76 @@
 package GUI;
 
-import DataBase.DAO.DAOPacientes;
+
 import DataBase.DVO.Pacientes;
+import logIn.Password;
+import gestionDatos.CrearTabla;
+import gestionDatos.PedirCita;
+
+import logIn.user.UserPaciente;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GUIPaciente extends GUIUsuario {
 
-    private JPanel citas,pedir;
+    private JPanel citas,pedir,ingresos;
     private JTabbedPane tabsPaciente;
-    private JLabel  lcitas,lpedir;
+    private JLabel  lcitas,lpedir,lingresos;
     private JLabel nombre,apellidos,fechaNacimiento,enfermedad,numeroSS,dni,fechaMuerte;
     private JLabel actualnombre,actualapellidos,actualfechaNacimiento,actualenfermedad,actualnumeroSS,actualdni,actualfechaMuerte;
+    private JButton cambiarContrasenha;
+
+
     private Font general;
     private Pacientes paciente;
 
-    public GUIPaciente(Pacientes paciente,boolean isSearched){
 
 
+    public GUIPaciente() {
+    }
+
+
+
+    public GUIPaciente(Pacientes paciente, boolean isSearched){
         //regionPanels
+
+
+        //ingresos
+        ingresos = new JPanel();
+        ingresos.setLayout(null);
+        ingresos.setBackground(Color.white);
+        JScrollPane tabla2 = new CrearTabla().createTable(new UserPaciente(paciente),"Ingresos");
+        tabla2.setBounds(0,0,820,420);
+        ingresos.add(tabla2);
+
         //Citas
-        citas = new JPanel();
+        this.paciente=paciente;
+        citas=new JPanel();
         citas.setLayout(null);
+        citas.setBackground(Color.white);
+        this.setCitas();
+
+
+
         //Añadir
         pedir = new JPanel();
         pedir.setLayout(null);
+        pedir.add(PedirCita.PanelPedirCita(this));
         //endregion
 
+        //regionButtons
+        cambiarContrasenha = new JButton("Cambiar contraseña");
+        cambiarContrasenha.setBounds(705,400,165,20);
+        cambiarContrasenha.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Password.changePassword(paciente,GUIPaciente.super.getInfo());
+            }
+        });
+
+        //endregion
 
 
         //Labels
@@ -36,6 +79,8 @@ public class GUIPaciente extends GUIUsuario {
         lcitas.setFont(new Font("Sans-Serif",Font.BOLD,15));
         lpedir = new JLabel("Pedir cita");
         lpedir.setFont(new Font("Sans-Serif",Font.BOLD,15));
+        lingresos = new JLabel("Ingresos");
+        lingresos.setFont(new Font("Sans-Serif",Font.BOLD,15));
         //endregion
 
         //regionLabelsInfo
@@ -127,15 +172,18 @@ public class GUIPaciente extends GUIUsuario {
         tabsPaciente = new JTabbedPane();
         tabsPaciente.setBounds(50,400,820,450);
         tabsPaciente.add(citas);
+        tabsPaciente.add(ingresos);
         tabsPaciente.add(pedir);
 
+
         tabsPaciente.setTabComponentAt(0,lcitas);
-        tabsPaciente.setTabComponentAt(1,lpedir);
+        tabsPaciente.setTabComponentAt(1,lingresos);
+        tabsPaciente.setTabComponentAt(2,lpedir);
         //endregion
 
         //regionisSearched
         if(isSearched){
-            tabsPaciente.removeTabAt(1);
+            tabsPaciente.removeTabAt(2);
             super.getDesconexion().setEnabled(false);
             super.getDesconexion().setVisible(false);
 
@@ -143,12 +191,28 @@ public class GUIPaciente extends GUIUsuario {
 
 
         //endregion
-
+        addToUsuario(cambiarContrasenha);
         addToUsuario(tabsPaciente);
         GUIUsuario();
     }
 
-    public GUIPaciente() {
 
+    public void setCitas(){
+
+        JScrollPane tabla = new CrearTabla().createTable(new UserPaciente(paciente),"Citas");
+        tabla.setBounds(0,0,820,420);
+        citas.removeAll();
+        citas.add(tabla);
+        citas.repaint();
+
+    }
+
+
+    public Pacientes getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Pacientes paciente) {
+        this.paciente = paciente;
     }
 }
