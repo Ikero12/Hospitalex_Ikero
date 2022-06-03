@@ -2,9 +2,12 @@ package GUI;
 
 import DataBase.DAO.DAOPacientes;
 import DataBase.DVO.Pacientes;
+import logIn.Password;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GUIPaciente extends GUIUsuario {
 
@@ -13,6 +16,7 @@ public class GUIPaciente extends GUIUsuario {
     private JLabel  lcitas,lpedir;
     private JLabel nombre,apellidos,fechaNacimiento,enfermedad,numeroSS,dni,fechaMuerte;
     private JLabel actualnombre,actualapellidos,actualfechaNacimiento,actualenfermedad,actualnumeroSS,actualdni,actualfechaMuerte;
+    private JButton cambiarContrasenha;
     private Font general;
     private Pacientes paciente;
 
@@ -28,6 +32,17 @@ public class GUIPaciente extends GUIUsuario {
         pedir.setLayout(null);
         //endregion
 
+        //regionButtons
+        cambiarContrasenha = new JButton("Cambiar contraseña");
+        cambiarContrasenha.setBounds(705,400,165,20);
+        cambiarContrasenha.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Password.changePassword(paciente,GUIPaciente.super.getInfo());
+            }
+        });
+
+        //endregion
 
 
         //Labels
@@ -143,7 +158,7 @@ public class GUIPaciente extends GUIUsuario {
 
 
         //endregion
-
+        addToUsuario(cambiarContrasenha);
         addToUsuario(tabsPaciente);
         GUIUsuario();
     }

@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import gestionDatos.Ingresos;
+import logIn.Password;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,7 +27,7 @@ public class GUIMedico extends GUIUsuario{
     private Font general;
     private JLabel nombre,apellidos,fechaNacimiento,campo,dni;
     private JLabel actualnombre,actualapellidos,actualfechaNacimiento,actualcampo,actualdni;
-    private JButton ingresar,darAlta;
+    private JButton ingresar,darAlta,cambiarContrasenha;
 
     public GUIMedico(Medicos medico) {
 
@@ -62,7 +63,9 @@ public class GUIMedico extends GUIUsuario{
         //regionButton
         darAlta = new JButton("Dar el alta");
         ingresar = new JButton("Ingresar");
+        cambiarContrasenha = new JButton("Cambiar contraseña");
 
+        cambiarContrasenha.setBounds(235,400,165,20);
         darAlta.setBounds(570,400,130,20);
         ingresar.setBounds(420,400,130,20);
         ingresar.addActionListener(new ActionListener() {
@@ -93,7 +96,12 @@ public class GUIMedico extends GUIUsuario{
             }
         });
 
-
+        cambiarContrasenha.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Password.changePassword(medico,GUIMedico.super.getInfo());
+            }
+        });
 
 
 
@@ -204,6 +212,7 @@ public class GUIMedico extends GUIUsuario{
         tabsMedico.setTabComponentAt(0,lcitas);
         tabsMedico.setTabComponentAt(1,lanhadir);
 
+        addToUsuario(cambiarContrasenha);
         addToUsuario(darAlta);
         addToUsuario(ingresar);
         addToUsuario(busqueda);

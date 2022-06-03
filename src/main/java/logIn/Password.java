@@ -22,10 +22,10 @@ public class Password {
 
     public static void changePassword(Personas personas, Component parent) {
 
-        String newPassword = JOptionPane.showInputDialog(parent, "Introduce tu nueva contraseña", "Hospitalex Ikero");
+        String newPassword = JOptionPane.showInputDialog(parent, "Introduce tu nueva contraseña", "Hospitalex Ikero",JOptionPane.INFORMATION_MESSAGE);
 
         if (isSamePassword(newPassword, personas.getContrasenha())) {
-            String newPassword2 = JOptionPane.showInputDialog(parent, "Introduce de nuevo la contraseña", "Hospitalex Ikero");
+            String newPassword2 = JOptionPane.showInputDialog(parent, "Introduce de nuevo la contraseña", "Hospitalex Ikero",JOptionPane.INFORMATION_MESSAGE);
             if (newPassword.equals(newPassword2)) {
                 personas.setContrasenha(newPassword);
                 new DAOPersonas().update(personas);
