@@ -19,12 +19,11 @@ public class GUIEnfermero extends GUIUsuario{
     private JTextField busqueda = new JTextField("Buscar paciente");
     private JTabbedPane tabsEnfermero;
     private JLabel  lingresos;
-    private Enfermeros enfermero;
     private Font general;
     private JLabel nombre,apellidos,fechaNacimiento,planta,dni;
     private JLabel actualnombre,actualapellidos,actualfechaNacimiento,actualplanta,actualdni;
     private JButton cambiarContrasenha;
-    public GUIEnfermero(Enfermeros enfermero){
+    public GUIEnfermero(UserEnfermero enfermero){
 
         //Busqueda de pacientes
         busqueda.addMouseListener(new MouseAdapter() {

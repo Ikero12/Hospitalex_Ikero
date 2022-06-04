@@ -24,24 +24,21 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class GUIMedico extends GUIUsuario{
+public class GUIMedico extends GUIUsuario {
 
 
-    private JPanel citas,anhadir;
+    private JPanel citas, anhadir;
     private JTextField busqueda = new JTextField("Buscar paciente");
     private JTabbedPane tabsMedico;
-    private JLabel  lcitas,lanhadir;
-    private Medicos medico;
+    private JLabel lcitas, lanhadir;
     private Font general;
-    private JLabel nombre,apellidos,fechaNacimiento,campo,dni;
-    private JLabel actualnombre,actualapellidos,actualfechaNacimiento,actualcampo,actualdni;
+    private JLabel nombre, apellidos, fechaNacimiento, campo, dni;
+    private JLabel actualnombre, actualapellidos, actualfechaNacimiento, actualcampo, actualdni;
 
-    private JButton ingresar,darAlta,cambiarContrasenha;
-
-
+    private JButton ingresar, darAlta, cambiarContrasenha;
 
 
-    public GUIMedico(Medicos medico) {
+    public GUIMedico(UserMedico medico) {
 
         //Barra de búsqueda
         busqueda.addMouseListener(new MouseAdapter() {
@@ -50,33 +47,33 @@ public class GUIMedico extends GUIUsuario{
                 busqueda.setText("");
             }
         });
-        busqueda.setBounds(720,400,150,20);
-        busqueda.setFont(new Font("Sans-Serif",Font.PLAIN,12));
+        busqueda.setBounds(720, 400, 150, 20);
+        busqueda.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
 
         //regionButton
         darAlta = new JButton("Dar el alta");
         ingresar = new JButton("Ingresar");
         cambiarContrasenha = new JButton("Cambiar contraseña");
 
-        cambiarContrasenha.setBounds(235,400,165,20);
-        darAlta.setBounds(570,400,130,20);
-        ingresar.setBounds(420,400,130,20);
+        cambiarContrasenha.setBounds(235, 400, 165, 20);
+        darAlta.setBounds(570, 400, 130, 20);
+        ingresar.setBounds(420, 400, 130, 20);
         ingresar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String dni = null;
                 String planta = null;
-                try{
-                        dni = JOptionPane.showInputDialog(ingresar,"Introduzca el dni del paciente a ingresar","Hospitalex Ikero", JOptionPane.QUESTION_MESSAGE);
-                        planta = JOptionPane.showInputDialog(new DAOPacientes().get(dni).getNombre()
-                                + " " + new DAOPacientes().get(dni).getApellidos()
-                                + " es el paciente a ingresar.\n"
-                                + "En que planta será ingresado?");
-                    }catch(NullPointerException x){
-                        x.printStackTrace();
-                }finally {
-                        Ingresos.ingresarPaciente(dni,planta);
-                    }
+                try {
+                    dni = JOptionPane.showInputDialog(ingresar, "Introduzca el dni del paciente a ingresar", "Hospitalex Ikero", JOptionPane.QUESTION_MESSAGE);
+                    planta = JOptionPane.showInputDialog(new DAOPacientes().get(dni).getNombre()
+                            + " " + new DAOPacientes().get(dni).getApellidos()
+                            + " es el paciente a ingresar.\n"
+                            + "En que planta será ingresado?");
+                } catch (NullPointerException x) {
+                    x.printStackTrace();
+                } finally {
+                    Ingresos.ingresarPaciente(dni, planta);
+                }
 
             }
         });
@@ -84,7 +81,7 @@ public class GUIMedico extends GUIUsuario{
         darAlta.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String dni = JOptionPane.showInputDialog(darAlta,"Introducir DNI del paciente que se le dio el alta: ","Hospitalex Ikero", JOptionPane.QUESTION_MESSAGE);
+                String dni = JOptionPane.showInputDialog(darAlta, "Introducir DNI del paciente que se le dio el alta: ", "Hospitalex Ikero", JOptionPane.QUESTION_MESSAGE);
                 Ingresos.darAltaPaciente(dni);
             }
         });
@@ -92,33 +89,26 @@ public class GUIMedico extends GUIUsuario{
         cambiarContrasenha.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Password.changePassword(medico,GUIMedico.super.getInfo());
+                Password.changePassword(medico, GUIMedico.super.getInfo());
             }
         });
-
-
-
-
-
-
-
 
 
         //endregion
 
         //Labels
         lcitas = new JLabel("Citas");
-        lcitas.setFont(new Font("Sans-Serif",Font.BOLD,15));
+        lcitas.setFont(new Font("Sans-Serif", Font.BOLD, 15));
         lanhadir = new JLabel("Añadir");
-        lanhadir.setFont(new Font("Sans-Serif",Font.BOLD,15));
+        lanhadir.setFont(new Font("Sans-Serif", Font.BOLD, 15));
 
         //Panels
         //Citas
         citas = new JPanel();
         citas.setLayout(null);
         citas.setBackground(Color.white);
-        JScrollPane tabla = new CrearTabla().createTable(new UserMedico(medico) ,"Citas");
-        tabla.setBounds(0,0,840,420);
+        JScrollPane tabla = new CrearTabla().createTable(new UserMedico(medico), "Citas");
+        tabla.setBounds(0, 0, 840, 420);
         citas.add(tabla);
         //Añadir
         anhadir = new JPanel();
@@ -142,8 +132,8 @@ public class GUIMedico extends GUIUsuario{
             @Override
             public void keyPressed(KeyEvent e) {
                 int keycode = e.getKeyCode();
-                if (keycode == KeyEvent.VK_ENTER){
-                    new BusquedaPaciente(busqueda.getText(),busqueda);
+                if (keycode == KeyEvent.VK_ENTER) {
+                    new BusquedaPaciente(busqueda.getText(), busqueda);
                 }
             }
 
@@ -152,11 +142,11 @@ public class GUIMedico extends GUIUsuario{
 
             }
         });
-        busqueda.setBounds(720,400,150,20);
-        busqueda.setFont(new Font("Sans-Serif",Font.PLAIN,12));
+        busqueda.setBounds(720, 400, 150, 20);
+        busqueda.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
 
         //regionLabelsInfo
-        general = new Font("Sans-Serif",Font.BOLD,20);
+        general = new Font("Sans-Serif", Font.BOLD, 20);
 
         nombre = new JLabel("Nombre: ");
         apellidos = new JLabel("Apellidos: ");
@@ -172,12 +162,11 @@ public class GUIMedico extends GUIUsuario{
         dni.setFont(general);
 
 
-
-        nombre.setBounds(20,20,150,20);
-        apellidos.setBounds(20,60,150,20);
-        fechaNacimiento.setBounds(20,100,290,20);
-        dni.setBounds(20,140,150,20);
-        campo.setBounds(20,180,190,20);
+        nombre.setBounds(20, 20, 150, 20);
+        apellidos.setBounds(20, 60, 150, 20);
+        fechaNacimiento.setBounds(20, 100, 290, 20);
+        dni.setBounds(20, 140, 150, 20);
+        campo.setBounds(20, 180, 190, 20);
 
         actualnombre = new JLabel(medico.getNombre());
         actualapellidos = new JLabel(medico.getApellidos());
@@ -194,25 +183,14 @@ public class GUIMedico extends GUIUsuario{
         actualdni.setFont(general);
 
 
-        actualnombre.setBounds(350,20,150,20);
-        actualapellidos.setBounds(350,60,150,20);
-        actualfechaNacimiento.setBounds(350,100,220,20);
-        actualdni.setBounds(350,140,150,20);
-        actualcampo.setBounds(350,180,290,23);
-
-
+        actualnombre.setBounds(350, 20, 150, 20);
+        actualapellidos.setBounds(350, 60, 150, 20);
+        actualfechaNacimiento.setBounds(350, 100, 220, 20);
+        actualdni.setBounds(350, 140, 150, 20);
+        actualcampo.setBounds(350, 180, 290, 23);
 
 
         //endregion
-
-        //regionAñadirPaciente
-        JLabel anhadirDNI = new JLabel("DNI: ");
-        JLabel anhadirNombre = new JLabel("Añadir Nombre");
-        JLabel anhadirApellido = new JLabel("Apellido");
-        JLabel anhadirFechaNacimiento = new JLabel("Fecha de Nacimiento");
-        JLabel anhadirContrasenha = new JLabel("Contraseña:");
-
-
 
 
         //endregion
@@ -234,12 +212,12 @@ public class GUIMedico extends GUIUsuario{
 
         //regionTabs
         tabsMedico = new JTabbedPane();
-        tabsMedico.setBounds(50,400,820,450);
+        tabsMedico.setBounds(50, 400, 820, 450);
         tabsMedico.add(citas);
         tabsMedico.add(anhadir);
 
-        tabsMedico.setTabComponentAt(0,lcitas);
-        tabsMedico.setTabComponentAt(1,lanhadir);
+        tabsMedico.setTabComponentAt(0, lcitas);
+        tabsMedico.setTabComponentAt(1, lanhadir);
 
         addToUsuario(cambiarContrasenha);
         addToUsuario(darAlta);
@@ -250,17 +228,6 @@ public class GUIMedico extends GUIUsuario{
         //endregion
 
 
-
-
-
-
     }
 
-    public JTextField getBusqueda() {
-        return busqueda;
-    }
-
-    public void setBusqueda(JTextField busqueda) {
-        this.busqueda = busqueda;
-    }
 }

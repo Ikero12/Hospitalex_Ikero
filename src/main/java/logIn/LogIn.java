@@ -27,6 +27,16 @@ public class LogIn {
 
     private static final String FILE_PATH = "src/main/resources/SavedUser.txt".replace("/", File.separator);
 
+
+    /**
+     * Abre una pestañ de usuario segun el tipo de paciente seleccionado y su DNI
+     * @param dni DNI del usuario que desea iniciar sesio
+     * @param contrasenha Contrasenha del usuario que desea iniciar sesion
+     * @param tipo Tipo de usuario que inicia sesion
+     * @param isUserRemembered Si sse recordara la sesion del usuario o no
+     * @throws NoUserFoundException Se lanza si el usuario no existe
+     * @throws IncorrectPasswordException Se lanza si la contraseña es incorrecta
+     */
     public static void logIn(String dni, String contrasenha, String tipo,Boolean isUserRemembered) throws NoUserFoundException, IncorrectPasswordException {
 
         IUsuario usuario=null;
@@ -63,6 +73,10 @@ public class LogIn {
         usuario.openProfile();
     }
 
+    /**
+     * Borra las credenciales guardadas y luego cierra la pestaña
+     * @param usuario La pestaña a cerrar
+     */
     public static void disconnect(JFrame usuario){
         String[]opciones = {"Si","No"};
         int disc = JOptionPane.showOptionDialog(null,"Estás seguro de que quieres desconectarte?",
@@ -74,6 +88,10 @@ public class LogIn {
         }
     }
 
+    /**
+     * Metodo que lee las credenciales guardadas de un fichero y las devuelve en un array
+     * @return La array con las credenciales
+     */
     public static String[] getSavedUser() {
 
         Scanner sc = null;
@@ -105,6 +123,11 @@ public class LogIn {
 
     }
 
+    /**
+     * Intenta iniciar sesion con los datos guardados
+     * @param userData Array co los datos de los usuario guardados
+     * @return true si se ha conseguido iniciar sesion, sino false
+     */
     public static boolean tryLogin(String[] userData){
 
         if(userData==null) return false;
@@ -120,7 +143,12 @@ public class LogIn {
     }
 
 
-
+    /**
+     * Guarda los datos de los usuario en un fichero
+     * @param usuario Ussuario del que se desea guardar las credenciales
+     * @param contrasenha Cotraseña a guardar del usuario
+     * @param isUserRemembered comprueba si se desea guardar el usuario o no
+     */
     public static void setSavedUser(IUsuario usuario,String contrasenha, Boolean isUserRemembered) {
 
         if (usuario == null || !isUserRemembered) return;

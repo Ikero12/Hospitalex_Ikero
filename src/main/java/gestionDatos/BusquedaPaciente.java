@@ -5,7 +5,7 @@ import DataBase.DVO.Pacientes;
 import GUI.GUIPaciente;
 
 import gestionDatos.exceptions.NoPatientFound;
-
+import logIn.user.UserPaciente;
 
 
 import javax.swing.*;
@@ -13,9 +13,15 @@ import java.awt.*;
 
 
 public class BusquedaPaciente extends GUIPaciente {
-    Pacientes pacienteBuscado;
+    UserPaciente pacienteBuscado;
+
+    /**
+     * Genera una pestaña nueva con los detalles del paciente ( no puedes cambiar nada, solo revisar sus datos)
+     * @param dniPaciente DNI del paciente cuyo perfil queremos ver
+     * @param parent Componente para fijar el JOption pane
+     */
     public BusquedaPaciente(String dniPaciente, Component parent) {
-        pacienteBuscado =new DAOPacientes().get(dniPaciente);
+        pacienteBuscado =new UserPaciente(new DAOPacientes().get(dniPaciente));
         if (pacienteBuscado!=null) new GUIPaciente(pacienteBuscado,true);
 
         else{

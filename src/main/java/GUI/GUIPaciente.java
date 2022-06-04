@@ -24,7 +24,7 @@ public class GUIPaciente extends GUIUsuario {
 
 
     private Font general;
-    private Pacientes paciente;
+    private UserPaciente paciente;
 
 
 
@@ -33,7 +33,7 @@ public class GUIPaciente extends GUIUsuario {
 
 
 
-    public GUIPaciente(Pacientes paciente, boolean isSearched){
+    public GUIPaciente(UserPaciente paciente, boolean isSearched){
         //regionPanels
 
 
@@ -136,7 +136,7 @@ public class GUIPaciente extends GUIUsuario {
         actualfechaNacimiento.setBounds(350,100,220,20);
         actualdni.setBounds(350,140,150,20);
         actualnumeroSS.setBounds(350,180,290,23);
-        actualenfermedad.setBounds(350,220,150,20);
+        actualenfermedad.setBounds(350,220,220,20);
         actualfechaMuerte.setBounds(350,260,200,20);
 
 
@@ -217,7 +217,7 @@ public class GUIPaciente extends GUIUsuario {
         return paciente;
     }
 
-    public void setPaciente(Pacientes paciente) {
+    public void setPaciente(UserPaciente paciente) {
         this.paciente = paciente;
     }
 }

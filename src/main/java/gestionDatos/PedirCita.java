@@ -20,7 +20,11 @@ public class PedirCita {
     private static final String CARPETA = "src/main/resources/imagenes/".replace("/", File.separator);
 
 
-
+    /**
+     * Genera un panel donde el paciente puede pedir cita
+     * @param paciente GUI desde donde se lanza, se emplea para actualizar la tabla de citas una vez añadida
+     * @return El pae con los campos para pedir la cita
+     */
     public static JPanel PanelPedirCita(GUIPaciente paciente){
         //Declaración de componentes
         Font general = new Font("Sans-Serif",Font.BOLD,18);
@@ -130,6 +134,10 @@ public class PedirCita {
         return panelPedirCita;
     }
 
+    /**
+     * Devuelve un medico aleatorio
+     * @return un medico aleatorio
+     */
     public static String RandomMedico(){
 
         int numRandom = (int)(Math.random()*new DAOMedicos().select().size());

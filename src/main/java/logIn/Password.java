@@ -10,16 +10,34 @@ import java.awt.*;
 
 public class Password {
 
+    /**
+     * Hash a una contraseña empleando BCrypt
+     * @param pass Contraseña en texto plano
+     * @return Contraseña Contraseña despues de aplicar el Hash
+     */
     public static String hashPassword(String pass) {
 
         return BCrypt.hashpw(pass, BCrypt.gensalt(13));
     }
 
+    /**
+     * Comprueba si la contraseña pasada por texto plano coincide con la hash
+     * @param password Contraseña en texto plano
+     * @param hash Contraseña con Hash
+     * @return Si las contraseñas coinciden true, sino false
+     */
     public static boolean isSamePassword(String password, String hash) {
 
         return BCrypt.checkpw(password, hash);
     }
 
+    /**
+     * Cambia la contraseña de una persona si:
+     *  -Sabe la contraseña anterior
+     *  -Repite la contraseña bien 2 veces
+     * @param personas Persona a la que se le desea cambiar la contraseña
+     * @param parent Componente para anclar el JOptionPane
+     */
     public static void changePassword(Personas personas, Component parent) {
 
 

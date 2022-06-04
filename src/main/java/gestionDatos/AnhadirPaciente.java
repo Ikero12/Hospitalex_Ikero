@@ -11,10 +11,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+
 public class AnhadirPaciente {
     //JTextField
 
     private static final String CARPETA = "src/main/resources/imagenes/".replace("/", File.separator);
+
+    /**
+     * Pestaña donde se puede introducir un paciente a la base de datos
+     * @return La pestaña con los campos para añadir el paciente
+     */
     public static JPanel anhadirPaciente(){
         Font general = new Font("Sans-Serif",Font.BOLD,22);
         Font general2 = new Font("Sans-Serif",Font.PLAIN,15);
