@@ -71,7 +71,7 @@ public class DAOMedicos {
 
             new DAOEmpleados().update(new Empleados(me.getDni(),me.getContrasenha(),me.getNombre(),me.getApellidos(),me.getFechaNacimiento(),me.getNumeroEmpleado()));
 
-            PreparedStatement ps = conn.prepareStatement("UPDATE Medicos SET Planta=? WHERE DNI=?;");
+            PreparedStatement ps = conn.prepareStatement("UPDATE Medicos SET Campo=? WHERE DNI=?;");
             ps.setString(1,me.getCampo());
             ps.setString(2,me.getDni());
             ps.executeUpdate();

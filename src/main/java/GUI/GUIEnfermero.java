@@ -2,6 +2,9 @@ package GUI;
 
 import DataBase.DVO.Enfermeros;
 import gestionDatos.BusquedaPaciente;
+
+import gestionDatos.AnhadirPaciente;
+
 import gestionDatos.CrearTabla;
 import logIn.Password;
 import logIn.user.UserEnfermero;
@@ -81,6 +84,7 @@ public class GUIEnfermero extends GUIUsuario{
         //Añadir
         anhadir = new JPanel();
         anhadir.setLayout(null);
+        anhadir.add(AnhadirPaciente.anhadirPaciente());
 
 
         //regionLabelsInfo

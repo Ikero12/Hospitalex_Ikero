@@ -22,15 +22,25 @@ public class Password {
 
     public static void changePassword(Personas personas, Component parent) {
 
-        String newPassword = JOptionPane.showInputDialog(parent, "Introduce tu nueva contraseña", "Hospitalex Ikero",JOptionPane.INFORMATION_MESSAGE);
 
-        if (isSamePassword(newPassword, personas.getContrasenha())) {
-            String newPassword2 = JOptionPane.showInputDialog(parent, "Introduce de nuevo la contraseña", "Hospitalex Ikero",JOptionPane.INFORMATION_MESSAGE);
+        String old = JOptionPane.showInputDialog(parent, "Introduce tu antigua contraseña", "Hospitalex Ikero", JOptionPane.INFORMATION_MESSAGE);
+
+        if (isSamePassword(old, personas.getContrasenha())) {
+
+            String newPassword = JOptionPane.showInputDialog(parent, "Introduce tu nueva contraseña", "Hospitalex Ikero", JOptionPane.INFORMATION_MESSAGE);
+
+            String newPassword2 = JOptionPane.showInputDialog(parent, "Introduce de nuevo la contraseña", "Hospitalex Ikero", JOptionPane.INFORMATION_MESSAGE);
+
             if (newPassword.equals(newPassword2)) {
-                personas.setContrasenha(newPassword);
+
+                personas.setContrasenha(Password.hashPassword(newPassword));
                 new DAOPersonas().update(personas);
-            } else JOptionPane.showMessageDialog(parent, "Las contraseñas no coinciden, intentelo de nuevo", "Hospitalex Ikero",JOptionPane.WARNING_MESSAGE);
-        } else JOptionPane.showMessageDialog(parent, "La contraseña no coincide con almacenada,intentelo de nuevo", "Hospitalex Ikero",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(parent, "Contraseña cambiada satisfactoriamente", "Hospitalex Ikero", JOptionPane.INFORMATION_MESSAGE);
+
+            } else
+                JOptionPane.showMessageDialog(parent, "Las contraseñas no coinciden, intentelo de nuevo", "Hospitalex Ikero", JOptionPane.WARNING_MESSAGE);
+        } else
+            JOptionPane.showMessageDialog(parent, "La contraseña no coincide con almacenada,intentelo de nuevo", "Hospitalex Ikero", JOptionPane.WARNING_MESSAGE);
 
     }
 

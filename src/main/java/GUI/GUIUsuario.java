@@ -30,7 +30,7 @@ public class GUIUsuario {
         //region Frame
         usuario.setSize(920, 920);
         usuario.setResizable(false);
-        usuario.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        usuario.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         usuario.setLayout(null);
         usuario.setLocationRelativeTo(null);
 
@@ -67,6 +67,8 @@ public class GUIUsuario {
         desconexion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                usuario.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
                 LogIn.disconnect(usuario);
             }
         });
@@ -97,23 +99,15 @@ public class GUIUsuario {
         return desconexion;
     }
 
-    public void setDesconexion(JButton desconexion) {
-        this.desconexion = desconexion;
-    }
 
     public JPanel getInfo() {
         return info;
     }
 
-    public void setInfo(JPanel info) {
-        this.info = info;
+    public void setDisposeUsuario(){
+
+        this.usuario.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
     }
 
-    public JPanel getBg() {
-        return bg;
-    }
-
-    public void setBg(JPanel bg) {
-        this.bg = bg;
-    }
 }

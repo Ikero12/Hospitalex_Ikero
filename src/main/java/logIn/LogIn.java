@@ -58,7 +58,7 @@ public class LogIn {
 
         if (!Password.isSamePassword(contrasenha,usuario.getContrasenha())) throw new IncorrectPasswordException("[Try another password]");
 
-        setSavedUser(usuario,isUserRemembered);
+        setSavedUser(usuario,contrasenha,isUserRemembered);
 
         usuario.openProfile();
     }
@@ -69,7 +69,7 @@ public class LogIn {
                 "Hospitalex Ikero", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, opciones, opciones[1]);
         if (disc==0) {
             usuario.dispose();
-            setSavedUser(new UserPaciente(), true);
+            setSavedUser(new UserPaciente(),null,true);
             new GUILogin();
         }
     }
@@ -121,7 +121,7 @@ public class LogIn {
 
 
 
-    public static void setSavedUser(IUsuario usuario, Boolean isUserRemembered) {
+    public static void setSavedUser(IUsuario usuario,String contrasenha, Boolean isUserRemembered) {
 
         if (usuario == null || !isUserRemembered) return;
 
@@ -130,7 +130,7 @@ public class LogIn {
 
             fileWriter = new FileWriter(FILE_PATH);
 
-            fileWriter.write(usuario.getDni() + "-" + usuario.getContrasenha() + "-" +usuario.getTipoClase());
+            fileWriter.write(usuario.getDni() + "-" + contrasenha + "-" +usuario.getTipoClase());
 
         } catch (FileNotFoundException ex) {
 

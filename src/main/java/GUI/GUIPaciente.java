@@ -112,7 +112,7 @@ public class GUIPaciente extends GUIUsuario {
         dni.setBounds(20,140,150,20);
         numeroSS.setBounds(20,180,290,23);
         enfermedad.setBounds(20,220,170,20);
-        fechaMuerte.setBounds(20,260,200,20);
+        fechaMuerte.setBounds(20,260,250,20);
 
         actualnombre = new JLabel(paciente.getNombre());
         actualapellidos = new JLabel(paciente.getApellidos());
@@ -182,18 +182,23 @@ public class GUIPaciente extends GUIUsuario {
         //endregion
 
         //regionisSearched
-        if(isSearched){
-            tabsPaciente.removeTabAt(2);
-            super.getDesconexion().setEnabled(false);
-            super.getDesconexion().setVisible(false);
 
-        }
 
 
         //endregion
         addToUsuario(cambiarContrasenha);
         addToUsuario(tabsPaciente);
         GUIUsuario();
+
+        if(isSearched){
+            tabsPaciente.removeTabAt(2);
+            this.setDisposeUsuario();
+            cambiarContrasenha.setEnabled(false);
+            cambiarContrasenha.setVisible(false);
+            super.getDesconexion().setEnabled(false);
+            super.getDesconexion().setVisible(false);
+
+        }
     }
 
 
